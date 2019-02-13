@@ -24,10 +24,10 @@ export default class Login extends React.Component {
     }
 
     _loadInitialState = async () => {
-        var value = await AsyncStorage.getItem('user');
-        if (value !== null) {
-            this.props.navigation.navigate('Home');
-        }
+        //var value = await AsyncStorage.getItem('user');
+        //if (value !== null) {
+            //this.props.navigation.navigate('Home');
+        //}
     }
 
     render() {
@@ -58,30 +58,31 @@ export default class Login extends React.Component {
     }
 
     login = () => {
-        alert(this.state.username);
-        fetch('http://67.166.132.5:3000/users', {
-            method: 'POST',
-            headers: {
-                'Accept': 'application/json',
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({
-                username: this.state.username,
-                password: this.state.password
-            })
-        })
-
-        .then((response) => response.json())
-        .then ((res) => {
-            if (res.success === true){
-                AsyncStorage.setItem('user', res.user);
-                this.props.navigation.navigate('Home');
-            }
-            else {
-                alert(res.message);
-            }
-        })
-        .done();
+        this.props.navigation.navigate('Home');
+        // alert(this.state.username);
+        // fetch('http://67.166.132.5:3000/users', {
+        //     method: 'POST',
+        //     headers: {
+        //         'Accept': 'application/json',
+        //         'Content-Type': 'application/json',
+        //     },
+        //     body: JSON.stringify({
+        //         username: this.state.username,
+        //         password: this.state.password
+        //     })
+        // })
+        //
+        // .then((response) => response.json())
+        // .then ((res) => {
+        //     if (res.success === true){
+        //         AsyncStorage.setItem('user', res.user);
+        //         this.props.navigation.navigate('Home');
+        //     }
+        //     else {
+        //         alert(res.message);
+        //     }
+        // })
+        // .done();
     }
 };
 
