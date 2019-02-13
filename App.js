@@ -9,8 +9,9 @@ import Login from './app/components/login';
 import Home from './app/components/Home';
 
 const NavigationApp = createStackNavigator({
-    Login: { screen: Login },
-    Home: { screen: Home}
+    Home: { screen: Home},
+
+    Login: { screen: Login }
 });
 
 const AppContainer = createAppContainer(NavigationApp);

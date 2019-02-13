@@ -14,7 +14,7 @@ export default class Home extends React.Component {
         return(
                 <View style={styles.container}>
                     <Text style={styles.text}>
-                        insert things here <3
+                        hello
                     </Text>
                 </View>
         );
