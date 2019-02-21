@@ -33,7 +33,8 @@ export default class Login extends React.Component {
     render() {
         return(
             <KeyboardAvoidingView behavior='padding' style={styles.wrapper}>
-                <View style={styles.container}>
+                <Text style = {styles.title}> Welcome to {"\n"} RoomMatch </Text>
+                <View style={styles.box}>
                     <Text style={styles.header}>
                         - Login -
                     </Text>
@@ -89,32 +90,49 @@ export default class Login extends React.Component {
 
 const styles = StyleSheet.create({
   wrapper: {
-      flex: 1
-  },
-  container: {
       flex: 1,
-      alignItems: 'center',
-      justifyContent: 'center',
-      backgroundColor: '#2896d3',
-      paddingLeft: 40,
-      paddingRight: 40
+      backgroundColor: '#6a7a94',
+      alignItems: 'center'
+
+  },
+  title: {
+      fontSize: 36,
+      marginTop: 100,
+      marginBottom: 80,
+      color: '#fff',
+      fontFamily: 'Avenir',
+      letterSpacing: 8
+  },
+  box: {
+      width: "85%",
+      alignItems:'center',
+      backgroundColor: '#fff',
+      paddingLeft:40,
+      paddingRight:40,
+      paddingTop: 70,
+      paddingBottom: 70,
+      borderRadius: 30
   },
   header: {
       fontSize: 24,
       marginBottom: 60,
-      color: '#fff',
+      color: '#6a7a94',
       fontWeight: 'bold'
   },
   textInput: {
       alignSelf: 'stretch',
       padding: 16,
       marginBottom: 20,
-      backgroundColor: '#fff'
+      backgroundColor: '#fff',
+      borderWidth: 1,
+      borderColor: '#6a7a94',
+      borderRadius: 30
   },
   button: {
       alignSelf: 'stretch',
-      backgroundColor: '#01c853',
+      backgroundColor: '#63a884',
       padding: 20,
-      alignItems: 'center'
+      alignItems: 'center',
+      borderRadius: 30
   }
 });

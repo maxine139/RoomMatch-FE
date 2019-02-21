@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+var t = require('tcomb-form-native');
 import {Platform,
         StyleSheet,
         Text,
@@ -6,19 +7,69 @@ import {Platform,
         TextInput,
         KeyboardAvoidingView,
         TouchableOpacity,
-        AsyncStorage
+        AsyncStorage,
+        TouchableHighlight
 } from 'react-native';
+var Form = t.form.Form;
+
+var Gender = t.enums({
+  M: 'Male',
+  F: 'Female'
+});
+
+var Class = t.enums({
+    'F': 'Freshman',
+    'So': 'Sophomore',
+    'J': 'Junior',
+    'Sr': 'Senior',
+    'G': 'Graduate'
+});
+
+var Campus = t.enums({
+    'On': 'On-Campus',
+    'Off': 'Off-Campus'
+})
+
+var Profile = t.struct({
+  Name: t.String,              // a required string
+  Surname: t.maybe(t.String),  // an optional string
+  Age: t.Number,               // a required number
+  gender: Gender,
+  class: Class,
+  major: t.String,
+  'Im looking for housing...': Campus
+});
+var options = {};
 
 export default class Home extends React.Component {
-    render() {
-        return(
-                <View style={styles.container}>
-                    <Text style={styles.text}>
-                        hello
-                    </Text>
-                </View>
-        );
-    }
+    // render() {
+    //     return(
+    //             <View style={styles.container}>
+    //                 <Text style={styles.text}>
+    //                     hello
+    //                 </Text>
+    //             </View>
+    //     );
+    // }
+    onPress() {
+    // call getValue() to get the values of the form
+  }
+
+  render() {
+    return (
+      <View style={styles.container}>
+        {/* display */}
+        <Form
+          ref="form"
+          type={Profile}
+          options={options}
+        />
+        <TouchableHighlight style={styles.button} onPress={this.onPress} underlayColor='#99d9f4'>
+          <Text style={styles.buttonText}>Save</Text>
+        </TouchableHighlight>
+      </View>
+    );
+  }
 
 
 };
@@ -26,11 +77,19 @@ export default class Home extends React.Component {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        alignItems: 'center',
-        justifyContent: 'center',
-        backgroundColor: '#2896d3'
+        //alignItems: 'center',
+        //justifyContent: 'center',
+        backgroundColor: '#fff'
     },
     text: {
-        color: '#fff'
+        color: '#6a7a94'
+    },
+    button: {
+        width: '30%',
+        alignSelf: 'center',
+        backgroundColor: '#63a884',
+        padding: 20,
+        alignItems: 'center',
+        borderRadius: 30
     }
 })
