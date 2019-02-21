@@ -39,7 +39,9 @@ var Profile = t.struct({
   major: t.String,
   'Im looking for housing...': Campus
 });
-var options = {};
+var options = {
+    // auto: 'placeholders'
+};
 
 export default class Home extends React.Component {
     // render() {

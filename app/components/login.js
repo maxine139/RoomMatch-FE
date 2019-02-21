@@ -51,7 +51,7 @@ export default class Login extends React.Component {
                     <TouchableOpacity
                         style={styles.button}
                         onPress={this.login}>
-                        <Text> Log in </Text>
+                        <Text style = {{fontFamily: 'Avenir', color: '#fff', fontSize: 18}}> Log in </Text>
                     </TouchableOpacity>
                 </View>
             </KeyboardAvoidingView>
@@ -117,7 +117,9 @@ const styles = StyleSheet.create({
       fontSize: 24,
       marginBottom: 60,
       color: '#6a7a94',
-      fontWeight: 'bold'
+      fontWeight: 'bold',
+      fontFamily: 'Avenir',
+
   },
   textInput: {
       alignSelf: 'stretch',
@@ -126,7 +128,9 @@ const styles = StyleSheet.create({
       backgroundColor: '#fff',
       borderWidth: 1,
       borderColor: '#6a7a94',
-      borderRadius: 30
+      borderRadius: 30,
+      fontFamily: 'Avenir',
+
   },
   button: {
       alignSelf: 'stretch',
