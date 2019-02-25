@@ -10,6 +10,8 @@ import {Platform,
         AsyncStorage,
         TouchableHighlight
 } from 'react-native';
+import { createAppContainer, createStackNavigator } from 'react-navigation';
+
 var Form = t.form.Form;
 
 var Gender = t.enums({
@@ -44,18 +46,13 @@ var options = {
 };
 
 export default class Edit_Profile extends React.Component {
-    // render() {
-    //     return(
-    //             <View style={styles.container}>
-    //                 <Text style={styles.text}>
-    //                     hello
-    //                 </Text>
-    //             </View>
-    //     );
-    // }
-    onPress() {
-    // call getValue() to get the values of the form
-  }
+    constructor(props){
+        super(props);
+    }
+
+    handlePress(){
+        this.props.navigation.navigate('Home')
+    }
 
   render() {
     return (
@@ -66,7 +63,7 @@ export default class Edit_Profile extends React.Component {
           type={Profile}
           options={options}
         />
-        <TouchableHighlight style={styles.button} onPress={this.onPress} underlayColor='#99d9f4'>
+        <TouchableHighlight style={styles.button} onPress={() => this.handlePress()} underlayColor='#99d9f4'>
           <Text style={styles.buttonText}>Save</Text>
         </TouchableHighlight>
       </View>

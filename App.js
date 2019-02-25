@@ -7,11 +7,12 @@ import {Platform,
 import { createAppContainer, createStackNavigator } from 'react-navigation';
 import Login from './app/components/Login';
 import Edit_Profile from './app/components/Edit_Profile';
+import Home from './app/components/Home';
 
 const NavigationApp = createStackNavigator({
     Login: { screen: Login },
-
-    Edit_Profile: { screen: Edit_Profile}
+    Edit_Profile: { screen: Edit_Profile},
+    Home: { screen: Home }
 
 });
 
