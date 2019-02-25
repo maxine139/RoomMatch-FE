@@ -5,13 +5,13 @@ import {Platform,
         View,
 } from 'react-native';
 import { createAppContainer, createStackNavigator } from 'react-navigation';
-import Login from './app/components/login';
-import Home from './app/components/Home';
+import Login from './app/components/Login';
+import Edit_Profile from './app/components/Edit_Profile';
 
 const NavigationApp = createStackNavigator({
     Login: { screen: Login },
 
-    Home: { screen: Home}
+    Edit_Profile: { screen: Edit_Profile}
 
 });
 

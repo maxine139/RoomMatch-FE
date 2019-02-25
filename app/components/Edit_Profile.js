@@ -43,7 +43,7 @@ var options = {
     // auto: 'placeholders'
 };
 
-export default class Home extends React.Component {
+export default class Edit_Profile extends React.Component {
     // render() {
     //     return(
     //             <View style={styles.container}>
