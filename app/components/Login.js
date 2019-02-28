@@ -130,7 +130,7 @@ const styles = StyleSheet.create({
       borderColor: '#6a7a94',
       borderRadius: 30,
       fontFamily: 'Avenir',
-
+      borderRadius: 30
   },
   button: {
       alignSelf: 'stretch',

@@ -4,6 +4,7 @@ import {Platform,
         StyleSheet,
         Text,
         View,
+        ScrollView,
         TextInput,
         KeyboardAvoidingView,
         TouchableOpacity,
@@ -11,6 +12,7 @@ import {Platform,
         TouchableHighlight
 } from 'react-native';
 import { createAppContainer, createStackNavigator } from 'react-navigation';
+import TagsView from './Tags';
 
 var Form = t.form.Form;
 
@@ -32,6 +34,8 @@ var Campus = t.enums({
     'Off': 'Off-Campus'
 })
 
+const tags=['Extrovert', 'Introvert', 'Clean/Tidy', 'Messy', 'Drinks Alcohol', 'Smokes Weed', 'Smokes cigs', 'Night Owl', 'Early Bird']
+
 var Profile = t.struct({
   Name: t.String,              // a required string
   Surname: t.maybe(t.String),  // an optional string
@@ -39,10 +43,15 @@ var Profile = t.struct({
   gender: Gender,
   class: Class,
   major: t.String,
-  'Im looking for housing...': Campus
+  'Im looking for housing...': Campus,
+  'Short Bio': t.maybe(t.String)
 });
 var options = {
-    // auto: 'placeholders'
+    fields: {
+        'Short Bio': {
+            multiline: true
+        }
+    }
 };
 
 export default class Edit_Profile extends React.Component {
@@ -56,17 +65,22 @@ export default class Edit_Profile extends React.Component {
 
   render() {
     return (
-      <View style={styles.container}>
+      <ScrollView style={styles.container}>
         {/* display */}
         <Form
           ref="form"
           type={Profile}
           options={options}
         />
+        <TagsView
+            all={tags}
+            //selected={['hi']}
+            isExclusive={false}
+        />
         <TouchableHighlight style={styles.button} onPress={() => this.handlePress()} underlayColor='#99d9f4'>
           <Text style={styles.buttonText}>Save</Text>
         </TouchableHighlight>
-      </View>
+      </ScrollView>
     );
   }
 
@@ -78,7 +92,8 @@ const styles = StyleSheet.create({
         flex: 1,
         //alignItems: 'center',
         //justifyContent: 'center',
-        backgroundColor: '#fff'
+        backgroundColor: '#fff',
+        padding: 20
     },
     text: {
         color: '#6a7a94'
@@ -89,6 +104,7 @@ const styles = StyleSheet.create({
         backgroundColor: '#63a884',
         padding: 20,
         alignItems: 'center',
-        borderRadius: 30
+        borderRadius: 30,
+        marginBottom: 50
     }
 })
