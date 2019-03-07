@@ -89,6 +89,7 @@ export default class Edit_Profile extends React.Component {
 
 const styles = StyleSheet.create({
     container: {
+        marginTop: 30,
         flex: 1,
         //alignItems: 'center',
         //justifyContent: 'center',

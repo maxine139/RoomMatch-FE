@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import {Platform,
+        Button,
         StyleSheet,
         Text,
         View,
@@ -9,6 +10,7 @@ import {Platform,
         AsyncStorage
 } from 'react-native';
 import { createAppContainer, createStackNavigator } from 'react-navigation';
+import LinearGradient from 'react-native-linear-gradient';
 
 export default class Login extends React.Component {
     constructor(props){
@@ -32,11 +34,13 @@ export default class Login extends React.Component {
 
     render() {
         return(
-            <KeyboardAvoidingView behavior='padding' style={styles.wrapper}>
-                <Text style = {styles.title}> Welcome to {"\n"} RoomMatch </Text>
+            <LinearGradient colors={['#2b5876', '#4e4376']}
+                locations={[0,0.8]} style={styles.wrapper}>
+            <KeyboardAvoidingView behavior='padding'>
+                <Text style = {styles.title}>Welcome to{"\n"}RoomMatch</Text>
                 <View style={styles.box}>
                     <Text style={styles.header}>
-                        - Login -
+                        ─ Login ─
                     </Text>
                     <TextInput
                         style={styles.textInput}
@@ -53,11 +57,17 @@ export default class Login extends React.Component {
                         onPress={this.login}>
                         <Text style = {{fontFamily: 'Avenir', color: '#fff', fontSize: 18}}> Log in </Text>
                     </TouchableOpacity>
+                    <Text> ──── OR ──── </Text>
+                    <Button title="Create New Account" style={{fontFamily: 'Avenir'}} onPress={() => this.gotoRegister()}/>
                 </View>
             </KeyboardAvoidingView>
+            </LinearGradient>
         );
     }
 
+    gotoRegister = () => {
+        this.props.navigation.navigate('Register');
+    }
     login = () => {
         this.props.navigation.navigate('Edit_Profile');
         // alert(this.state.username);
@@ -91,31 +101,31 @@ export default class Login extends React.Component {
 const styles = StyleSheet.create({
   wrapper: {
       flex: 1,
-      backgroundColor: '#6a7a94',
-      alignItems: 'center'
-
+      //alignItems: 'center'
   },
   title: {
       fontSize: 36,
-      marginTop: 100,
+      marginTop: 120,
       marginBottom: 80,
       color: '#fff',
       fontFamily: 'Avenir',
-      letterSpacing: 8
+      letterSpacing: 8,
+      alignSelf: 'center'
   },
   box: {
-      width: "85%",
+      width: "80%",
+      alignSelf: 'center',
       alignItems:'center',
       backgroundColor: '#fff',
       paddingLeft:40,
       paddingRight:40,
-      paddingTop: 70,
-      paddingBottom: 70,
+      paddingTop: 50,
+      paddingBottom: 50,
       borderRadius: 30
   },
   header: {
       fontSize: 24,
-      marginBottom: 60,
+      marginBottom: 50,
       color: '#6a7a94',
       fontWeight: 'bold',
       fontFamily: 'Avenir',
@@ -136,6 +146,7 @@ const styles = StyleSheet.create({
       alignSelf: 'stretch',
       backgroundColor: '#63a884',
       padding: 20,
+      marginBottom: 10,
       alignItems: 'center',
       borderRadius: 30
   }
