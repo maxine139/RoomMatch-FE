@@ -45,11 +45,13 @@ export default class Login extends React.Component {
                     <TextInput
                         style={styles.textInput}
                         placeholder='Pacific Email'
+                        placeholderTextColor="#D9E3E7"
                         onChangeText={ (username) => this.setState({username}) }
                     />
                     <TextInput
                         style={styles.textInput}
                         placeholder='Password'
+                        placeholderTextColor="#D9E3E7"
                         onChangeText={ (password) => this.setState({password}) }
                     />
                     <TouchableOpacity
@@ -111,46 +113,46 @@ const styles = StyleSheet.create({
       letterSpacing: 3,
       alignSelf: 'center',
       margin: 0,
-      height: '30%',
-      textAlignVertical: 'center',
+      height: "30%",
+      textAlignVertical: 'center'
       
   },
   box: {
-      width: "80%",
-      height: "67%",
+      width: "100%",
+      height: 400,
       alignSelf: 'center',
       alignItems:'center',
-      backgroundColor: '#fff',
-      paddingLeft: "10%",
-      paddingRight: "10%",
-      paddingTop: "10%",
-      paddingBottom: "10%",
+      paddingLeft: 24,
+      paddingRight: 24,
+      paddingTop: 32,
+      paddingBottom: 28,
       borderRadius: 30
   },
   header: {
       fontSize: 22,
       marginBottom: "10%",
-      color: '#6a7a94',
+      color: '#fff',
       fontWeight: 'bold',
-      fontFamily: 'Avenir',
+      fontFamily: 'Avenir'
 
   },
   textInput: {
       alignSelf: 'stretch',
-      padding: 16,
-      marginBottom: 20,
-      backgroundColor: '#fff',
+      paddingLeft: 10,
+      height: 40,
+      marginBottom: 16,
+      color: '#fff',
       borderWidth: 1,
       borderColor: '#6a7a94',
-      borderRadius: 30,
-      fontFamily: 'Avenir',
-      borderRadius: 30
+      borderRadius: 16,
+      fontFamily: 'Avenir'
   },
   button: {
       alignSelf: 'stretch',
-      backgroundColor: '#63a884',
-      padding: 20,
+      backgroundColor: '#D5237E',
+      height: 48,
       marginBottom: 10,
+      justifyContent: 'center',
       alignItems: 'center',
       borderRadius: 30
   }
