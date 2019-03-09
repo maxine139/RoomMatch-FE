@@ -1,16 +1,19 @@
 import React, {Component} from 'react';
-import {Platform,
-        Button,
-        StyleSheet,
-        Text,
-        View,
-        TextInput,
-        KeyboardAvoidingView,
-        TouchableOpacity,
-        AsyncStorage
+import {
+    Platform,
+    StyleSheet,
+    Text,
+    View,
+    TextInput,
+    KeyboardAvoidingView,
+    TouchableOpacity,
+    AsyncStorage, Image
 } from 'react-native';
 import { createAppContainer, createStackNavigator } from 'react-navigation';
 import LinearGradient from 'react-native-linear-gradient';
+import theme from '../theme';
+import PrimaryButton from './Button'
+import Logo from '../img/roommates.svg'
 
 export default class Login extends React.Component {
     constructor(props){
@@ -37,10 +40,12 @@ export default class Login extends React.Component {
             <LinearGradient colors={['#2b5876', '#4e4376']}
                 locations={[0,0.8]} style={styles.wrapper}>
             <KeyboardAvoidingView behavior='padding'>
-                <Text style = {styles.title}>WELCOME TO{"\n"}ROOMMATCH</Text>
+                <View style={styles.titleCont}>
+                    <Logo width={300}/>
+                </View>
                 <View style={styles.box}>
                     <Text style={styles.header}>
-                        ─ Login ─
+                        Login
                     </Text>
                     <TextInput
                         style={styles.textInput}
@@ -59,8 +64,8 @@ export default class Login extends React.Component {
                         onPress={this.login}>
                         <Text style = {{fontFamily: 'Avenir', color: '#fff', fontSize: 18}}> Log in </Text>
                     </TouchableOpacity>
-                    <Text> ──── OR ──── </Text>
-                    <Button title="Create New Account" style={{fontFamily: 'Avenir'}} onPress={() => this.gotoRegister()}/>
+                    <Text style={{ alignSelf: 'center', color: '#fff'}}> ──── OR ──── </Text>
+                    <PrimaryButton title="Create New Account" onPress={() => this.gotoRegister()}/>
                 </View>
             </KeyboardAvoidingView>
             </LinearGradient>
@@ -105,23 +110,27 @@ const styles = StyleSheet.create({
       flex: 1,
       //alignItems: 'center'
   },
+    titleCont:{
+        height: "30%",
+        justifyContent: 'flex-end',
+        alignItems: 'center',
+        paddingBottom: 20,
+      },
   title: {
       fontSize: 36,
-      fontWeight: "bold",
+      fontWeight: "900",
       color: '#fff',
       fontFamily: 'Avenir',
       letterSpacing: 3,
       alignSelf: 'center',
       margin: 0,
-      height: "30%",
-      textAlignVertical: 'center'
-      
+      textAlignVertical: 'center',
   },
   box: {
       width: "100%",
-      height: 400,
+      height: 500,
+      maxHeight: '40%',
       alignSelf: 'center',
-      alignItems:'center',
       paddingLeft: 24,
       paddingRight: 24,
       paddingTop: 32,
@@ -130,10 +139,11 @@ const styles = StyleSheet.create({
   },
   header: {
       fontSize: 22,
-      marginBottom: "10%",
+      marginBottom: 16,
       color: '#fff',
       fontWeight: 'bold',
-      fontFamily: 'Avenir'
+      fontFamily: 'Avenir',
+      textAlign: 'left'
 
   },
   textInput: {
@@ -147,13 +157,13 @@ const styles = StyleSheet.create({
       borderRadius: 16,
       fontFamily: 'Avenir'
   },
-  button: {
-      alignSelf: 'stretch',
-      backgroundColor: '#D5237E',
-      height: 48,
-      marginBottom: 10,
-      justifyContent: 'center',
-      alignItems: 'center',
-      borderRadius: 30
-  }
+    button: {
+        alignSelf: 'stretch',
+        backgroundColor: theme.primaryColor,
+        height: 48,
+        marginBottom: 10,
+        justifyContent: 'center',
+        alignItems: 'center',
+        borderRadius: 30,
+    },
 });
