@@ -37,7 +37,7 @@ export default class Login extends React.Component {
             <LinearGradient colors={['#2b5876', '#4e4376']}
                 locations={[0,0.8]} style={styles.wrapper}>
             <KeyboardAvoidingView behavior='padding'>
-                <Text style = {styles.title}>Welcome to{"\n"}RoomMatch</Text>
+                <Text style = {styles.title}>WELCOME TO{"\n"}ROOMMATCH</Text>
                 <View style={styles.box}>
                     <Text style={styles.header}>
                         ─ Login ─
@@ -105,12 +105,15 @@ const styles = StyleSheet.create({
   },
   title: {
       fontSize: 36,
-      marginTop: "15%",
-      marginBottom: "10%",
+      fontWeight: "bold",
       color: '#fff',
       fontFamily: 'Avenir',
       letterSpacing: 3,
-      alignSelf: 'center'
+      alignSelf: 'center',
+      margin: 0,
+      height: '30%',
+      textAlignVertical: 'center',
+      
   },
   box: {
       width: "80%",
@@ -118,15 +121,15 @@ const styles = StyleSheet.create({
       alignSelf: 'center',
       alignItems:'center',
       backgroundColor: '#fff',
-      paddingLeft:40,
-      paddingRight:40,
-      paddingTop: 50,
-      paddingBottom: 50,
+      paddingLeft: "10%",
+      paddingRight: "10%",
+      paddingTop: "10%",
+      paddingBottom: "10%",
       borderRadius: 30
   },
   header: {
-      fontSize: 24,
-      marginBottom: 50,
+      fontSize: 22,
+      marginBottom: "10%",
       color: '#6a7a94',
       fontWeight: 'bold',
       fontFamily: 'Avenir',
