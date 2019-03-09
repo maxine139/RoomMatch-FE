@@ -105,15 +105,16 @@ const styles = StyleSheet.create({
   },
   title: {
       fontSize: 36,
-      marginTop: 120,
-      marginBottom: 80,
+      marginTop: "15%",
+      marginBottom: "10%",
       color: '#fff',
       fontFamily: 'Avenir',
-      letterSpacing: 8,
+      letterSpacing: 3,
       alignSelf: 'center'
   },
   box: {
       width: "80%",
+      height: "67%",
       alignSelf: 'center',
       alignItems:'center',
       backgroundColor: '#fff',
