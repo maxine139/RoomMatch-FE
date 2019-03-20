@@ -15,10 +15,17 @@ import {Platform,
 import { createAppContainer, createStackNavigator } from 'react-navigation';
 import LinearGradient from 'react-native-linear-gradient';
 
+// User backend connection
+import { createUser } from '../services/users.js';
 
 export default class Register extends React.Component {
     constructor(props){
-        super(props);
+      super(props);
+
+      this.state = {
+        email: "",
+        password: ""
+      };
     }
 
     render() {
@@ -34,7 +41,7 @@ export default class Register extends React.Component {
                     <TextInput
                         style={styles.textInput}
                         placeholder='Pacific Email'
-                        onChangeText={ (username) => this.setState({username}) }
+                        onChangeText={ (email) => this.setState({email}) }
                     />
                     <TextInput
                         style={styles.textInput}
@@ -56,7 +63,12 @@ export default class Register extends React.Component {
         );
     }
 
-    register = () => {
+  register = () => {
+        const email = this.state.email;
+        // Request
+        console.log("REGISTER SCREEN register");
+        createUser(email);
+
         this.props.navigation.navigate('Edit_Profile')
     }
 };
