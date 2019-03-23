@@ -13,7 +13,9 @@ import {Platform,
         AsyncStorage
 } from 'react-native';
 import { createAppContainer, createStackNavigator } from 'react-navigation';
+import SwipeCards from 'react-native-swipe-cards';
 
+/*
 export default class Home extends React.Component {
     constructor(props){
         super(props);
@@ -54,10 +56,95 @@ export default class Home extends React.Component {
             </View>
         );
     }
-};
+};*/
+
+class Card extends React.Component {
+  constructor(props) {
+    super(props);
+  }
+
+  render() {
+    return (
+        <View style={styles.card}>
+          <Image style={styles.thumbnail} source={{uri: this.props.image}} />
+          <Text style={styles.text}>{this.props.name}</Text>
+        </View>
+    )
+  }
+}
+
+class NoMoreCards extends Component {
+  constructor(props) {
+    super(props);
+  }
+
+  render() {
+    return (
+      <View>
+        <Text style={styles.noMoreCardsText}>No more cards</Text>
+      </View>
+    )
+  }
+}
+
+const cards = [
+    {name: 'Maxine Lien', image: 'https://media.giphy.com/media/GfXFVHUzjlbOg/giphy.gif'},
+    {name: 'Pranav Thirunavukkarasu', image: 'https://media.giphy.com/media/irTuv1L1T34TC/giphy.gif'},
+    {name: 'Cynthia Phan', image: 'https://media.giphy.com/media/LkLL0HJerdXMI/giphy.gif'},
+    {name: 'Brendan Ahdoot', image: 'https://media4.giphy.com/media/6csVEPEmHWhWg/200.gif'}
+]
+
+export default class Home extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+        cards: cards,
+        outOfCards: false
+    };
+  }
+
+  handleYup (card) {
+    console.log(`Yup for ${card.text}`)
+  }
+  handleNope (card) {
+    console.log(`Nope for ${card.text}`)
+  }
+  render() {
+    // If you want a stack of cards instead of one-per-one view, activate stack mode
+    // stack={true}
+    return (
+      <SwipeCards
+        cards={this.state.cards}
+        renderCard={(cardData) => <Card {...cardData} />}
+        renderNoMoreCards={() => <NoMoreCards />}
+
+        handleYup={this.handleYup}
+        handleNope={this.handleNope}
+      />
+    )
+  }
+}
 
 
 const styles = StyleSheet.create({
+
+    card: {
+    justifyContent: 'center',
+    alignItems: 'center',
+    height:'50%'
+  },
+  noMoreCardsText: {
+    fontSize: 22,
+},
+thumbnail: {
+    width: 500,
+    height: '100%',
+  },
+  text: {
+    fontSize: 20,
+    paddingTop: 10,
+    paddingBottom: 10
+  },
   wrapper: {
       flex: 1,
       backgroundColor: '#fff',
