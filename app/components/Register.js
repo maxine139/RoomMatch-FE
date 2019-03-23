@@ -46,10 +46,12 @@ export default class Register extends React.Component {
                     <TextInput
                         style={styles.textInput}
                         placeholder='Create Password'
+                        secureTextEntry={true}
                         onChangeText={ (password) => this.setState({password}) }
                     />
                     <TextInput
                         style={styles.textInput}
+                        secureTextEntry={true}
                         placeholder='Enter Password Again'
                     />
                     <TouchableOpacity
