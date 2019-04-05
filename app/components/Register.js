@@ -12,7 +12,7 @@ import {Platform,
         TouchableHighlight,
         AsyncStorage
 } from 'react-native';
-import { createAppContainer, createStackNavigator } from 'react-navigation';
+import { createAppContainer, createStackNavigator, StackActions, NavigationActions } from 'react-navigation';
 import LinearGradient from 'react-native-linear-gradient';
 
 // User backend connection
@@ -71,7 +71,11 @@ export default class Register extends React.Component {
         console.log("REGISTER SCREEN register");
         createUser(email);
 
-        this.props.navigation.navigate('Edit_Profile')
+        const resetAction = StackActions.reset({
+            index: 0,
+            actions: [NavigationActions.navigate({routeName: 'Edit_Profile'})],
+        });
+        this.props.navigation.dispatch(resetAction);
     }
 };
 

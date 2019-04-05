@@ -9,7 +9,7 @@ import {
     TouchableOpacity,
     AsyncStorage, Image
 } from 'react-native';
-import { createAppContainer, createStackNavigator } from 'react-navigation';
+import { createAppContainer, createStackNavigator, StackActions, NavigationActions } from 'react-navigation';
 import LinearGradient from 'react-native-linear-gradient';
 import theme from '../theme';
 import PrimaryButton from './Button'
@@ -77,7 +77,12 @@ export default class Login extends React.Component {
         this.props.navigation.navigate('Register');
     }
     login = () => {
-        this.props.navigation.navigate('Edit_Profile');
+        const resetAction = StackActions.reset({
+            index: 0,
+            actions: [NavigationActions.navigate({routeName: 'Edit_Profile'})],
+        });
+        this.props.navigation.dispatch(resetAction);
+        //this.props.navigation.navigate('Edit_Profile');
         // alert(this.state.username);
         // fetch('http://67.166.132.5:3000/users', {
         //     method: 'POST',
