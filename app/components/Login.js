@@ -13,7 +13,7 @@ import { createAppContainer, createStackNavigator } from 'react-navigation';
 import LinearGradient from 'react-native-linear-gradient';
 import theme from '../theme';
 import PrimaryButton from './Button'
-import Logo from '../img/roommates.svg'
+import Logo from '../img/roommatch_logo.svg'
 
 export default class Login extends React.Component {
     constructor(props){
