@@ -28,6 +28,10 @@ export default class Register extends React.Component {
       };
     }
 
+    static navigationOptions = {
+        headerTransparent: true
+    };
+
     render() {
         return(
             <LinearGradient colors={['#2b5876', '#4e4376']}
@@ -70,12 +74,7 @@ export default class Register extends React.Component {
         // Request
         console.log("REGISTER SCREEN register");
         createUser(email);
-
-        const resetAction = StackActions.reset({
-            index: 0,
-            actions: [NavigationActions.navigate({routeName: 'Edit_Profile'})],
-        });
-        this.props.navigation.dispatch(resetAction);
+        this.props.navigation.navigate('Profile');
     }
 };
 

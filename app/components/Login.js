@@ -23,6 +23,11 @@ export default class Login extends React.Component {
             password: ''
         }
     }
+    static navigationOptions = {
+        header: null,
+    };
+
+
 
     componentDidMount(){
         this._loadInitialState().done()
@@ -77,36 +82,7 @@ export default class Login extends React.Component {
         this.props.navigation.navigate('Register');
     }
     login = () => {
-        const resetAction = StackActions.reset({
-            index: 0,
-            actions: [NavigationActions.navigate({routeName: 'Edit_Profile'})],
-        });
-        this.props.navigation.dispatch(resetAction);
-        //this.props.navigation.navigate('Edit_Profile');
-        // alert(this.state.username);
-        // fetch('http://67.166.132.5:3000/users', {
-        //     method: 'POST',
-        //     headers: {
-        //         'Accept': 'application/json',
-        //         'Content-Type': 'application/json',
-        //     },
-        //     body: JSON.stringify({
-        //         username: this.state.username,
-        //         password: this.state.password
-        //     })
-        // })
-        //
-        // .then((response) => response.json())
-        // .then ((res) => {
-        //     if (res.success === true){
-        //         AsyncStorage.setItem('user', res.user);
-        //         this.props.navigation.navigate('Home');
-        //     }
-        //     else {
-        //         alert(res.message);
-        //     }
-        // })
-        // .done();
+        this.props.navigation.navigate('App');
     }
 };
 

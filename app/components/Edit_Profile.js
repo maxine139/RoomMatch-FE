@@ -63,6 +63,10 @@ export default class Edit_Profile extends React.Component {
         this.props.navigation.navigate('Home')
     }
 
+    static navigationOptions = {
+        header: null,
+    };
+
   render() {
     return (
       <ScrollView style={styles.container}>
