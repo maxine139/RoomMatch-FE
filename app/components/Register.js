@@ -12,7 +12,7 @@ import {Platform,
         TouchableHighlight,
         AsyncStorage
 } from 'react-native';
-import { createAppContainer, createStackNavigator } from 'react-navigation';
+import { createAppContainer, createStackNavigator, StackActions, NavigationActions } from 'react-navigation';
 import LinearGradient from 'react-native-linear-gradient';
 import Logo from '../img/roommatch_logo.svg'
 import theme from '../theme';
@@ -28,6 +28,10 @@ export default class Register extends React.Component {
         password: ""
       };
     }
+
+    static navigationOptions = {
+        headerTransparent: true
+    };
 
     render() {
         return(
@@ -76,8 +80,7 @@ export default class Register extends React.Component {
         // Request
         console.log("REGISTER SCREEN register");
         createUser(email);
-
-        this.props.navigation.navigate('Edit_Profile')
+        this.props.navigation.navigate('Profile');
     }
 };
 

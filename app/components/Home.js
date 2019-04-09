@@ -13,106 +13,150 @@ import {Platform,
         AsyncStorage
 } from 'react-native';
 import { createAppContainer, createStackNavigator } from 'react-navigation';
+import SwipeCards from 'react-native-swipe-cards';
+
+class Card extends React.Component {
+  constructor(props) {
+    super(props);
+  }
+
+  render() {
+    return (
+        <View style={styles.card}>
+          <Image style={styles.thumbnail} source={{uri: this.props.image}} />
+          <Text>
+              <Text style={styles.nameText}>{this.props.name}</Text> {'\n'}
+              <Text style={styles.text}> {this.props.profile} </Text>{'\n'}
+              <Text style={styles.text}> {this.props.bio} </Text>
+          </Text>
+        </View>
+    )
+  }
+}
+
+class NoMoreCards extends Component {
+  constructor(props) {
+    super(props);
+  }
+
+  render() {
+    return (
+      <View>
+        <Text style={styles.noMoreCardsText}>No more people</Text>
+      </View>
+    )
+  }
+}
+
+const cards = [
+    {name: 'Maxine Lien',
+        image: 'https://media.giphy.com/media/GfXFVHUzjlbOg/giphy.gif',
+        profile: 'profile things here... blah blah blah',
+        bio: 'insert catchy bio here'
+    },
+    {name: 'Pranav Thirunavukkarasu',
+        image: 'https://media.giphy.com/media/irTuv1L1T34TC/giphy.gif',
+        profile: 'loves crypto shit. high key nerd',
+        bio: 'im a cool bitch and youre not',
+    },
+    {name: 'Cynthia Phan',
+        image: 'https://media.giphy.com/media/LkLL0HJerdXMI/giphy.gif',
+        profile: 'neat clean',
+        bio: 'if you messy and dirty i keel you while you sleep'
+    },
+    {name: 'Brendan Ahdoot',
+        image: 'https://media4.giphy.com/media/6csVEPEmHWhWg/200.gif',
+        profile: 'loves paintball',
+        bio: 'dis how you spell my name: blennndin addot c:'
+    }
+]
 
 export default class Home extends React.Component {
-    constructor(props){
-        super(props);
-        this.state = {
-            modalVisible: false
-        };
-    }
-    setModalVisible(visible) {
-        this.setState({modalVisible: visible});
+  constructor(props) {
+    super(props);
+    this.state = {
+        cards: cards,
+        outOfCards: false
+    };
+  }
+
+  static navigationOptions = ({navigation, navigationOptions}) => {
+    return {
+      headerTitle: 'RoomMatch',
+      headerLeft: (
+        <Button onPress = {navigation.toggleDrawer}
+        title="Menu"
+        color="#fff">
+          <Text>Menu</Text>
+        </Button>
+      ),
+      headerTitleStyle: {
+        flex: 1,
+        color: '#fff',
+        textAlign: 'center',
+        alignSelf: 'center',
+        fontWeight: 'normal',
+      },
+
+      headerStyle: {
+        backgroundColor: '#2b5876',
+      },
     }
 
-    render() {
-        return(
-            <View style = {styles.wrapper}>
-            <Modal
-                animationType="slide"
-                transparent={true}
-                visible={this.state.modalVisible}>
-                <View style={styles.box}>
-            <View>
-              <Text>MATCHHHHH!</Text>
+  };
 
-              <TouchableHighlight
-                onPress={() => {
-                  this.setModalVisible(!this.state.modalVisible);
-                }}>
-                <Text>Close</Text>
-              </TouchableHighlight>
-            </View>
-          </View>
-        </Modal>
-                <Image style={styles.profilePic} source={require('../img/test.png')}/>
-                <Text style={styles.title}> Maxine Lien </Text>
-                <Button
-                    onPress={()=>this.setModalVisible(true)}
-                    title="Like"/>
+  handleYup (card) {
+    console.log(`Yup for ${card.name}`)
+  }
+  handleNope (card) {
+    console.log(`Nope for ${card.name}`)
+  }
+  render() {
+    return (
+      <SwipeCards
+        //style={styles.wrapper}
+        cards={this.state.cards}
+        showYup={false}
+        showNope={false}
+        renderCard={(cardData) => <Card {...cardData} />}
+        renderNoMoreCards={() => <NoMoreCards />}
 
-            </View>
-        );
-    }
-};
+        handleYup={this.handleYup}
+        handleNope={this.handleNope}
+      />
+    )
+  }
+}
 
 
 const styles = StyleSheet.create({
-  wrapper: {
+    card: {
+        justifyContent: 'center',
+        alignItems: 'center',
+        height:'60%',
+    },
+    noMoreCardsText: {
+        fontSize: 22,
+        fontFamily: 'Avenir'
+    },
+    thumbnail: {
+        width: '100%',
+        height: '100%',
+    },
+    nameText: {
+        fontSize: 30,
+        fontWeight: 'bold',
+        fontFamily: 'Avenir'
+    },
+    text: {
+        fontSize: 20,
+        paddingTop: 10,
+        paddingBottom: 10,
+        fontFamily: 'Avenir'
+    },
+    wrapper: {
       flex: 1,
       backgroundColor: '#fff',
       alignItems: 'center'
-
-  },
-  profilePic:{
-      //flex: 1,
-      //width: 400,
-      display: 'flex',
-      height: '50%',
-      resizeMode: 'contain',
-  },
-  title: {
-      paddingTop: 10,
-      fontSize: 36,
-      color: '#6a7a94',
-      fontFamily: 'Avenir',
-      letterSpacing: 8
-  },
-  box: {
-      width: "85%",
-      justifyContent: 'center',
-      alignItems:'center',
-      backgroundColor: '#6a7a94',
-      paddingLeft:40,
-      paddingRight:40,
-      paddingTop: 70,
-      paddingBottom: 70,
-      borderRadius: 30
-  },
-  header: {
-      fontSize: 24,
-      marginBottom: 60,
-      color: '#6a7a94',
-      fontWeight: 'bold',
-      fontFamily: 'Avenir',
-
-  },
-  textInput: {
-      alignSelf: 'stretch',
-      padding: 16,
-      marginBottom: 20,
-      backgroundColor: '#fff',
-      borderWidth: 1,
-      borderColor: '#6a7a94',
-      borderRadius: 30,
-      fontFamily: 'Avenir',
-
-  },
-  button: {
-      alignSelf: 'stretch',
-      backgroundColor: '#6a7a94',
-      padding: 20,
-      alignItems: 'center',
-      borderRadius: 30
-  }
+    },
 });

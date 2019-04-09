@@ -65,6 +65,10 @@ export default class Edit_Profile extends React.Component {
         this.props.navigation.navigate('Home')
     }
 
+    static navigationOptions = {
+        header: null,
+    };
+
   render() {
     return (
       <LinearGradient colors={['#2b5876', '#4e4376']}
