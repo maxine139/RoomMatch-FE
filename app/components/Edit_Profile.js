@@ -82,7 +82,7 @@ export default class Edit_Profile extends React.Component {
             isExclusive={false}
         />
         <TouchableHighlight style={styles.button} onPress={() => this.handlePress()} underlayColor='#99d9f4'>
-          <Text style={styles.buttonText}>Save</Text>
+          <Text style={{fontFamily: 'Avenir', color: '#fff', fontSize: 18}}>Save</Text>
         </TouchableHighlight>
       </ScrollView>
       </LinearGradient>
@@ -94,22 +94,22 @@ export default class Edit_Profile extends React.Component {
 
 const styles = StyleSheet.create({
     container: {
-        marginTop: 30,
-        flex: 1,
-        //alignItems: 'center',
-        //justifyContent: 'center',
-        padding: 20
+      marginTop: 30,
+      flex: 1,
+      //alignItems: 'center',
+      //justifyContent: 'center',
+      padding: 20
     },
     text: {
-        color: '#6a7a94'
+      color: '#6a7a94'
     },
     button: {
-        width: '30%',
-        alignSelf: 'center',
-        backgroundColor: theme.primaryColor,
-        padding: 20,
-        alignItems: 'center',
-        borderRadius: 30,
-        marginBottom: 50
+      alignSelf: 'stretch',
+      backgroundColor: theme.primaryColor,
+      height: 48,
+      marginBottom: 10,
+      justifyContent: 'center',
+      alignItems: 'center',
+      borderRadius: 30,
     }
 })
