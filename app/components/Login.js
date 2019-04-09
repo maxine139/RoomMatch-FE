@@ -115,8 +115,8 @@ const styles = StyleSheet.create({
         height: "30%",
         justifyContent: 'flex-end',
         alignItems: 'center',
-        paddingBottom: 20,
-      },
+        paddingBottom: 20
+    },
   title: {
       fontSize: 36,
       fontWeight: "900",
@@ -125,7 +125,7 @@ const styles = StyleSheet.create({
       letterSpacing: 3,
       alignSelf: 'center',
       margin: 0,
-      textAlignVertical: 'center',
+      textAlignVertical: 'center'
   },
   box: {
       width: "100%",
@@ -165,6 +165,6 @@ const styles = StyleSheet.create({
         marginBottom: 10,
         justifyContent: 'center',
         alignItems: 'center',
-        borderRadius: 30,
+        borderRadius: 30
     },
 });
