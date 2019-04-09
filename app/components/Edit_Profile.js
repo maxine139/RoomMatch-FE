@@ -13,6 +13,8 @@ import {Platform,
 } from 'react-native';
 import { createAppContainer, createStackNavigator } from 'react-navigation';
 import TagsView from './Tags';
+import LinearGradient from 'react-native-linear-gradient';
+import theme from '../theme';
 
 var Form = t.form.Form;
 
@@ -69,6 +71,8 @@ export default class Edit_Profile extends React.Component {
 
   render() {
     return (
+      <LinearGradient colors={['#2b5876', '#4e4376']}
+        locations={[0,0.8]} style={styles.container}>
       <ScrollView style={styles.container}>
         {/* display */}
         <Form
@@ -85,6 +89,7 @@ export default class Edit_Profile extends React.Component {
           <Text style={styles.buttonText}>Save</Text>
         </TouchableHighlight>
       </ScrollView>
+      </LinearGradient>
     );
   }
 
@@ -97,7 +102,6 @@ const styles = StyleSheet.create({
         flex: 1,
         //alignItems: 'center',
         //justifyContent: 'center',
-        backgroundColor: '#fff',
         padding: 20
     },
     text: {
@@ -106,7 +110,7 @@ const styles = StyleSheet.create({
     button: {
         width: '30%',
         alignSelf: 'center',
-        backgroundColor: '#63a884',
+        backgroundColor: theme.primaryColor,
         padding: 20,
         alignItems: 'center',
         borderRadius: 30,

@@ -14,7 +14,8 @@ import {Platform,
 } from 'react-native';
 import { createAppContainer, createStackNavigator, StackActions, NavigationActions } from 'react-navigation';
 import LinearGradient from 'react-native-linear-gradient';
-
+import Logo from '../img/roommatch_logo.svg'
+import theme from '../theme';
 // User backend connection
 import { createUser } from '../services/users.js';
 
@@ -37,31 +38,36 @@ export default class Register extends React.Component {
             <LinearGradient colors={['#2b5876', '#4e4376']}
                 locations={[0,0.8]} style={styles.wrapper}>
             <KeyboardAvoidingView behavior='padding' style={styles.wrapper}>
-                <Text style = {styles.title}> Welcome to {"\n"} RoomMatch </Text>
+            <View style={styles.titleCont}>
+                    <Logo width={300}/>
+                </View>
                 <View style={styles.box}>
                     <Text style={styles.header}>
-                        - Register -
+                    Create New Account
                     </Text>
                     <TextInput
                         style={styles.textInput}
                         placeholder='Pacific Email'
+                        placeholderTextColor="#D9E3E7"
                         onChangeText={ (email) => this.setState({email}) }
                     />
                     <TextInput
                         style={styles.textInput}
-                        placeholder='Create Password'
+                        placeholder='Enter Password'
+                        placeholderTextColor="#D9E3E7"
                         secureTextEntry={true}
                         onChangeText={ (password) => this.setState({password}) }
                     />
                     <TextInput
                         style={styles.textInput}
                         secureTextEntry={true}
-                        placeholder='Enter Password Again'
+                        placeholder='Confirm Password'
+                        placeholderTextColor="#D9E3E7"
                     />
                     <TouchableOpacity
                         style={styles.button}
                         onPress={this.register}>
-                        <Text style = {{fontFamily: 'Avenir', color: '#fff', fontSize: 18}}> Register </Text>
+                        <Text style = {{fontFamily: 'Avenir', color: '#fff', fontSize: 18}}> Confirm </Text>
                     </TouchableOpacity>
                 </View>
             </KeyboardAvoidingView>
@@ -83,6 +89,12 @@ const styles = StyleSheet.create({
     wrapper: {
         flex: 1,
     },
+    titleCont: {
+        height: "30%",
+        justifyContent: 'flex-end',
+        alignItems: 'center',
+        paddingBottom: 20,
+    },
     title: {
         fontSize: 36,
         marginTop: 120,
@@ -93,40 +105,42 @@ const styles = StyleSheet.create({
         letterSpacing: 8
     },
     box: {
+        width: "100%",
+        height: 500,
+        maxHeight: '40%',
         alignSelf: 'center',
-        width: "80%",
-        alignItems:'center',
-        backgroundColor: '#fff',
-        paddingLeft:40,
-        paddingRight:40,
-        paddingTop: 50,
-        paddingBottom: 50,
+        paddingLeft: 24,
+        paddingRight: 24,
+        paddingTop: 32,
+        paddingBottom: 28,
         borderRadius: 30
     },
     header: {
-        fontSize: 24,
-        marginBottom: 60,
-        color: '#6a7a94',
+        fontSize: 22,
+        marginBottom: 16,
+        color: '#fff',
         fontWeight: 'bold',
         fontFamily: 'Avenir',
-
+        textAlign: 'left'
     },
     textInput: {
         alignSelf: 'stretch',
-        padding: 16,
-        marginBottom: 20,
-        backgroundColor: '#fff',
+        paddingLeft: 10,
+        height: 40,
+        marginBottom: 16,
+        color: '#fff',
         borderWidth: 1,
         borderColor: '#6a7a94',
-        borderRadius: 30,
-        fontFamily: 'Avenir',
-        borderRadius: 30
+        borderRadius: 16,
+        fontFamily: 'Avenir'
     },
     button: {
         alignSelf: 'stretch',
-        backgroundColor: '#63a884',
-        padding: 20,
+        backgroundColor: theme.primaryColor,
+        height: 48,
+        marginBottom: 10,
+        justifyContent: 'center',
         alignItems: 'center',
-        borderRadius: 30
-    }
+        borderRadius: 30,
+    },
 });
