@@ -29,8 +29,9 @@ export default class Register extends React.Component {
       };
     }
 
+    // Back button
     static navigationOptions = {
-        headerTransparent: true
+        headerTransparent: true,
     };
 
     render() {
