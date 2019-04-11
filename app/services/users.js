@@ -9,24 +9,29 @@ import Axios from './axios';
 
 // Create User 
 // NOTE: Only using the email to make users, no Passwd storing
-export const createUser = (email) => {
+export async function createUser(email) {
   let body = {
     email: email
   };
 
-  // Request
-  Axios.post('/app/v1/users/create', body)
-    .then((res) => {
-      if(res.status === 200) {
-        console.log("USER CREATE SUCCESS");
-        console.log(JSON.stringify(res.data.data));
-      }else{
-        console.log("USER CREATE ERROR - " + res.status);
-        console.log(res.data.error);
-      }
-    })
-    .catch((err) => {
-      console.log("USER CREATE ERROR");
-      console.log(JSON.stringify(err));
-    });
+  let path = '/app/v1/users/create';
+
+  try {
+    return await Axios.post(path, body);
+  } catch(err) {
+    console.log("USER CREATE ERROR");
+    console.log(JSON.stringify(err));
+  }
 };
+
+export async function authUser(email) {
+  
+  let path = '/app/v1/users/auth?email=' + email;
+
+  try {
+    return await Axios.get(path);
+  } catch(err) {
+    console.log("USER AUTH ERROR");
+    console.log(JSON.stringify(err));
+  }
+}

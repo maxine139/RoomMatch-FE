@@ -14,20 +14,19 @@ import LinearGradient from 'react-native-linear-gradient';
 import theme from '../theme';
 import PrimaryButton from './Button'
 import Logo from '../img/roommatch_logo.svg'
+import * as usersService from '../services/users.js';
 
 export default class Login extends React.Component {
     constructor(props){
         super(props);
         this.state = {
-            username: '',
+            email: '',
             password: ''
         }
     }
     static navigationOptions = {
         header: null,
     };
-
-
 
     componentDidMount(){
         this._loadInitialState().done()
@@ -56,7 +55,7 @@ export default class Login extends React.Component {
                         style={styles.textInput}
                         placeholder='Pacific Email'
                         placeholderTextColor="#D9E3E7"
-                        onChangeText={ (username) => this.setState({username}) }
+                        onChangeText={ (email) => this.setState({email}) }
                     />
                     <TextInput
                         style={styles.textInput}
@@ -81,9 +80,28 @@ export default class Login extends React.Component {
     gotoRegister = () => {
         this.props.navigation.navigate('Register');
     }
-    login = () => {
-        this.props.navigation.navigate('App');
-    }
+  login = () => {
+    const email = this.state.email;
+
+    // INITALIZE GLOBAL STORE FOR APP VARS
+    let store = {};
+
+    usersService.authUser(email).then((res) => {
+      const status = res.status;
+
+      if (status == 200) {
+        store.user = res.data.data;
+
+        this.props.navigation.navigate('Home', {store : store});
+      } else {
+        console.log("LOGIN PAGE ERROR: cannot login");
+        console.log(JSON.stringify(res));
+      }
+    }).catch((err) => {
+      console.log("LOGIN PAGE ERROR: cannot login");
+      console.log(JSON.stringify(err));
+    });
+  }
 };
 
 

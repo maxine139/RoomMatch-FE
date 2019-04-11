@@ -17,7 +17,7 @@ import LinearGradient from 'react-native-linear-gradient';
 import Logo from '../img/roommatch_logo.svg'
 import theme from '../theme';
 // User backend connection
-import { createUser } from '../services/users.js';
+import * as usersService from '../services/users.js';
 
 export default class Register extends React.Component {
     constructor(props){
@@ -77,12 +77,18 @@ export default class Register extends React.Component {
     }
 
   register = () => {
-        const email = this.state.email;
-        // Request
-        console.log("REGISTER SCREEN register");
-        createUser(email);
-        this.props.navigation.navigate('Profile');
-    }
+      const email = this.state.email;
+
+      // Request
+      console.log("REGISTER SCREEN register");
+      
+    usersService.createUser(email).then(() => {
+      console.log('SUCCESS: User created');
+        this.props.navigation.navigate('Login');
+      }).catch((err) => {
+        console.log("ERROR: Cannot register");
+      });
+  }
 };
 
 
