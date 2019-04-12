@@ -10,7 +10,8 @@ import {Platform,
         KeyboardAvoidingView,
         TouchableOpacity,
         TouchableHighlight,
-        AsyncStorage
+        AsyncStorage,
+        Alert
 } from 'react-native';
 import { createAppContainer, createStackNavigator, StackActions, NavigationActions } from 'react-navigation';
 import LinearGradient from 'react-native-linear-gradient';
@@ -78,17 +79,35 @@ export default class Register extends React.Component {
     }
 
   register = () => {
-      const email = this.state.email;
+    const email = this.state.email;
 
-      // Request
-      console.log("REGISTER SCREEN register");
+    // Request
+    console.log("REGISTER SCREEN register");
       
-    usersService.createUser(email).then(() => {
+    usersService.createUser(email).then((res) => {
       console.log('SUCCESS: User created');
+      console.log(JSON.stringify(res));
+
+      const success = res.data.success;
+      if (success === true) {
+        // success
         this.props.navigation.navigate('Login');
-      }).catch((err) => {
-        console.log("ERROR: Cannot register");
-      });
+      } else {
+        // failure
+        const err = res.data.error;
+        throw err;
+      }
+    }).catch((err) => {
+      console.log("ERROR: Cannot register");
+      Alert.alert(
+        'Error',
+        err,
+        [
+          {text: 'OK'},
+        ],
+        {cancelable: false},
+      );
+    });
   }
 };
 
