@@ -14,6 +14,7 @@ import {Platform,
 } from 'react-native';
 import { createAppContainer, createStackNavigator } from 'react-navigation';
 import SwipeCards from 'react-native-swipe-cards';
+import Icon from 'react-native-vector-icons/FontAwesome5'
 
 class Card extends React.Component {
   constructor(props) {
@@ -84,11 +85,16 @@ export default class Home extends React.Component {
     return {
       headerTitle: 'RoomMatch',
       headerLeft: (
-        <Button onPress = {navigation.toggleDrawer}
-        title="Menu"
-        color="#fff">
-          <Text>Menu</Text>
-        </Button>
+        <Icon onPress = {navigation.toggleDrawer}
+        name="bars"
+        color="#fff"
+        size={25}/>
+      ),
+      headerRight: (
+        <Icon onPress={() => navigation.navigate("Chat_Main")}
+        name="comment-alt"
+        color="#fff"
+        size={25}/>
       ),
       headerTitleStyle: {
         flex: 1,
@@ -100,6 +106,8 @@ export default class Home extends React.Component {
 
       headerStyle: {
         backgroundColor: '#2b5876',
+        marginLeft: 10,
+        marginRight: 10
       },
     }
 
