@@ -50,6 +50,12 @@ class NoMoreCards extends Component {
 }
 
 const cards = [
+  {
+    name: 'Gimme my shoe Lyle',
+    image: 'https://media.giphy.com/media/xUOxfbuK9qc61NGiaI/giphy.gif',
+    profile: 'walks bearfoot',
+    bio: 'i need me a smexy roommate. a dtf girl. down to fart'
+  },
     {name: 'Maxine Lien',
         image: 'https://media.giphy.com/media/GfXFVHUzjlbOg/giphy.gif',
         profile: 'profile things here... blah blah blah',
