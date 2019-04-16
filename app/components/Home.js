@@ -14,7 +14,11 @@ import {Platform,
 } from 'react-native';
 import { createAppContainer, createStackNavigator } from 'react-navigation';
 import SwipeCards from 'react-native-swipe-cards';
+<<<<<<< HEAD
 import Logo from '../img/roommatch_logo.svg';
+=======
+import Icon from 'react-native-vector-icons/FontAwesome5'
+>>>>>>> e72196baea05e3c420855f4a491e1e2d8c83511b
 
 class Card extends React.Component {
   constructor(props) {
@@ -50,6 +54,12 @@ class NoMoreCards extends Component {
 }
 
 const cards = [
+  {
+    name: 'Gimme my shoe Lyle',
+    image: 'https://media.giphy.com/media/xUOxfbuK9qc61NGiaI/giphy.gif',
+    profile: 'walks bearfoot',
+    bio: 'i need me a smexy roommate. a dtf girl. down to fart'
+  },
     {name: 'Maxine Lien',
         image: 'https://media.giphy.com/media/GfXFVHUzjlbOg/giphy.gif',
         profile: 'profile things here... blah blah blah',
@@ -85,16 +95,26 @@ export default class Home extends React.Component {
     return {
       headerTitle: <Logo width={165} style={styles.headerLogo}/>,
       headerLeft: (
-        <Button onPress = {navigation.toggleDrawer}
-        title="Menu"
-        color="#fff">
-          <Text>Menu</Text>
-        </Button>
+        <Icon onPress = {navigation.toggleDrawer}
+        name="bars"
+        color="#fff"
+        size={25}/>
+      ),
+      headerRight: (
+        <Icon onPress={() => navigation.navigate("Chat_Main")}
+        name="comment-alt"
+        color="#fff"
+        size={25}/>
       ),
       headerStyle: {
         backgroundColor: '#2b5876',
+<<<<<<< HEAD
         height: '30%',
         width: '100%',
+=======
+        marginLeft: 10,
+        marginRight: 10
+>>>>>>> e72196baea05e3c420855f4a491e1e2d8c83511b
       },
     }
 

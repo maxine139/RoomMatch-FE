@@ -21,6 +21,13 @@ export async function createUser(email) {
   } catch(err) {
     console.log("USER CREATE ERROR");
     console.log(JSON.stringify(err));
+
+    return {
+      status: 408,
+      data: {
+        error: 'Cannot connect to server'
+      }
+    }
   }
 };
 
@@ -33,5 +40,12 @@ export async function authUser(email) {
   } catch(err) {
     console.log("USER AUTH ERROR");
     console.log(JSON.stringify(err));
+
+    return {
+      status: 408,
+      data: {
+        error: 'Cannot connect to server'
+      }
+    }
   }
 }
