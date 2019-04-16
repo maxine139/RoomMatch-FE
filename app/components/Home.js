@@ -14,6 +14,7 @@ import {Platform,
 } from 'react-native';
 import { createAppContainer, createStackNavigator } from 'react-navigation';
 import SwipeCards from 'react-native-swipe-cards';
+import Logo from '../img/roommatch_logo.svg';
 
 class Card extends React.Component {
   constructor(props) {
@@ -82,7 +83,7 @@ export default class Home extends React.Component {
 
   static navigationOptions = ({navigation, navigationOptions}) => {
     return {
-      headerTitle: 'RoomMatch',
+      headerTitle: <Logo width={165} style={styles.headerLogo}/>,
       headerLeft: (
         <Button onPress = {navigation.toggleDrawer}
         title="Menu"
@@ -90,16 +91,10 @@ export default class Home extends React.Component {
           <Text>Menu</Text>
         </Button>
       ),
-      headerTitleStyle: {
-        flex: 1,
-        color: '#fff',
-        textAlign: 'center',
-        alignSelf: 'center',
-        fontWeight: 'normal',
-      },
-
       headerStyle: {
         backgroundColor: '#2b5876',
+        height: '30%',
+        width: '100%',
       },
     }
 
@@ -130,10 +125,16 @@ export default class Home extends React.Component {
 
 
 const styles = StyleSheet.create({
+    headerLogo: {
+      alignItems: 'center',
+      justifyContent: 'center',
+    },
     card: {
         justifyContent: 'center',
         alignItems: 'center',
         height:'60%',
+        width: '100%',
+        backgroundColor: '#FF89FF',
     },
     noMoreCardsText: {
         fontSize: 22,
@@ -146,7 +147,7 @@ const styles = StyleSheet.create({
     nameText: {
         fontSize: 30,
         fontWeight: 'bold',
-        fontFamily: 'Avenir'
+        fontFamily: 'Avenir',
     },
     text: {
         fontSize: 20,
