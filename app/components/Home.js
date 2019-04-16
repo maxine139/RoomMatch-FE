@@ -14,11 +14,8 @@ import {Platform,
 } from 'react-native';
 import { createAppContainer, createStackNavigator } from 'react-navigation';
 import SwipeCards from 'react-native-swipe-cards';
-<<<<<<< HEAD
 import Logo from '../img/roommatch_logo.svg';
-=======
 import Icon from 'react-native-vector-icons/FontAwesome5'
->>>>>>> e72196baea05e3c420855f4a491e1e2d8c83511b
 
 class Card extends React.Component {
   constructor(props) {
@@ -108,13 +105,10 @@ export default class Home extends React.Component {
       ),
       headerStyle: {
         backgroundColor: '#2b5876',
-<<<<<<< HEAD
-        height: '30%',
-        width: '100%',
-=======
+        //height: '30%',
+        //width: '100%',
         marginLeft: 10,
         marginRight: 10
->>>>>>> e72196baea05e3c420855f4a491e1e2d8c83511b
       },
     }
 
@@ -129,7 +123,7 @@ export default class Home extends React.Component {
   render() {
     return (
       <SwipeCards
-        //style={styles.wrapper}
+        style={styles.wrapper}
         cards={this.state.cards}
         showYup={false}
         showNope={false}

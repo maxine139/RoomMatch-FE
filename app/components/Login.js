@@ -80,8 +80,8 @@ export default class Login extends React.Component {
     gotoRegister = () => {
         this.props.navigation.navigate('Register');
     }
-  login = () => { // FIX THIS WHEN DONE WORKING!!
-    /*const email = this.state.email;
+  login = () => {
+    const email = this.state.email;
 
     // INITALIZE GLOBAL STORE FOR APP VARS
     let store = {};
@@ -100,8 +100,7 @@ export default class Login extends React.Component {
     }).catch((err) => {
       console.log("LOGIN PAGE ERROR: cannot login");
       console.log(JSON.stringify(err));
-    });*/
-    this.props.navigation.navigate('Home');
+    });
   }
 };
 
