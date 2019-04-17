@@ -105,8 +105,8 @@ export default class Home extends React.Component {
       ),
       headerStyle: {
         backgroundColor: '#2b5876',
-        marginLeft: 10,
-        marginRight: 10
+        //height: '30%',
+        width: '100%',
       },
     }
 
@@ -121,7 +121,7 @@ export default class Home extends React.Component {
   render() {
     return (
       <SwipeCards
-        //style={styles.wrapper}
+        style={styles.wrapper}
         cards={this.state.cards}
         showYup={false}
         showNope={false}
