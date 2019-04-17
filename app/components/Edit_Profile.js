@@ -13,8 +13,8 @@ import {Platform,
         TouchableHighlight
 } from 'react-native';
 import { createAppContainer, createStackNavigator } from 'react-navigation';
-import TagsView from './Tags';
 import LinearGradient from 'react-native-linear-gradient';
+import { TagSelect } from 'react-native-tag-select';
 import theme from '../theme';
 
 var Form = t.form.Form;
@@ -82,6 +82,18 @@ export default class Edit_Profile extends React.Component {
   }
 
   render() {
+    const data = [
+      { id: 1, label: 'Extrovert' },
+      { id: 2, label: 'Introvert' },
+      { id: 3, label: 'Clean/Tidy' },
+      { id: 4, label: 'Messy' },
+      { id: 5, label: 'Drinks Alcohol' },
+      { id: 6, label: 'Smokes Weed' },
+      { id: 7, label: 'Smokes cigs' },
+      { id: 8, label: 'Night Owl' },
+      { id: 9, label: 'Early Bird' }
+    ];
+
     return (
       <View style={styles.wrapper}>
         <LinearGradient colors={['#2b5876', '#4e4376']}
@@ -95,10 +107,11 @@ export default class Edit_Profile extends React.Component {
             type={Profile}
             options={options}
           />
-          <TagsView
-              all={tags}
-              selected={[]}
-              isExclusive={false}
+          <TagSelect
+            data={data}
+            ref={(tag) => {
+              this.tag = tag;
+            }}
           />
           <TouchableHighlight style={styles.button} onPress={() => this.handlePress()} underlayColor='#99d9f4'>
             <Text style={{fontFamily: 'Avenir', color: '#fff', fontSize: 18}}>Save</Text>
