@@ -106,9 +106,7 @@ export default class Home extends React.Component {
       headerStyle: {
         backgroundColor: '#2b5876',
         //height: '30%',
-        //width: '100%',
-        marginLeft: 10,
-        marginRight: 10
+        width: '100%',
       },
     }
 

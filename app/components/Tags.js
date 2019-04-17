@@ -10,27 +10,36 @@ export default class TagsView extends React.Component {
       selected: props.selected
     }
   }
-render() {
-    return (
-      <View style={styles.container}>
-        {this.makeButtons()}
-      </View>
-    )
+  render() {
+      return (
+        <View style={styles.container}>
+          {this.makeButtons()}
+        </View>
+      )
   }
-onPress = (tag) => {
-//     let selected
-//     if (this.props.isExclusive) {
-//       selected = [tag]
-//     } else {
-//       selected = addOrRemove(this.state.selected, tag)
-//     }
-// this.setState({
-//       selected
-//     })
+
+  addOrRemove = (array, item) => {
+      if (item in array) {
+        return array.filter((c) => { return c !== item })
+      }
+      else {
+        const result = array
+        result.push(item)
+        return result
+      }
+  }
+  onPress = (tag) => {
+      let selected
+      if (this.props.isExclusive) {
+        selected = [tag]
+      } else {
+        selected = this.addOrRemove(this.state.selected, tag)
+      }
+      this.setState({selected})
   }
 makeButtons() {
     return this.props.all.map((tag, i) => {
-return (
+      return (
         <BackgroundButton
           backgroundColor={'#6a7a94'}
           textColor={'#fff'}
@@ -43,6 +52,7 @@ return (
     })
   }
 }
+
 const styles = StyleSheet.create({
   container: {
     flex: 1,
