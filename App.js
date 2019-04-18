@@ -1,9 +1,3 @@
-import React, {Component} from 'react';
-import {Button, Platform,
-        StyleSheet,
-        Text,
-        View,
-} from 'react-native';
 import { createSwitchNavigator, createStackNavigator, createAppContainer, createDrawerNavigator } from 'react-navigation';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import Login from './app/components/Login';
@@ -30,9 +24,3 @@ export default createAppContainer(createSwitchNavigator(
     initialRouteName: 'Auth',
   }
 ));
-
-const styles = StyleSheet.create({
-  container: {
-
-  },
-});
