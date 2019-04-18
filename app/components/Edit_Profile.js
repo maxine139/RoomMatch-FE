@@ -10,7 +10,8 @@ import {Platform,
         KeyboardAvoidingView,
         TouchableOpacity,
         AsyncStorage,
-        TouchableHighlight
+        TouchableHighlight,
+        CameraRoll
 } from 'react-native';
 import { createAppContainer, createStackNavigator } from 'react-navigation';
 import LinearGradient from 'react-native-linear-gradient';
@@ -72,6 +73,20 @@ export default class Edit_Profile extends React.Component {
       }
     }
 
+    openPhotos() {
+      CameraRoll.getPhotos({
+       first: 20,
+       assetType: 'Photos',
+      })
+      .then(r => {
+       this.setState({ photos: r.edges });
+      })
+      .catch((err) => {
+        //Error Loading Images
+      });
+
+    }
+
   static navigationOptions = ({navigation, navigationOptions}) => {
     return {
       headerTitle: 'Profile',
@@ -107,6 +122,9 @@ export default class Edit_Profile extends React.Component {
             type={Profile}
             options={options}
           />
+          <TouchableHighlight style={styles.button} onPress={() => this.openPhotos()}>
+            <Text style={styles.text}> Upload Picture </Text>
+          </TouchableHighlight>
           <TagSelect
             data={data}
             ref={(tag) => {
