@@ -129,7 +129,7 @@ export default class Edit_Profile extends React.Component {
             type={Profile}
             options={options}
           />
-          <TouchableHighlight style={styles.button} onPress={() => this.openPhotos(true)}>
+          <TouchableHighlight style={styles.upload_button} onPress={() => this.openPhotos(true)}>
             <Text style={styles.text}> Upload Picture </Text>
           </TouchableHighlight>
           <Modal
@@ -218,6 +218,16 @@ const styles = StyleSheet.create({
     backgroundColor: theme.primaryColor,
     height: 48,
     marginBottom: 50,
+    justifyContent: 'center',
+    alignItems: 'center',
+    borderRadius: 30,
+  },
+  upload_button: {
+    alignSelf: 'center',
+    padding: 10,
+    backgroundColor: theme.primaryColor,
+    height: 48,
+    marginBottom: 20,
     justifyContent: 'center',
     alignItems: 'center',
     borderRadius: 30,
