@@ -3,6 +3,8 @@ var t = require('tcomb-form-native');
 var v = require('tcomb-validation');
 import {Platform,
         StyleSheet,
+        Image,
+        Modal,
         Text,
         View,
         ScrollView,
@@ -63,6 +65,10 @@ var options = {
 export default class Edit_Profile extends React.Component {
     constructor(props){
         super(props);
+        this.state = {
+          photos: [],
+          modalVisible: false
+        };
     }
 
     handlePress(){
@@ -73,17 +79,18 @@ export default class Edit_Profile extends React.Component {
       }
     }
 
-    openPhotos() {
+    openPhotos(visible) {
+      this.setState({modalVisible: visible});
       CameraRoll.getPhotos({
        first: 20,
        assetType: 'Photos',
-      })
-      .then(r => {
+     })
+     .then(r => {
        this.setState({ photos: r.edges });
-      })
-      .catch((err) => {
+     })
+     .catch((err) => {
         //Error Loading Images
-      });
+     });
 
     }
 
@@ -122,9 +129,46 @@ export default class Edit_Profile extends React.Component {
             type={Profile}
             options={options}
           />
-          <TouchableHighlight style={styles.button} onPress={() => this.openPhotos()}>
+          <TouchableHighlight style={styles.button} onPress={() => this.openPhotos(true)}>
             <Text style={styles.text}> Upload Picture </Text>
           </TouchableHighlight>
+          <Modal
+            animationType="slide"
+            transparent={false}
+            visible={this.state.modalVisible}
+            onRequestClose={() => {
+              Alert.alert('Modal has been closed.');
+          }}>
+            <View style = {styles.wrapper}>
+              <LinearGradient colors={['#2b5876', '#4e4376']}
+              locations={[0,0.8]} style={styles.header}>
+                <Text style={styles.text}> Choose Profile Photo </Text>
+                <Text
+                  style={styles.cancel}
+                  onPress={() => {this.setState({modalVisible: false});}}>
+                    x
+                </Text>
+              </LinearGradient>
+              <ScrollView style = {styles.container}>
+                {this.state.photos.map((p, i) => {
+                  return (
+                    <TouchableOpacity onPress={() => {
+                      this.setState({modalVisible: false});
+                    }}>
+                      <Image
+                        key={i}
+                        style={{
+                          width: 300,
+                          height: 100,
+                        }}
+                        source={{ uri: p.node.image.uri }}
+                      />
+                    </TouchableOpacity>
+                  );
+                })}
+              </ScrollView>
+            </View>
+          </Modal>
           <TagSelect
             data={data}
             ref={(tag) => {
@@ -146,32 +190,36 @@ const styles = StyleSheet.create({
   wrapper: {
     flex: 1,
   },
-    container: {
-      flex: 1,
-      paddingTop: 20,
-      paddingLeft: 20,
-      paddingRight: 20,
-      backgroundColor: '#fff'
-    },
-    header: {
-      backgroundColor: '#6a7a94',
-      alignItems: 'center',
-      justifyContent: 'flex-end',
-      padding: 10,
-      height: '10%',
-    },
-    text: {
-      color: '#fff',
-      fontSize: 20,
-      fontWeight: 'bold'
-    },
-    button: {
-      alignSelf: 'stretch',
-      backgroundColor: theme.primaryColor,
-      height: 48,
-      marginBottom: 50,
-      justifyContent: 'center',
-      alignItems: 'center',
-      borderRadius: 30,
-    }
+  cancel: {
+    alignSelf: 'flex-end',
+    color: '#fff'
+  },
+  container: {
+    flex: 1,
+    paddingTop: 20,
+    paddingLeft: 20,
+    paddingRight: 20,
+    backgroundColor: '#fff'
+  },
+  header: {
+    backgroundColor: '#6a7a94',
+    justifyContent: 'flex-end',
+    padding: 10,
+    height: '10%',
+  },
+  text: {
+    color: '#fff',
+    fontSize: 20,
+    fontWeight: 'bold',
+    alignSelf: 'center'
+  },
+  button: {
+    alignSelf: 'stretch',
+    backgroundColor: theme.primaryColor,
+    height: 48,
+    marginBottom: 50,
+    justifyContent: 'center',
+    alignItems: 'center',
+    borderRadius: 30,
+  }
 })
