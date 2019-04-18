@@ -1,18 +1,9 @@
 import React, {Component} from 'react';
-import {Platform,
-        Modal,
-        Button,
-        StyleSheet,
+import {StyleSheet,
         Image,
         Text,
         View,
-        TextInput,
-        KeyboardAvoidingView,
-        TouchableOpacity,
-        TouchableHighlight,
-        AsyncStorage
 } from 'react-native';
-import { createAppContainer, createStackNavigator } from 'react-navigation';
 import SwipeCards from 'react-native-swipe-cards';
 import Logo from '../img/roommatch_logo.svg';
 import Icon from 'react-native-vector-icons/FontAwesome5'

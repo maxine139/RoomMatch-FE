@@ -1,19 +1,13 @@
 import React, {Component} from 'react';
-import {Platform,
-        Modal,
-        Button,
+import {Button,
         StyleSheet,
-        Image,
         Text,
         View,
         TextInput,
         KeyboardAvoidingView,
         TouchableOpacity,
-        TouchableHighlight,
-        AsyncStorage,
         Alert
 } from 'react-native';
-import { createAppContainer, createStackNavigator, StackActions, NavigationActions } from 'react-navigation';
 import LinearGradient from 'react-native-linear-gradient';
 import Logo from '../img/roommatch_logo.svg'
 import theme from '../theme';
@@ -83,7 +77,7 @@ export default class Register extends React.Component {
 
     // Request
     console.log("REGISTER SCREEN register");
-      
+
     usersService.createUser(email).then((res) => {
       console.log('SUCCESS: User created');
       console.log(JSON.stringify(res));

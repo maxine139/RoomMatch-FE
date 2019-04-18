@@ -1,29 +1,22 @@
 import React, {Component} from 'react';
 var t = require('tcomb-form-native');
-var v = require('tcomb-validation');
-import {Platform,
-        StyleSheet,
+import {StyleSheet,
         Image,
         Modal,
         Text,
         View,
         ScrollView,
         TextInput,
-        KeyboardAvoidingView,
         TouchableOpacity,
-        AsyncStorage,
         TouchableHighlight,
         CameraRoll
 } from 'react-native';
-import { createAppContainer, createStackNavigator } from 'react-navigation';
 import LinearGradient from 'react-native-linear-gradient';
 import { TagSelect } from 'react-native-tag-select';
 import theme from '../theme';
 
 var Form = t.form.Form;
 
-// overriding the text color
-//Form.stylesheet.controlLabel.normal.color = '#fff';
 var Gender = t.enums({
   M: 'Male',
   F: 'Female'
@@ -63,36 +56,36 @@ var options = {
 };
 
 export default class Edit_Profile extends React.Component {
-    constructor(props){
-        super(props);
-        this.state = {
-          photos: [],
-          modalVisible: false
-        };
-    }
+  constructor(props){
+      super(props);
+      this.state = {
+        photos: [],
+        modalVisible: false
+      };
+  }
 
-    handlePress(){
-      // call getValue() to get the values of the form
-      var value = this.refs.form.getValue();
-      if (value) {
-        this.props.navigation.navigate('Home')
-      }
+  handlePress(){
+    // call getValue() to get the values of the form
+    var value = this.refs.form.getValue();
+    if (value) {
+      this.props.navigation.navigate('Home')
     }
+  }
 
-    openPhotos(visible) {
-      this.setState({modalVisible: visible});
-      CameraRoll.getPhotos({
-       first: 20,
-       assetType: 'Photos',
-     })
-     .then(r => {
-       this.setState({ photos: r.edges });
-     })
-     .catch((err) => {
-        //Error Loading Images
-     });
+  openPhotos(visible) {
+    this.setState({modalVisible: visible});
+    CameraRoll.getPhotos({
+     first: 20,
+     assetType: 'Photos',
+   })
+   .then(r => {
+     this.setState({ photos: r.edges });
+   })
+   .catch((err) => {
+      //Error Loading Images
+   });
 
-    }
+  }
 
   static navigationOptions = ({navigation, navigationOptions}) => {
     return {
@@ -176,7 +169,7 @@ export default class Edit_Profile extends React.Component {
             }}
           />
           <TouchableHighlight style={styles.button} onPress={() => this.handlePress()} underlayColor='#99d9f4'>
-            <Text style={{fontFamily: 'Avenir', color: '#fff', fontSize: 18}}>Save</Text>
+            <Text style={styles.text}>Save</Text>
           </TouchableHighlight>
         </ScrollView>
       </View>

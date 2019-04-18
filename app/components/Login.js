@@ -1,15 +1,12 @@
 import React, {Component} from 'react';
 import {
-    Platform,
     StyleSheet,
     Text,
     View,
     TextInput,
     KeyboardAvoidingView,
     TouchableOpacity,
-    AsyncStorage, Image
 } from 'react-native';
-import { createAppContainer, createStackNavigator, StackActions, NavigationActions } from 'react-navigation';
 import LinearGradient from 'react-native-linear-gradient';
 import theme from '../theme';
 import PrimaryButton from './Button'
@@ -27,17 +24,6 @@ export default class Login extends React.Component {
     static navigationOptions = {
         header: null,
     };
-
-    componentDidMount(){
-        this._loadInitialState().done()
-    }
-
-    _loadInitialState = async () => {
-        //var value = await AsyncStorage.getItem('user');
-        //if (value !== null) {
-            //this.props.navigation.navigate('Home');
-        //}
-    }
 
     render() {
         return(

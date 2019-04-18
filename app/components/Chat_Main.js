@@ -1,18 +1,11 @@
 import React, {Component} from 'react';
 import {StyleSheet,
-        Image,
         Text,
         FlatList,
         View,
-        TextInput,
-        KeyboardAvoidingView,
         TouchableOpacity,
-        TouchableHighlight,
-        AsyncStorage,
         Alert
 } from 'react-native';
-import Icon from 'react-native-vector-icons/FontAwesome5';
-import { ListItem } from 'react-native-elements'
 
 
 export default class Chat_Main extends React.Component {
@@ -37,17 +30,6 @@ export default class Chat_Main extends React.Component {
         refreshing: false,
       };
     }
-
-    // const list = [
-    //     {
-    //         name: "chica",
-    //         subtitle: "person who lives in pranavs house"
-    //     },
-    //     {
-    //         name: "yo mama",
-    //         subtitle: "literally yo momma. what you gunna do"
-    //     }
-    // ]
 
   static navigationOptions = ({navigation, navigationOptions}) => {
     return {
