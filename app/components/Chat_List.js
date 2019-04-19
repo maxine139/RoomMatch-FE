@@ -7,8 +7,7 @@ import {StyleSheet,
         Alert
 } from 'react-native';
 
-
-export default class Chat_Main extends React.Component {
+export default class Chat_List extends React.Component {
     constructor(props) {
       super(props);
 
@@ -50,21 +49,19 @@ export default class Chat_Main extends React.Component {
   };
 
 
-    FlatListItemSeparator = () => {
-        return (
-          <View
-            style={{
-              height: 1,
-              width: "100%",
-              backgroundColor: "#607D8B",
-            }}
-          />
-        );
-      }
-    GetItem (item) {
-
-  Alert.alert(item);
-
+  FlatListItemSeparator = () => {
+      return (
+        <View
+          style={{
+            height: 1,
+            width: "100%",
+            backgroundColor: "#607D8B",
+          }}
+        />
+      );
+  }
+  GetItem (item) {
+    this.props.navigation.navigate('Chat_Screen', item);
   }
 
   render() {
@@ -81,7 +78,7 @@ export default class Chat_Main extends React.Component {
             return (
               <View>
                 <TouchableOpacity style={styles.item}
-                  onPress={this.GetItem.bind(this, item.key)}>
+                  onPress={() => this.GetItem(item)}>
                   <Text>
                     <Text style={styles.name}> {item.name} </Text> {'\n'}
                     <Text> {item.subtitle} </Text>

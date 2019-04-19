@@ -89,7 +89,7 @@ export default class Home extends React.Component {
         size={25}/>
       ),
       headerRight: (
-        <Icon onPress={() => navigation.navigate("Chat_Main")}
+        <Icon onPress={() => navigation.navigate("Chat_List")}
         name="comment-alt"
         color="#fff"
         size={25}/>
