@@ -43,7 +43,6 @@ export default class Chat_List extends React.Component {
 
       headerStyle: {
         backgroundColor: '#2b5876',
-        marginLeft:10
       },
     }
   };
