@@ -7,6 +7,7 @@ import {StyleSheet,
 import SwipeCards from 'react-native-swipe-cards';
 import Logo from '../img/roommatch_logo.svg';
 import Icon from 'react-native-vector-icons/FontAwesome5'
+import { TagSelect } from 'react-native-tag-select';
 
 class Card extends React.Component {
   constructor(props) {
@@ -14,14 +15,39 @@ class Card extends React.Component {
   }
 
   render() {
+    const data1 = [
+      { id: 1, label: 'Introvert' },
+      { id: 2, label: 'Clean/Tidy' },
+      { id: 3, label: 'Drinks Alcohol' },
+    ];
+
+    const data2 = [
+      { id: 4, label: 'Smokes Weed' },
+      { id: 5, label: 'Night Owl' },
+    ];
+
     return (
         <View style={styles.card}>
           <Image style={styles.thumbnail} source={{uri: this.props.image}} />
           <Text>
-              <Text style={styles.nameText}>{this.props.name}</Text> {'\n'}
-              <Text style={styles.text}> {this.props.profile} </Text>{'\n'}
+              <Text style={styles.nameText}> {this.props.name}, {this.props.age}</Text> {'\n'}
+              <Text style={styles.schoolText}> {this.props.major} - {this.props.year} </Text>{'\n'}
               <Text style={styles.text}> {this.props.bio} </Text>
           </Text>
+          <TagSelect
+            data={data1}
+            ref={(tag) => {
+              this.tag = tag;
+            }}
+            style={styles.tagStyles}
+          />
+          <TagSelect
+            data={data2}
+            ref={(tag) => {
+              this.tag = tag;
+            }}
+            style={styles.tagStyles}
+          />
         </View>
     )
   }
@@ -42,31 +68,46 @@ class NoMoreCards extends Component {
 }
 
 const cards = [
-  {
-    name: 'Gimme my shoe Lyle',
-    image: 'https://media.giphy.com/media/xUOxfbuK9qc61NGiaI/giphy.gif',
-    profile: 'walks bearfoot',
-    bio: 'i need me a smexy roommate. a dtf girl. down to fart'
-  },
+    {name: 'Gimme my shoe Lyle',
+        image: 'https://media.giphy.com/media/xUOxfbuK9qc61NGiaI/giphy.gif',
+        bio: 'I am the bestest boy.',
+        age: 19,
+        major: 'Business',
+        year: 'Sophomore',
+        tags: ['Introvert', 'Messy', 'Drinks Alcohol', 'Smokes Weed', 'Night Owl']
+    },
     {name: 'Maxine Lien',
         image: 'https://media.giphy.com/media/GfXFVHUzjlbOg/giphy.gif',
-        profile: 'profile things here... blah blah blah',
-        bio: 'insert catchy bio here'
+        bio: 'insert catchy bio here',
+        age: 21,
+        major: 'Computer Science',
+        year: 'Senior',
+        tags: ['Extrovert', 'Clean/Tidy', 'Drinks Alcohol', 'Night Owl']
     },
     {name: 'Pranav Thirunavukkarasu',
         image: 'https://media.giphy.com/media/irTuv1L1T34TC/giphy.gif',
-        profile: 'loves crypto shit. high key nerd',
         bio: 'im a cool bitch and youre not',
+        age: 21,
+        major: 'Computer Science',
+        year: 'Senior',
+        tags: ['Introvert', 'Clean/Tidy', 'Drinks Alcohol', 'Smokes Weed', 'Night Owl']
     },
     {name: 'Cynthia Phan',
         image: 'https://media.giphy.com/media/LkLL0HJerdXMI/giphy.gif',
-        profile: 'neat clean',
-        bio: 'if you messy and dirty i keel you while you sleep'
+        bio: 'if you messy and dirty i keel you while you sleep',
+        age: 21,
+        major: 'Computer Science',
+        year: 'Senior',
+        tags: ['Introvert', 'Clean/Tidy', 'Drinks Alcohol', 'Night Owl']
     },
     {name: 'Brendan Ahdoot',
         image: 'https://media4.giphy.com/media/6csVEPEmHWhWg/200.gif',
-        profile: 'loves paintball',
-        bio: 'dis how you spell my name: blennndin addot c:'
+        bio: 'dis how you spell my name: blennndin addot c:',
+        age: 21,
+        major: 'Computer Science',
+        year: 'Senior',
+        tags: ['Introvert', 'Messy', 'Drinks Alcohol','Night Owl']
+
     }
 ]
 
@@ -133,34 +174,60 @@ const styles = StyleSheet.create({
       justifyContent: 'center',
     },
     card: {
-        justifyContent: 'center',
+        marginTop: 0,
+        paddingTop: 0,
         alignItems: 'center',
-        height:'60%',
+        height:'100%',
         width: '100%',
-        backgroundColor: '#FF89FF',
+        backgroundColor: 'white',
+        borderColor: 'grey',
+        borderRadius: 10,
+        borderWidth: 2,
+        elevation: 1,
     },
     noMoreCardsText: {
         fontSize: 22,
         fontFamily: 'Avenir'
     },
     thumbnail: {
-        width: '100%',
-        height: '100%',
+        height: 300,
+        width: undefined,
+        aspectRatio: 1.5,
+        borderTopWidth: 3,
+        borderBottomWidth: 3,
+        borderColor: 'red',
+        overflow: 'hidden'
     },
     nameText: {
-        fontSize: 30,
+        flex: 1,
+        fontSize: 24,
         fontWeight: 'bold',
         fontFamily: 'Avenir',
+        alignSelf: 'flex-start',
+        flexDirection: 'row'
+    },
+    schoolText: {
+      flex: 1,
+      fontSize: 20,
+      fontStyle: 'italic',
+      fontFamily: 'Avenir',
+      alignSelf: 'flex-start',
     },
     text: {
-        fontSize: 20,
-        paddingTop: 10,
-        paddingBottom: 10,
-        fontFamily: 'Avenir'
+      flex: 1,
+      fontSize: 20,
+      paddingTop: 10,
+      paddingBottom: 10,
+      fontFamily: 'Avenir',
+      alignSelf: 'flex-start',
     },
     wrapper: {
       flex: 1,
       backgroundColor: '#fff',
       alignItems: 'center'
     },
+    tagStyles: {
+      backgroundColor: 'blue',
+      flex: 1,
+    }
 });
