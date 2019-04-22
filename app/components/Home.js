@@ -15,31 +15,38 @@ class Card extends React.Component {
   }
 
   render() {
-    const data = [
-      { id: 1, label: 'Extrovert' },
-      { id: 2, label: 'Introvert' },
-      { id: 3, label: 'Clean/Tidy' },
-      { id: 4, label: 'Messy' },
-      { id: 5, label: 'Drinks Alcohol' },
-      { id: 6, label: 'Smokes Weed' },
-      { id: 7, label: 'Smokes cigs' },
-      { id: 8, label: 'Night Owl' },
-      { id: 9, label: 'Early Bird' }
+    const data1 = [
+      { id: 1, label: 'Introvert' },
+      { id: 2, label: 'Clean/Tidy' },
+      { id: 3, label: 'Drinks Alcohol' },
+    ];
+
+    const data2 = [
+      { id: 4, label: 'Smokes Weed' },
+      { id: 5, label: 'Night Owl' },
     ];
 
     return (
         <View style={styles.card}>
-          <Image style={styles.thumbnail} source={{uri: 'https://media.giphy.com/media/xUOxfbuK9qc61NGiaI/giphy.gif'}} />
+          <Image style={styles.thumbnail} source={{uri: this.props.image}} />
           <Text>
               <Text style={styles.nameText}> {this.props.name}, {this.props.age}</Text> {'\n'}
               <Text style={styles.schoolText}> {this.props.major} - {this.props.year} </Text>{'\n'}
               <Text style={styles.text}> {this.props.bio} </Text>
           </Text>
           <TagSelect
-            data={data}
+            data={data1}
             ref={(tag) => {
               this.tag = tag;
             }}
+            style={styles.tagStyles}
+          />
+          <TagSelect
+            data={data2}
+            ref={(tag) => {
+              this.tag = tag;
+            }}
+            style={styles.tagStyles}
           />
         </View>
     )
@@ -170,10 +177,10 @@ const styles = StyleSheet.create({
         marginTop: 0,
         paddingTop: 0,
         alignItems: 'center',
-        height:'98%',
+        height:'100%',
         width: '100%',
-        backgroundColor: 'grey',
-        borderColor: 'blue',
+        backgroundColor: 'white',
+        borderColor: 'grey',
         borderRadius: 10,
         borderWidth: 2,
         elevation: 1,
@@ -183,12 +190,13 @@ const styles = StyleSheet.create({
         fontFamily: 'Avenir'
     },
     thumbnail: {
-        flex: 1,
+        height: 300,
+        width: undefined,
         aspectRatio: 1.5,
-        resizeMode: 'contain',
         borderTopWidth: 3,
         borderBottomWidth: 3,
-        borderColor: 'red'
+        borderColor: 'red',
+        overflow: 'hidden'
     },
     nameText: {
         fontSize: 24,
@@ -211,4 +219,12 @@ const styles = StyleSheet.create({
       backgroundColor: '#fff',
       alignItems: 'center'
     },
+    tagStyles: {
+      backgroundColor: 'blue',
+      flex: 1,
+      justifyContent: 'flex-end',
+      position: 'absolute',
+      bottom: 0,
+      //marginBottom: 36
+    }
 });
