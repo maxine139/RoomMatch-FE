@@ -199,20 +199,27 @@ const styles = StyleSheet.create({
         overflow: 'hidden'
     },
     nameText: {
+        flex: 1,
         fontSize: 24,
         fontWeight: 'bold',
         fontFamily: 'Avenir',
+        alignSelf: 'flex-start',
+        flexDirection: 'row'
     },
     schoolText: {
+      flex: 1,
       fontSize: 20,
       fontStyle: 'italic',
       fontFamily: 'Avenir',
+      alignSelf: 'flex-start',
     },
     text: {
-        fontSize: 20,
-        paddingTop: 10,
-        paddingBottom: 10,
-        fontFamily: 'Avenir'
+      flex: 1,
+      fontSize: 20,
+      paddingTop: 10,
+      paddingBottom: 10,
+      fontFamily: 'Avenir',
+      alignSelf: 'flex-start',
     },
     wrapper: {
       flex: 1,
@@ -222,9 +229,5 @@ const styles = StyleSheet.create({
     tagStyles: {
       backgroundColor: 'blue',
       flex: 1,
-      justifyContent: 'flex-end',
-      position: 'absolute',
-      bottom: 0,
-      //marginBottom: 36
     }
 });
