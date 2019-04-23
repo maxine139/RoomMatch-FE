@@ -29,25 +29,27 @@ class Card extends React.Component {
     return (
         <View style={styles.card}>
           <Image style={styles.thumbnail} source={{uri: this.props.image}} />
-          <Text>
+          <View style={styles.infoText}>
+            <Text>
               <Text style={styles.nameText}> {this.props.name}, {this.props.age}</Text> {'\n'}
               <Text style={styles.schoolText}> {this.props.major} - {this.props.year} </Text>{'\n'}
               <Text style={styles.text}> {this.props.bio} </Text>
-          </Text>
-          <TagSelect
-            data={data1}
-            ref={(tag) => {
-              this.tag = tag;
-            }}
-            style={styles.tagStyles}
-          />
-          <TagSelect
-            data={data2}
-            ref={(tag) => {
-              this.tag = tag;
-            }}
-            style={styles.tagStyles}
-          />
+            </Text>
+          </View>
+          <View style={styles.tagStyles}>
+            <TagSelect
+              data={data1}
+              ref={(tag) => {
+                this.tag = tag;
+              }}
+             />
+            <TagSelect
+              data={data2}
+              ref={(tag) => {
+                this.tag = tag;
+              }}
+            />
+          </View>
         </View>
     )
   }
@@ -176,7 +178,7 @@ const styles = StyleSheet.create({
     card: {
         marginTop: 0,
         paddingTop: 0,
-        alignItems: 'center',
+        //alignItems: 'center',
         height:'100%',
         width: '100%',
         backgroundColor: 'white',
@@ -199,27 +201,18 @@ const styles = StyleSheet.create({
         overflow: 'hidden'
     },
     nameText: {
-        flex: 1,
         fontSize: 24,
         fontWeight: 'bold',
         fontFamily: 'Avenir',
-        alignSelf: 'flex-start',
-        flexDirection: 'row'
     },
     schoolText: {
-      flex: 1,
       fontSize: 20,
       fontStyle: 'italic',
       fontFamily: 'Avenir',
-      alignSelf: 'flex-start',
     },
     text: {
-      flex: 1,
       fontSize: 20,
-      paddingTop: 10,
-      paddingBottom: 10,
       fontFamily: 'Avenir',
-      alignSelf: 'flex-start',
     },
     wrapper: {
       flex: 1,
@@ -227,7 +220,15 @@ const styles = StyleSheet.create({
       alignItems: 'center'
     },
     tagStyles: {
-      backgroundColor: 'blue',
       flex: 1,
-    }
+      justifyContent: 'flex-end',
+      alignItems: 'center'
+    },
+    infoText: {
+      flex: 1,
+      paddingLeft: 25,
+      paddingRight: 20,
+      alignItems: 'flex-start',
+      flexDirection: 'row',
+    },
 });
