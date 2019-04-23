@@ -83,5 +83,3 @@ export default class Chat_Screen extends Component {
   }
 }
 const styles = StyleSheet.create({});
-
-kklkl
