@@ -50,6 +50,22 @@ class Card extends React.Component {
               }}
             />
           </View>
+          <View style={styles.buttonSpacing}>
+            <View style={styles.roundify}>
+              <Icon onPress={() => this.handleYup}
+              name="heart"
+              color="green"
+              size={50}
+              style={styles.buttonStyles}/>
+            </View>
+            <View style={styles.roundify}>
+              <Icon onPress={() => this.handleNope}
+              name="times"
+              color="red"
+              size={50}
+              style={styles.buttonStyles}/>
+            </View>
+          </View>
         </View>
     )
   }
@@ -178,7 +194,6 @@ const styles = StyleSheet.create({
     card: {
         marginTop: 0,
         paddingTop: 0,
-        //alignItems: 'center',
         height:'100%',
         width: '100%',
         backgroundColor: 'white',
@@ -221,7 +236,7 @@ const styles = StyleSheet.create({
     },
     tagStyles: {
       flex: 1,
-      justifyContent: 'flex-end',
+      justifyContent: 'flex-start',
       alignItems: 'center'
     },
     infoText: {
@@ -231,4 +246,24 @@ const styles = StyleSheet.create({
       alignItems: 'flex-start',
       flexDirection: 'row',
     },
+    buttonSpacing: {
+      flex: 1,
+      alignItems: 'center',
+      flexDirection: 'row',
+      justifyContent: 'center',
+      //paddingRight: 20,
+    },
+    buttonStyles: {
+      borderColor: 'blue',
+      borderWidth: 5,
+      borderRadius: 50,
+    },
+    roundify: {
+      flex: 1,
+      justifyContent: 'center',
+      alignItems: 'center',
+      //margin: 50,
+      paddingTop: 20
+    }
+
 });
