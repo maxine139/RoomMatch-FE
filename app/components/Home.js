@@ -7,67 +7,6 @@ import {StyleSheet,
 import SwipeCards from 'react-native-swipe-cards';
 import Logo from '../img/roommatch_logo.svg';
 import Icon from 'react-native-vector-icons/FontAwesome5'
-import { TagSelect } from 'react-native-tag-select';
-
-class Card extends React.Component {
-  constructor(props) {
-    super(props);
-  }
-
-  render() {
-    const data1 = [
-      { id: 1, label: 'Introvert' },
-      { id: 2, label: 'Clean/Tidy' },
-      { id: 3, label: 'Drinks Alcohol' },
-    ];
-
-    const data2 = [
-      { id: 4, label: 'Smokes Weed' },
-      { id: 5, label: 'Night Owl' },
-    ];
-
-    return (
-        <View style={styles.card}>
-          <Image style={styles.thumbnail} source={{uri: this.props.image}} />
-          <View style={styles.infoText}>
-            <Text>
-              <Text style={styles.nameText}> {this.props.name}, {this.props.age}</Text> {'\n'}
-              <Text style={styles.schoolText}> {this.props.major} - {this.props.year} </Text>{'\n'}
-              <Text style={styles.text}> {this.props.bio} </Text>
-            </Text>
-          </View>
-          <View style={styles.tagStyles}>
-            <TagSelect
-              data={data1}
-              ref={(tag) => {
-                this.tag = tag;
-              }}
-             />
-            <TagSelect
-              data={data2}
-              ref={(tag) => {
-                this.tag = tag;
-              }}
-            />
-          </View>
-        </View>
-    )
-  }
-}
-
-class NoMoreCards extends Component {
-  constructor(props) {
-    super(props);
-  }
-
-  render() {
-    return (
-      <View>
-        <Text style={styles.noMoreCardsText}>No more people</Text>
-      </View>
-    )
-  }
-}
 
 const cards = [
     {name: 'Gimme my shoe Lyle',
@@ -112,6 +51,58 @@ const cards = [
 
     }
 ]
+
+class Card extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      cards: cards
+    }
+  }
+
+  render() {
+    const data1 = [
+      { id: 1, label: 'Introvert' },
+      { id: 2, label: 'Clean/Tidy' },
+      { id: 3, label: 'Drinks Alcohol' },
+    ];
+
+    const data2 = [
+      { id: 4, label: 'Smokes Weed' },
+      { id: 5, label: 'Night Owl' },
+    ];
+
+    return (
+        <View style={styles.card}>
+          <Image style={styles.thumbnail} source={{uri: this.props.image}} />
+          <View style={styles.infoText}>
+            <Text>
+              <Text style={styles.nameText}> {this.props.name}, {this.props.age}</Text> {'\n'}
+              <Text style={styles.schoolText}> {this.props.major} - {this.props.year} </Text>{'\n'}
+              <Text style={styles.text}> {this.props.bio} </Text>
+            </Text>
+          </View>
+          <View style={styles.tagStyles}>
+            <View><Text> {this.props.tags} </Text></View>
+          </View>
+        </View>
+    )
+  }
+}
+
+class NoMoreCards extends Component {
+  constructor(props) {
+    super(props);
+  }
+
+  render() {
+    return (
+      <View>
+        <Text style={styles.noMoreCardsText}>No more people</Text>
+      </View>
+    )
+  }
+}
 
 export default class Home extends React.Component {
   constructor(props) {
