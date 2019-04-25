@@ -72,8 +72,6 @@ export default class Chat_Screen extends Component {
       <GiftedChat
         messages={this.state.messages}
         renderBubble={this.renderBubble}
-        bottomOffset={100}
-        minInputToolbarHeight={50}
         onSend={messages => this.onSend(messages)}
         user={{
           _id: 1

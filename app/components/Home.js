@@ -7,67 +7,6 @@ import {StyleSheet,
 import SwipeCards from 'react-native-swipe-cards';
 import Logo from '../img/roommatch_logo.svg';
 import Icon from 'react-native-vector-icons/FontAwesome5'
-import { TagSelect } from 'react-native-tag-select';
-
-class Card extends React.Component {
-  constructor(props) {
-    super(props);
-  }
-
-  render() {
-    const data1 = [
-      { id: 1, label: 'Introvert' },
-      { id: 2, label: 'Clean/Tidy' },
-      { id: 3, label: 'Drinks Alcohol' },
-    ];
-
-    const data2 = [
-      { id: 4, label: 'Smokes Weed' },
-      { id: 5, label: 'Night Owl' },
-    ];
-
-    return (
-        <View style={styles.card}>
-          <Image style={styles.thumbnail} source={{uri: this.props.image}} />
-          <View style={styles.infoText}>
-            <Text>
-              <Text style={styles.nameText}> {this.props.name}, {this.props.age}</Text> {'\n'}
-              <Text style={styles.schoolText}> {this.props.major} - {this.props.year} </Text>{'\n'}
-              <Text style={styles.text}> {this.props.bio} </Text>
-            </Text>
-          </View>
-          <View style={styles.tagStyles}>
-            <TagSelect
-              data={data1}
-              ref={(tag) => {
-                this.tag = tag;
-              }}
-             />
-            <TagSelect
-              data={data2}
-              ref={(tag) => {
-                this.tag = tag;
-              }}
-            />
-          </View>
-        </View>
-    )
-  }
-}
-
-class NoMoreCards extends Component {
-  constructor(props) {
-    super(props);
-  }
-
-  render() {
-    return (
-      <View>
-        <Text style={styles.noMoreCardsText}>No more people</Text>
-      </View>
-    )
-  }
-}
 
 const cards = [
     {name: 'Gimme my shoe Lyle',
@@ -112,6 +51,83 @@ const cards = [
 
     }
 ]
+
+class Card extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      cards: cards
+    }
+  }
+
+  render() {
+    const data1 = [
+      { id: 1, label: 'Introvert' },
+      { id: 2, label: 'Clean/Tidy' },
+      { id: 3, label: 'Drinks Alcohol' },
+    ];
+
+    const data2 = [
+      { id: 4, label: 'Smokes Weed' },
+      { id: 5, label: 'Night Owl' },
+    ];
+
+    return (
+        <View style={styles.card}>
+          <Image style={styles.thumbnail} source={{uri: this.props.image}} />
+          <View style={styles.infoText}>
+            <Text>
+              <Text style={styles.nameText}> {this.props.name}, {this.props.age}</Text> {'\n'}
+              <Text style={styles.schoolText}> {this.props.major} - {this.props.year} </Text>{'\n'}
+              <Text style={styles.text}> {this.props.bio} </Text>
+            </Text>
+          </View>
+          <View style={styles.tagStyles}>
+            {
+              this.props.tags.map(tag => {
+                return (
+                  <View style={styles.tagWrapper}>
+                    <Text> {tag} </Text>
+                  </View>
+                )
+              })
+            }
+          </View>
+          <View style={styles.buttonSpacing}>
+            <View style={{width: 50, height: 50, justifyContent: 'center', alignItems:'center', borderColor:'grey', borderWidth: 5, borderRadius: 25, marginRight: 10}}>
+              <Icon onPress={() => this.handleNope}
+              name="times"
+              color="red"
+              size={50}
+              />
+            </View>
+            <View>
+              <Icon onPress={() => this.handleYup}
+              name="heart"
+              color="green"
+              size={50}
+              style={{width: 50, height: 50, justifyContent: 'center', alignItems:'center', borderColor:'grey', borderWidth: 5, borderRadius: 25, marginLeft:10}}
+              />
+            </View>
+          </View>
+        </View>
+    )
+  }
+}
+
+class NoMoreCards extends Component {
+  constructor(props) {
+    super(props);
+  }
+
+  render() {
+    return (
+      <View>
+        <Text style={styles.noMoreCardsText}>No more people</Text>
+      </View>
+    )
+  }
+}
 
 export default class Home extends React.Component {
   constructor(props) {
@@ -178,7 +194,6 @@ const styles = StyleSheet.create({
     card: {
         marginTop: 0,
         paddingTop: 0,
-        //alignItems: 'center',
         height:'100%',
         width: '100%',
         backgroundColor: 'white',
@@ -221,8 +236,11 @@ const styles = StyleSheet.create({
     },
     tagStyles: {
       flex: 1,
-      justifyContent: 'flex-end',
-      alignItems: 'center'
+      justifyContent: 'center',
+      flexDirection: 'row',
+      flexWrap: 'wrap',
+      alignItems: 'center',
+      padding: 20
     },
     infoText: {
       flex: 1,
@@ -231,4 +249,32 @@ const styles = StyleSheet.create({
       alignItems: 'flex-start',
       flexDirection: 'row',
     },
+    buttonSpacing: {
+      flex: 1,
+      alignItems: 'center',
+      flexDirection: 'row',
+      justifyContent: 'center',
+      //paddingRight: 20,
+    },
+    buttonStyles: {
+      borderColor: 'grey',
+      borderWidth: 5,
+      borderRadius: 0,
+    },
+    roundify: {
+      flex: 1,
+      justifyContent: 'center',
+      alignItems: 'center',
+      //margin: 50,
+      paddingTop: 20
+    },
+    tagWrapper: {
+      padding: 10,
+      margin: 5,
+      borderWidth: 1,
+      borderRadius: 6,
+      backgroundColor: '#989898',
+      borderColor: '#989898'
+    }
+
 });
