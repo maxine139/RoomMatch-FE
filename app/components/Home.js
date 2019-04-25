@@ -94,19 +94,20 @@ class Card extends React.Component {
             }
           </View>
           <View style={styles.buttonSpacing}>
-            <View style={styles.roundify}>
-              <Icon onPress={() => this.handleYup}
-              name="heart"
-              color="green"
-              size={50}
-              style={styles.buttonStyles}/>
-            </View>
-            <View style={styles.roundify}>
+            <View style={{width: 50, height: 50, justifyContent: 'center', alignItems:'center', borderColor:'grey', borderWidth: 5, borderRadius: 25, marginRight: 10}}>
               <Icon onPress={() => this.handleNope}
               name="times"
               color="red"
               size={50}
-              style={styles.buttonStyles}/>
+              />
+            </View>
+            <View>
+              <Icon onPress={() => this.handleYup}
+              name="heart"
+              color="green"
+              size={50}
+              style={{width: 50, height: 50, justifyContent: 'center', alignItems:'center', borderColor:'grey', borderWidth: 5, borderRadius: 25, marginLeft:10}}
+              />
             </View>
           </View>
         </View>
