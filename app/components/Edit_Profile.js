@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 var t = require('tcomb-form-native');
 import {StyleSheet,
+        Platform,
         Image,
         Modal,
         Text,
@@ -73,26 +74,33 @@ export default class Edit_Profile extends React.Component {
   }
 
   async requestCameraPermission() {
-    try {
-      const granted = await PermissionsAndroid.request(
-        PermissionsAndroid.PERMISSIONS.CAMERA,
-        {
-          title: 'Camera Permission',
-          message:
-          'Roommatch would like to access your camera ' +
-          'so you can upload a profile picture.',
-          buttonNegative: 'No',
-          buttonPositive: 'OK',
-        },
-      );
-      if (granted === PermissionsAndroid.RESULTS.GRANTED) {
-        this.openPhotos(true)
-        console.log('Camera access ALLOWED');
-      } else {
-        console.log('Camera access DENIED');
+    if(Platform.OS==='android')
+    {
+      try {
+        const granted = await PermissionsAndroid.request(
+          PermissionsAndroid.PERMISSIONS.CAMERA,
+          {
+            title: 'Camera Permission',
+            message:
+            'Roommatch would like to access your camera ' +
+            'so you can upload a profile picture.',
+            buttonNegative: 'No',
+            buttonPositive: 'OK',
+          },
+        );
+        if (granted === PermissionsAndroid.RESULTS.GRANTED) {
+          this.openPhotos(true)
+          console.log('Camera access ALLOWED');
+        } else {
+          console.log('Camera access DENIED');
+        }
+      } catch (err) {
+        console.warn(err);
       }
-    } catch (err) {
-      console.warn(err);
+    }
+    else if (Platform.OS==='ios')
+    {
+      this.openPhotos(true)
     }
   }
 
