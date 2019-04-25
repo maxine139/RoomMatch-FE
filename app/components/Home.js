@@ -83,7 +83,15 @@ class Card extends React.Component {
             </Text>
           </View>
           <View style={styles.tagStyles}>
-            <View><Text> {this.props.tags} </Text></View>
+            {
+              this.props.tags.map(tag => {
+                return (
+                  <View style={styles.tagWrapper}>
+                    <Text> {tag} </Text>
+                  </View>
+                )
+              })
+            }
           </View>
           <View style={styles.buttonSpacing}>
             <View style={styles.roundify}>
@@ -227,8 +235,11 @@ const styles = StyleSheet.create({
     },
     tagStyles: {
       flex: 1,
-      justifyContent: 'flex-start',
-      alignItems: 'center'
+      justifyContent: 'center',
+      flexDirection: 'row',
+      flexWrap: 'wrap',
+      alignItems: 'center',
+      padding: 20
     },
     infoText: {
       flex: 1,
@@ -245,9 +256,9 @@ const styles = StyleSheet.create({
       //paddingRight: 20,
     },
     buttonStyles: {
-      borderColor: 'blue',
+      borderColor: 'grey',
       borderWidth: 5,
-      borderRadius: 50,
+      borderRadius: 0,
     },
     roundify: {
       flex: 1,
@@ -255,6 +266,14 @@ const styles = StyleSheet.create({
       alignItems: 'center',
       //margin: 50,
       paddingTop: 20
+    },
+    tagWrapper: {
+      padding: 10,
+      margin: 5,
+      borderWidth: 1,
+      borderRadius: 6,
+      backgroundColor: '#989898',
+      borderColor: '#989898'
     }
 
 });
