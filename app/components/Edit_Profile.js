@@ -72,6 +72,30 @@ export default class Edit_Profile extends React.Component {
     }
   }
 
+  async requestCameraPermission() {
+    try {
+      const granted = await PermissionsAndroid.request(
+        PermissionsAndroid.PERMISSIONS.CAMERA,
+        {
+          title: 'Camera Permission',
+          message:
+          'Roommatch would like to access your camera ' +
+          'so you can upload a profile picture.',
+          buttonNegative: 'No',
+          buttonPositive: 'OK',
+        },
+      );
+      if (granted === PermissionsAndroid.RESULTS.GRANTED) {
+        this.openPhotos(true)
+        console.log('Camera access ALLOWED');
+      } else {
+        console.log('Camera access DENIED');
+      }
+    } catch (err) {
+      console.warn(err);
+    }
+  }
+
   openPhotos(visible) {
     this.setState({modalVisible: visible});
     CameraRoll.getPhotos({
@@ -122,7 +146,7 @@ export default class Edit_Profile extends React.Component {
             type={Profile}
             options={options}
           />
-          <TouchableHighlight style={styles.upload_button} onPress={() => this.openPhotos(true)}>
+          <TouchableHighlight style={styles.upload_button} onPress={() => this.requestCameraPermission()}>
             <Text style={styles.text}> Upload Picture </Text>
           </TouchableHighlight>
           <Modal
