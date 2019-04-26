@@ -38,8 +38,8 @@ const cards = [
         tags: ['Introvert', 'Clean/Tidy', 'Drinks Alcohol', 'Smokes Weed', 'Night Owl']
     },
     {name: 'Cynthia Phan',
-        image: 'https://media.giphy.com/media/LkLL0HJerdXMI/giphy.gif',
-        bio: 'if you messy and dirty i keel you while you sleep',
+        image: 'https://scontent.fsac1-1.fna.fbcdn.net/v/t1.0-9/15697302_1424423867576258_3064531773151871852_n.jpg?_nc_cat=108&_nc_ht=scontent.fsac1-1.fna&oh=9e33b206afa29cb89ca34ca1e5e0b63a&oe=5D338AC2',
+        bio: 'I like to keep things clean. I also like to cook. I want someone that is also clean and is respectful.',
         age: 21,
         gender: 'Female',
         major: 'Computer Science',
@@ -47,8 +47,8 @@ const cards = [
         tags: ['Introvert', 'Clean/Tidy', 'Drinks Alcohol', 'Night Owl']
     },
     {name: 'Brendan Ahdoot',
-        image: 'https://media4.giphy.com/media/6csVEPEmHWhWg/200.gif',
-        bio: 'dis how you spell my name: blennndin addot c:',
+        image: 'https://scontent.fsac1-1.fna.fbcdn.net/v/t1.0-9/12670744_970236463012533_8314313561040706742_n.jpg?_nc_cat=111&_nc_ht=scontent.fsac1-1.fna&oh=5eb7fa2455e2351d5315490099cf1946&oe=5D2E57EC',
+        bio: 'I like to game and I guess I would consider myself a bit on the messier side. If you dont mind those, room with me!',
         age: 21,
         gender: 'Male',
         major: 'Computer Science',
@@ -233,8 +233,10 @@ const styles = StyleSheet.create({
       fontFamily: 'Avenir',
     },
     text: {
+      flex: 1,
       fontSize: 20,
       fontFamily: 'Avenir',
+      flexWrap: 'wrap'
     },
     wrapper: {
       flex: 1,
@@ -251,7 +253,6 @@ const styles = StyleSheet.create({
       padding: 20
     },
     infoText: {
-      flex: 1,
       alignItems: 'flex-start',
       flexDirection: 'row',
     },
