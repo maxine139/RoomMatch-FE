@@ -64,12 +64,6 @@ class Card extends React.Component {
       cards: cards
     }
   }
-
-  formatGender(genderVal) {
-    if (genderVal == 'Male') return 'M';
-    else return 'F';
-  }
-
   render() {
     const data1 = [
       { id: 1, label: 'Introvert' },
@@ -87,8 +81,9 @@ class Card extends React.Component {
           <Image style={styles.thumbnail} source={{uri: this.props.image}} />
           <View style={styles.infoText}>
             <Text>
-              <Text style={styles.nameText}> {this.props.name}, {this.props.age}, {this.props.gender} </Text>  {'\n'}
-              <Text style={styles.schoolText}> {this.props.major} - {this.props.year} </Text>{'\n'}
+              <Text style={styles.nameText}> {this.props.name}</Text>  {'\n'}
+              <Text style={styles.genderText}> {this.props.gender} - {this.props.age}</Text> {'\n'}
+              <Text style={styles.schoolText}> {this.props.major} - {this.props.year} </Text>{'\n'} {'\n'}
               <Text style={styles.text}> {this.props.bio} </Text>
             </Text>
           </View>
@@ -219,9 +214,13 @@ const styles = StyleSheet.create({
         fontWeight: 'bold',
         fontFamily: 'Avenir',
     },
+    genderText: {
+        fontSize: 24,
+        fontFamily: 'Avenir',
+    },
     schoolText: {
       fontSize: 20,
-      fontStyle: 'italic',
+      //fontStyle: 'italic',
       fontFamily: 'Avenir',
     },
     text: {
