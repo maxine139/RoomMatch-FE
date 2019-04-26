@@ -1,7 +1,6 @@
 import React, {Component} from 'react';
 var t = require('tcomb-form-native');
 import {StyleSheet,
-        Platform,
         Image,
         Modal,
         Text,
@@ -40,6 +39,7 @@ var Campus = t.enums({
 
 const tags=['Extrovert', 'Introvert', 'Clean/Tidy', 'Messy', 'Drinks Alcohol', 'Smokes Weed', 'Smokes cigs', 'Night Owl', 'Early Bird']
 
+// Form fields
 var Profile = t.struct({
   'First Name': t.String,               // a required string
   'Last Name': t.maybe(t.String),       // an optional string
@@ -50,6 +50,7 @@ var Profile = t.struct({
   'Im looking for housing...': Campus,
   'Short Bio': t.String
 });
+
 var options = {
     fields: {
         'Short Bio': {
@@ -63,9 +64,60 @@ export default class Edit_Profile extends React.Component {
       super(props);
       this.state = {
         photos: [],
-        modalVisible: false
+        modalVisible: false,
+        formDefaultValues: {}
       };
   }
+
+  componentDidMount() {
+    // update form values
+    this.updateFormDefaultValues();
+
+    // add navigation listener
+    const didFocusSubscription = this.props.navigation.addListener(
+      'didFocus',
+      payload => {
+        this.updateFormDefaultValues();
+      }
+    );
+  }
+
+  updateFormDefaultValues = () => {
+    profilesServices.getProfile(global.user._id).then((res) => {
+      const profile = res.data.data;
+
+      if (profile === null) {
+        // no profile yet
+        return;
+      }
+
+      const defaultVal = {
+        'First Name': profile.firstname,
+        'Last Name': profile.lastname,
+        'Age': Number(profile.age),
+        'gender': profile.gender,
+        'class': profile.class,
+        'major': profile.major,
+        'Im looking for housing...': profile.location,
+        'Short Bio': profile.bio
+      };
+
+      this.setState({
+        formDefaultValues: defaultVal
+      });
+    }).catch((err) => {
+      console.log("ERROR: Cannot get profile");
+
+      Alert.alert(
+        'Error: cannot get profile',
+        err,
+        [
+          {text: 'OK'},
+        ],
+        {cancelable: false},
+      );
+    });
+  };
 
   handlePress(){
     const tagRef = this.tag.itemsSelected;
@@ -123,37 +175,6 @@ export default class Edit_Profile extends React.Component {
     }
   }
 
-  async requestCameraPermission() {
-    if(Platform.OS==='android')
-    {
-      try {
-        const granted = await PermissionsAndroid.request(
-          PermissionsAndroid.PERMISSIONS.CAMERA,
-          {
-            title: 'Camera Permission',
-            message:
-            'Roommatch would like to access your camera ' +
-            'so you can upload a profile picture.',
-            buttonNegative: 'No',
-            buttonPositive: 'OK',
-          },
-        );
-        if (granted === PermissionsAndroid.RESULTS.GRANTED) {
-          this.openPhotos(true)
-          console.log('Camera access ALLOWED');
-        } else {
-          console.log('Camera access DENIED');
-        }
-      } catch (err) {
-        console.warn(err);
-      }
-    }
-    else if (Platform.OS==='ios')
-    {
-      this.openPhotos(true)
-    }
-  }
-
   openPhotos(visible) {
     this.setState({modalVisible: visible});
     CameraRoll.getPhotos({
@@ -202,8 +223,8 @@ export default class Edit_Profile extends React.Component {
             ref="form"
             type={Profile}
             options={options}
-          />
-          <TouchableHighlight style={styles.upload_button} onPress={() => this.requestCameraPermission()}>
+            value={this.state.formDefaultValues}/>
+          <TouchableHighlight style={styles.upload_button} onPress={() => this.openPhotos(true)}>
             <Text style={styles.text}> Upload Picture </Text>
           </TouchableHighlight>
           <Modal
