@@ -179,7 +179,6 @@ export default class Home extends React.Component {
   render() {
     return (
       <SwipeCards
-        style={styles.wrapper}
         cards={this.state.cards}
         showYup={false}
         showNope={false}
@@ -200,6 +199,7 @@ const styles = StyleSheet.create({
       justifyContent: 'center',
     },
     card: {
+<<<<<<< HEAD
         marginTop: 0,
         paddingTop: 0,
         height:'100%',
@@ -209,6 +209,14 @@ const styles = StyleSheet.create({
         borderRadius: 0,
         borderWidth: 0,
         elevation: 1,
+=======
+      borderRadius: 5,
+      overflow: 'hidden',
+      borderColor: 'grey',
+      backgroundColor: 'white',
+      borderWidth: 1,
+      elevation: 1,
+>>>>>>> e25711838c7ceb86c77cf73aef786752e6c03f58
     },
     noMoreCardsText: {
         fontSize: 22,
@@ -216,12 +224,7 @@ const styles = StyleSheet.create({
     },
     thumbnail: {
         height: 300,
-        width: undefined,
-        aspectRatio: 1.5,
-        borderTopWidth: 3,
-        borderBottomWidth: 3,
-        borderColor: 'red',
-        overflow: 'hidden'
+        width: '100%',
     },
     nameText: {
         fontSize: 24,
@@ -239,6 +242,7 @@ const styles = StyleSheet.create({
     },
     wrapper: {
       flex: 1,
+      width:'100%',
       backgroundColor: '#fff',
       alignItems: 'center'
     },
@@ -252,8 +256,6 @@ const styles = StyleSheet.create({
     },
     infoText: {
       flex: 1,
-      paddingLeft: 25,
-      paddingRight: 20,
       alignItems: 'flex-start',
       flexDirection: 'row',
     },
