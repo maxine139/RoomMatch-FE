@@ -10,11 +10,13 @@ import {StyleSheet,
         TextInput,
         TouchableOpacity,
         TouchableHighlight,
-        CameraRoll
+        CameraRoll,
+        Alert
 } from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
 import { TagSelect } from 'react-native-tag-select';
 import theme from '../theme';
+import * as profilesServices from '../services/profiles.js';
 
 var Form = t.form.Form;
 
@@ -39,9 +41,9 @@ var Campus = t.enums({
 const tags=['Extrovert', 'Introvert', 'Clean/Tidy', 'Messy', 'Drinks Alcohol', 'Smokes Weed', 'Smokes cigs', 'Night Owl', 'Early Bird']
 
 var Profile = t.struct({
-  'First Name': t.String,              // a required string
-  'Last Name': t.maybe(t.String),  // an optional string
-  Age: t.Number,               // a required number
+  'First Name': t.String,               // a required string
+  'Last Name': t.maybe(t.String),       // an optional string
+  Age: t.Number,                        // a required number
   gender: Gender,
   class: Class,
   major: t.String,
@@ -66,10 +68,58 @@ export default class Edit_Profile extends React.Component {
   }
 
   handlePress(){
-    // call getValue() to get the values of the form
-    var value = this.refs.form.getValue();
+    const tagRef = this.tag.itemsSelected;
+    const value = this.refs.form.getValue();
+
     if (value) {
-      this.props.navigation.navigate('Home')
+      // backend call
+      
+      // collect tags
+      let tags = [];
+      for (let i = 0; i < tagRef.length; i ++) {
+        tags.push(tagRef[i]["label"]);
+      }
+
+      const profile = {
+        user_id: global.user._id,
+        firstname: value["First Name"] || "",
+        lastname: value["Last Name"] || "",
+        age: value["Age"] || "",
+        gender: value["gender"] || "",
+        class: value["class"] || "",
+        major: value["major"] || "",
+        location: value["Im looking for housing..."] || "",
+        tags: tags,
+        image: "https://i0.wp.com/www.winhelponline.com/blog/wp-content/uploads/2017/12/user.png?fit=256%2C256&quality=100&ssl=1" || "",
+        bio: value["Short Bio"] || ""
+      };
+
+      profilesServices.createProfile(profile)
+        .then((res) => {
+          console.log("SUCCESS: Profile created");
+          console.log(JSON.stringify(res));
+
+          const success = res.data.success;
+          if (success) {
+            //succes
+            this.props.navigation.navigate("Home");
+          } else {
+            //failure
+            const err = this.res.error;
+            throw err;
+          }
+        }).catch((err) => {
+          console.log("ERROR: Cannot create profile");
+
+          Alert.alert(
+            'Error: cannot create profile',
+            err,
+            [
+              {text: 'OK'},
+            ],
+            {cancelable: false},
+          );
+        });
     }
   }
 
@@ -116,7 +166,6 @@ export default class Edit_Profile extends React.Component {
    .catch((err) => {
       //Error Loading Images
    });
-
   }
 
   static navigationOptions = ({navigation, navigationOptions}) => {
