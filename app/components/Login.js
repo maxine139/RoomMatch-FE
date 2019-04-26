@@ -75,10 +75,10 @@ export default class Login extends React.Component {
     usersService.authUser(email).then((res) => {
       const status = res.status;
 
-        if (status == 200) {
-        store.user = res.data.data;
+      if (status == 200) {
+        global.user = res.data.data;
 
-        this.props.navigation.navigate('Home', {store : store});
+        this.props.navigation.navigate('Home');
       } else {
         console.log("LOGIN PAGE ERROR: cannot login");
         console.log(JSON.stringify(res));
