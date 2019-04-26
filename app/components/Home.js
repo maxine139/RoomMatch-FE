@@ -81,12 +81,18 @@ class Card extends React.Component {
         <View style={styles.card}>
           <Image style={styles.thumbnail} source={{uri: this.props.image}} />
           <View style={styles.infoText}>
-            <Text>
-              <Text style={styles.nameText}> {this.props.name}</Text>  {'\n'}
-              <Text style={styles.genderText}> {this.props.gender} - {this.props.age}</Text> {'\n'}
-              <Text style={styles.schoolText}> {this.props.major} - {this.props.year} </Text>{'\n'} {'\n'}
-              <Text style={styles.text}> {this.props.bio} </Text>
-            </Text>
+            <View>
+              <Text style={styles.nameText}>{this.props.name}</Text>
+            </View>
+            <View>
+              <Text style={styles.genderText}>{this.props.gender} - {this.props.age}</Text>
+            </View>
+            <View>
+              <Text style={styles.schoolText}>{this.props.major} - {this.props.year} </Text>
+            </View>
+            <View>
+              <Text style={styles.text}>{this.props.bio} </Text>
+            </View>
           </View>
           <View style={styles.tagStyles}>
             {
@@ -100,7 +106,7 @@ class Card extends React.Component {
             }
           </View>
           <View style={styles.buttonSpacing}>
-            <View style={{width: 50, height: 50, justifyContent: 'center', alignItems:'center', marginRight: 40, elevation: 3, shadowColor: 'black', shadowOffsetHeight: 1, shadowOpacity: 0.2, shadowRadius: 1.5, position: 'relative'}}>
+            <View style={{width: 50, height: 50, justifyContent: 'center', alignItems:'center', marginRight: 40, elevation: 3}}>
               <Icon onPress={() => this.handleNope}
               name="times"
               color="red"
@@ -203,6 +209,7 @@ const styles = StyleSheet.create({
       justifyContent: 'center',
     },
     card: {
+      height: '100%',
       borderRadius: 5,
       overflow: 'hidden',
       borderColor: 'grey',
@@ -222,6 +229,7 @@ const styles = StyleSheet.create({
         fontSize: 24,
         fontWeight: 'bold',
         fontFamily: 'Avenir',
+        paddingBottom: 3,
     },
     genderText: {
         fontSize: 24,
@@ -233,10 +241,9 @@ const styles = StyleSheet.create({
       fontFamily: 'Avenir',
     },
     text: {
-      flex: 1,
+      paddingTop: 15,
       fontSize: 20,
       fontFamily: 'Avenir',
-      flexWrap: 'wrap'
     },
     wrapper: {
       flex: 1,
@@ -245,7 +252,7 @@ const styles = StyleSheet.create({
       alignItems: 'center'
     },
     tagStyles: {
-      flex: 1,
+      //flex: 1,
       justifyContent: 'center',
       flexDirection: 'row',
       flexWrap: 'wrap',
@@ -253,8 +260,9 @@ const styles = StyleSheet.create({
       padding: 20
     },
     infoText: {
-      alignItems: 'flex-start',
-      flexDirection: 'row',
+      //alignItems: 'flex-start',
+      flexDirection: 'column',
+      padding: 10
     },
     buttonSpacing: {
       flex: 1,
