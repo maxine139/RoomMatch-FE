@@ -199,24 +199,12 @@ const styles = StyleSheet.create({
       justifyContent: 'center',
     },
     card: {
-<<<<<<< HEAD
-        marginTop: 0,
-        paddingTop: 0,
-        height:'100%',
-        width: '100%',
-        backgroundColor: 'white',
-        borderColor: 'grey',
-        borderRadius: 0,
-        borderWidth: 0,
-        elevation: 1,
-=======
       borderRadius: 5,
       overflow: 'hidden',
       borderColor: 'grey',
       backgroundColor: 'white',
       borderWidth: 1,
       elevation: 1,
->>>>>>> e25711838c7ceb86c77cf73aef786752e6c03f58
     },
     noMoreCardsText: {
         fontSize: 22,
