@@ -10,7 +10,7 @@ import {StyleSheet,
         TouchableOpacity,
         TouchableHighlight,
         CameraRoll,
-        Alert
+        Alert,
 } from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
 import { TagSelect } from 'react-native-tag-select';
@@ -59,7 +59,7 @@ var options = {
     }
 };
 
-export default class Edit_Profile extends React.Component {
+export default class Edit_Profile extends Component {
   constructor(props){
       super(props);
       this.state = {
@@ -125,7 +125,7 @@ export default class Edit_Profile extends React.Component {
 
     if (value) {
       // backend call
-      
+
       // collect tags
       let tags = [];
       for (let i = 0; i < tagRef.length; i ++) {
@@ -181,12 +181,17 @@ export default class Edit_Profile extends React.Component {
      first: 20,
      assetType: 'Photos',
    })
-   .then(r => {
-     this.setState({ photos: r.edges });
+   .then(assets => {
+     const images = assets.edges.map((asset) => asset.node.image);
+     this.setState({ photos: images });
    })
    .catch((err) => {
       //Error Loading Images
    });
+  }
+
+  selectImage(uri) {
+    this.setState({modalVisible: false});
   }
 
   static navigationOptions = ({navigation, navigationOptions}) => {
@@ -244,23 +249,13 @@ export default class Edit_Profile extends React.Component {
                     x
                 </Text>
               </LinearGradient>
-              <ScrollView style = {styles.container}>
-                {this.state.photos.map((p, i) => {
-                  return (
-                    <TouchableOpacity onPress={() => {
-                      this.setState({modalVisible: false});
-                    }}>
-                      <Image
-                        key={i}
-                        style={{
-                          width: 300,
-                          height: 100,
-                        }}
-                        source={{ uri: p.node.image.uri }}
-                      />
-                    </TouchableOpacity>
-                  );
-                })}
+              <ScrollView style={styles.container}>
+                <View style={styles.imageGrid}>
+                  { this.state.photos.map((image) =>
+                    <TouchableOpacity onPress={() => this.selectImage(image.uri)}>
+                    <Image style={styles.image} source={{ uri: image.uri }} />
+                    </TouchableOpacity>) }
+                </View>
               </ScrollView>
             </View>
           </Modal>
@@ -282,19 +277,30 @@ export default class Edit_Profile extends React.Component {
 };
 
 const styles = StyleSheet.create({
-  wrapper: {
-    flex: 1,
-  },
-  cancel: {
-    alignSelf: 'flex-end',
-    color: '#fff'
-  },
   container: {
     flex: 1,
     paddingTop: 20,
     paddingLeft: 20,
     paddingRight: 20,
     backgroundColor: '#fff'
+  },
+  imageGrid: {
+    flex: 1,
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    justifyContent: 'center'
+  },
+  image: {
+    width: 150,
+    height: 150,
+    margin: 10,
+  },
+  wrapper: {
+    flex: 1,
+  },
+  cancel: {
+    alignSelf: 'flex-end',
+    color: '#fff'
   },
   header: {
     backgroundColor: '#6a7a94',
