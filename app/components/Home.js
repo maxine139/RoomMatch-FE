@@ -189,16 +189,12 @@ const styles = StyleSheet.create({
       justifyContent: 'center',
     },
     card: {
-      flex: 1,
-        //margin: 0,
-        //padding: 0,
-        height:'100%',
-        width: '50%',
-        backgroundColor: 'white',
-        borderColor: 'grey',
-        borderRadius: 10,
-        borderWidth: 2,
-        elevation: 1,
+      borderRadius: 5,
+      overflow: 'hidden',
+      borderColor: 'grey',
+      backgroundColor: 'white',
+      borderWidth: 1,
+      elevation: 1,
     },
     noMoreCardsText: {
         fontSize: 22,
@@ -206,12 +202,7 @@ const styles = StyleSheet.create({
     },
     thumbnail: {
         height: 300,
-        width: '50%',
-        aspectRatio: 1.5,
-        borderTopWidth: 3,
-        borderBottomWidth: 3,
-        borderColor: 'red',
-        overflow: 'hidden'
+        width: '100%',
     },
     nameText: {
         fontSize: 24,
@@ -243,8 +234,6 @@ const styles = StyleSheet.create({
     },
     infoText: {
       flex: 1,
-      paddingLeft: 25,
-      paddingRight: 20,
       alignItems: 'flex-start',
       flexDirection: 'row',
     },
