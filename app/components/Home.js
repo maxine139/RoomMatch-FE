@@ -154,7 +154,7 @@ export default class Home extends React.Component {
       headerLeft: (
         <TouchableOpacity
           style={{padding: 10}}
-          onPress={() => navigation.toggleDrawer}>
+          onPress={navigation.toggleDrawer}>
         <Icon
           name="bars"
           color="#fff"
