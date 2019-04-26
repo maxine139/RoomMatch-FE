@@ -14,6 +14,7 @@ const cards = [
         image: 'https://media.giphy.com/media/xUOxfbuK9qc61NGiaI/giphy.gif',
         bio: 'I am the bestest boy.',
         age: 19,
+        gender: 'Male',
         major: 'Business',
         year: 'Sophomore',
         tags: ['Introvert', 'Messy', 'Drinks Alcohol', 'Smokes Weed', 'Night Owl']
@@ -22,6 +23,7 @@ const cards = [
         image: 'https://media.giphy.com/media/GfXFVHUzjlbOg/giphy.gif',
         bio: 'insert catchy bio here',
         age: 21,
+        gender: 'Female',
         major: 'Computer Science',
         year: 'Senior',
         tags: ['Extrovert', 'Clean/Tidy', 'Drinks Alcohol', 'Night Owl']
@@ -30,6 +32,7 @@ const cards = [
         image: 'https://media.giphy.com/media/irTuv1L1T34TC/giphy.gif',
         bio: 'im a cool bitch and youre not',
         age: 21,
+        gender: 'Male',
         major: 'Computer Science',
         year: 'Senior',
         tags: ['Introvert', 'Clean/Tidy', 'Drinks Alcohol', 'Smokes Weed', 'Night Owl']
@@ -38,6 +41,7 @@ const cards = [
         image: 'https://media.giphy.com/media/LkLL0HJerdXMI/giphy.gif',
         bio: 'if you messy and dirty i keel you while you sleep',
         age: 21,
+        gender: 'Female',
         major: 'Computer Science',
         year: 'Senior',
         tags: ['Introvert', 'Clean/Tidy', 'Drinks Alcohol', 'Night Owl']
@@ -46,6 +50,7 @@ const cards = [
         image: 'https://media4.giphy.com/media/6csVEPEmHWhWg/200.gif',
         bio: 'dis how you spell my name: blennndin addot c:',
         age: 21,
+        gender: 'Male',
         major: 'Computer Science',
         year: 'Senior',
         tags: ['Introvert', 'Messy', 'Drinks Alcohol','Night Owl']
@@ -59,6 +64,11 @@ class Card extends React.Component {
     this.state = {
       cards: cards
     }
+  }
+
+  formatGender(genderVal) {
+    if (genderVal == 'Male') return 'M';
+    else return 'F';
   }
 
   render() {
@@ -78,7 +88,7 @@ class Card extends React.Component {
           <Image style={styles.thumbnail} source={{uri: this.props.image}} />
           <View style={styles.infoText}>
             <Text>
-              <Text style={styles.nameText}> {this.props.name}, {this.props.age}</Text> {'\n'}
+              <Text style={styles.nameText}> {this.props.name}, {this.props.age}, {this.props.gender} </Text>  {'\n'}
               <Text style={styles.schoolText}> {this.props.major} - {this.props.year} </Text>{'\n'}
               <Text style={styles.text}> {this.props.bio} </Text>
             </Text>
