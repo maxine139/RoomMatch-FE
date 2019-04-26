@@ -104,19 +104,18 @@ class Card extends React.Component {
             }
           </View>
           <View style={styles.buttonSpacing}>
-            <View style={{width: 50, height: 50, justifyContent: 'center', alignItems:'center', borderColor:'grey', borderWidth: 5, borderRadius: 25, marginRight: 10}}>
+            <View style={{width: 50, height: 50, justifyContent: 'center', alignItems:'center', marginRight: 40, elevation: 3, shadowColor: 'black', shadowOffsetHeight: 1, shadowOpacity: 0.2, shadowRadius: 1.5, position: 'relative'}}>
               <Icon onPress={() => this.handleNope}
               name="times"
               color="red"
               size={50}
               />
             </View>
-            <View>
+            <View style={{width: 50, height: 50, justifyContent: 'center', alignItems:'center', marginLeft:40, elevation: 3}}>
               <Icon onPress={() => this.handleYup}
-              name="heart"
+              name="check"
               color="green"
               size={50}
-              style={{width: 50, height: 50, justifyContent: 'center', alignItems:'center', borderColor:'grey', borderWidth: 5, borderRadius: 25, marginLeft:10}}
               />
             </View>
           </View>
@@ -165,7 +164,6 @@ export default class Home extends React.Component {
       ),
       headerStyle: {
         backgroundColor: '#2b5876',
-        //height: '30%',
         width: '100%',
       },
     }
@@ -264,19 +262,14 @@ const styles = StyleSheet.create({
       alignItems: 'center',
       flexDirection: 'row',
       justifyContent: 'center',
-      //paddingRight: 20,
     },
     buttonStyles: {
       borderColor: 'grey',
-      borderWidth: 5,
-      borderRadius: 0,
     },
     roundify: {
       flex: 1,
       justifyContent: 'center',
       alignItems: 'center',
-      //margin: 50,
-      paddingTop: 20
     },
     tagWrapper: {
       padding: 10,
