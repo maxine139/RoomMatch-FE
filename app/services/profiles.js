@@ -12,8 +12,6 @@ import Axios from './axios';
 
 // Create Profile
 export async function createProfile(profile) {
-  console.log("PP");
-  console.log(JSON.stringify(profile));
   let body = {
     user_id: profile.user_id.toString(),
     firstname: profile.firstname.toString(),
@@ -27,8 +25,6 @@ export async function createProfile(profile) {
     image: profile.image.toString(),
     bio: profile.bio.toString()
   };
-  console.log("BBB");
-  console.log(JSON.stringify(body));
 
   let path = '/app/v1/profiles/create';
 
@@ -46,3 +42,23 @@ export async function createProfile(profile) {
     }
   }
 };
+
+// get profile from user_id
+export async function getProfile(user_id) {
+
+  let path = "/app/v1/profiles/getByUserId?user_id=" + user_id;
+
+  try {
+    return await Axios.get(path);
+  } catch(err) {
+    console.log("Profile Get Error");
+    console.log(JSON.stringify(err));
+
+    return {
+      status: 408,
+      data: {
+        error: 'Cannot connect to server'
+      }
+    };
+  }
+}
