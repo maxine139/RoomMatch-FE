@@ -171,7 +171,6 @@ export default class Home extends React.Component {
   render() {
     return (
       <SwipeCards
-        style={styles.wrapper}
         cards={this.state.cards}
         showYup={false}
         showNope={false}
@@ -192,10 +191,11 @@ const styles = StyleSheet.create({
       justifyContent: 'center',
     },
     card: {
-        marginTop: 0,
-        paddingTop: 0,
+      flex: 1,
+        //margin: 0,
+        //padding: 0,
         height:'100%',
-        width: '100%',
+        width: '50%',
         backgroundColor: 'white',
         borderColor: 'grey',
         borderRadius: 10,
@@ -208,7 +208,7 @@ const styles = StyleSheet.create({
     },
     thumbnail: {
         height: 300,
-        width: undefined,
+        width: '50%',
         aspectRatio: 1.5,
         borderTopWidth: 3,
         borderBottomWidth: 3,
@@ -231,6 +231,7 @@ const styles = StyleSheet.create({
     },
     wrapper: {
       flex: 1,
+      width:'100%',
       backgroundColor: '#fff',
       alignItems: 'center'
     },
