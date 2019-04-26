@@ -3,6 +3,7 @@ import {StyleSheet,
         Image,
         Text,
         View,
+        TouchableOpacity
 } from 'react-native';
 import SwipeCards from 'react-native-swipe-cards';
 import Logo from '../img/roommatch_logo.svg';
@@ -141,16 +142,24 @@ export default class Home extends React.Component {
     return {
       headerTitle: <Logo width={165} style={styles.headerLogo}/>,
       headerLeft: (
-        <Icon onPress = {navigation.toggleDrawer}
-        name="bars"
-        color="#fff"
-        size={25}/>
+        <TouchableOpacity
+          style={{padding: 10}}
+          onPress={() => navigation.toggleDrawer}>
+        <Icon
+          name="bars"
+          color="#fff"
+          size={25}/>
+        </TouchableOpacity>
       ),
       headerRight: (
-        <Icon onPress={() => navigation.navigate("Chat_List")}
-        name="comment-alt"
-        color="#fff"
-        size={25}/>
+        <TouchableOpacity
+          style={{padding: 10}}
+          onPress={() => navigation.navigate("Chat_List")}>
+          <Icon
+            name="comment-alt"
+            color="#fff"
+            size={25}/>
+        </TouchableOpacity>
       ),
       headerStyle: {
         backgroundColor: '#2b5876',
