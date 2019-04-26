@@ -3,6 +3,7 @@ import {StyleSheet,
         Image,
         Text,
         View,
+        TouchableOpacity
 } from 'react-native';
 import SwipeCards from 'react-native-swipe-cards';
 import Logo from '../img/roommatch_logo.svg';
@@ -13,6 +14,7 @@ const cards = [
         image: 'https://media.giphy.com/media/xUOxfbuK9qc61NGiaI/giphy.gif',
         bio: 'I am the bestest boy.',
         age: 19,
+        gender: 'Male',
         major: 'Business',
         year: 'Sophomore',
         tags: ['Introvert', 'Messy', 'Drinks Alcohol', 'Smokes Weed', 'Night Owl']
@@ -21,6 +23,7 @@ const cards = [
         image: 'https://media.giphy.com/media/GfXFVHUzjlbOg/giphy.gif',
         bio: 'insert catchy bio here',
         age: 21,
+        gender: 'Female',
         major: 'Computer Science',
         year: 'Senior',
         tags: ['Extrovert', 'Clean/Tidy', 'Drinks Alcohol', 'Night Owl']
@@ -29,6 +32,7 @@ const cards = [
         image: 'https://media.giphy.com/media/irTuv1L1T34TC/giphy.gif',
         bio: 'im a cool bitch and youre not',
         age: 21,
+        gender: 'Male',
         major: 'Computer Science',
         year: 'Senior',
         tags: ['Introvert', 'Clean/Tidy', 'Drinks Alcohol', 'Smokes Weed', 'Night Owl']
@@ -37,6 +41,7 @@ const cards = [
         image: 'https://media.giphy.com/media/LkLL0HJerdXMI/giphy.gif',
         bio: 'if you messy and dirty i keel you while you sleep',
         age: 21,
+        gender: 'Female',
         major: 'Computer Science',
         year: 'Senior',
         tags: ['Introvert', 'Clean/Tidy', 'Drinks Alcohol', 'Night Owl']
@@ -45,6 +50,7 @@ const cards = [
         image: 'https://media4.giphy.com/media/6csVEPEmHWhWg/200.gif',
         bio: 'dis how you spell my name: blennndin addot c:',
         age: 21,
+        gender: 'Male',
         major: 'Computer Science',
         year: 'Senior',
         tags: ['Introvert', 'Messy', 'Drinks Alcohol','Night Owl']
@@ -58,6 +64,11 @@ class Card extends React.Component {
     this.state = {
       cards: cards
     }
+  }
+
+  formatGender(genderVal) {
+    if (genderVal == 'Male') return 'M';
+    else return 'F';
   }
 
   render() {
@@ -77,7 +88,7 @@ class Card extends React.Component {
           <Image style={styles.thumbnail} source={{uri: this.props.image}} />
           <View style={styles.infoText}>
             <Text>
-              <Text style={styles.nameText}> {this.props.name}, {this.props.age}</Text> {'\n'}
+              <Text style={styles.nameText}> {this.props.name}, {this.props.age}, {this.props.gender} </Text>  {'\n'}
               <Text style={styles.schoolText}> {this.props.major} - {this.props.year} </Text>{'\n'}
               <Text style={styles.text}> {this.props.bio} </Text>
             </Text>
@@ -94,19 +105,18 @@ class Card extends React.Component {
             }
           </View>
           <View style={styles.buttonSpacing}>
-            <View style={{width: 50, height: 50, justifyContent: 'center', alignItems:'center', borderColor:'grey', borderWidth: 5, borderRadius: 25, marginRight: 10}}>
+            <View style={{width: 50, height: 50, justifyContent: 'center', alignItems:'center', marginRight: 40, elevation: 3, shadowColor: 'black', shadowOffsetHeight: 1, shadowOpacity: 0.2, shadowRadius: 1.5, position: 'relative'}}>
               <Icon onPress={() => this.handleNope}
               name="times"
               color="red"
               size={50}
               />
             </View>
-            <View>
+            <View style={{width: 50, height: 50, justifyContent: 'center', alignItems:'center', marginLeft:40, elevation: 3}}>
               <Icon onPress={() => this.handleYup}
-              name="heart"
+              name="check"
               color="green"
               size={50}
-              style={{width: 50, height: 50, justifyContent: 'center', alignItems:'center', borderColor:'grey', borderWidth: 5, borderRadius: 25, marginLeft:10}}
               />
             </View>
           </View>
@@ -142,20 +152,27 @@ export default class Home extends React.Component {
     return {
       headerTitle: <Logo width={165} style={styles.headerLogo}/>,
       headerLeft: (
-        <Icon onPress = {navigation.toggleDrawer}
-        name="bars"
-        color="#fff"
-        size={25}/>
+        <TouchableOpacity
+          style={{padding: 10}}
+          onPress={() => navigation.toggleDrawer}>
+        <Icon
+          name="bars"
+          color="#fff"
+          size={25}/>
+        </TouchableOpacity>
       ),
       headerRight: (
-        <Icon onPress={() => navigation.navigate("Chat_List")}
-        name="comment-alt"
-        color="#fff"
-        size={25}/>
+        <TouchableOpacity
+          style={{padding: 10}}
+          onPress={() => navigation.navigate("Chat_List")}>
+          <Icon
+            name="comment-alt"
+            color="#fff"
+            size={25}/>
+        </TouchableOpacity>
       ),
       headerStyle: {
         backgroundColor: '#2b5876',
-        //height: '30%',
         width: '100%',
       },
     }
@@ -171,7 +188,6 @@ export default class Home extends React.Component {
   render() {
     return (
       <SwipeCards
-        style={styles.wrapper}
         cards={this.state.cards}
         showYup={false}
         showNope={false}
@@ -192,15 +208,12 @@ const styles = StyleSheet.create({
       justifyContent: 'center',
     },
     card: {
-        marginTop: 0,
-        paddingTop: 0,
-        height:'100%',
-        width: '100%',
-        backgroundColor: 'white',
-        borderColor: 'grey',
-        borderRadius: 10,
-        borderWidth: 2,
-        elevation: 1,
+      borderRadius: 5,
+      overflow: 'hidden',
+      borderColor: 'grey',
+      backgroundColor: 'white',
+      borderWidth: 1,
+      elevation: 1,
     },
     noMoreCardsText: {
         fontSize: 22,
@@ -208,12 +221,7 @@ const styles = StyleSheet.create({
     },
     thumbnail: {
         height: 300,
-        width: undefined,
-        aspectRatio: 1.5,
-        borderTopWidth: 3,
-        borderBottomWidth: 3,
-        borderColor: 'red',
-        overflow: 'hidden'
+        width: '100%',
     },
     nameText: {
         fontSize: 24,
@@ -231,6 +239,7 @@ const styles = StyleSheet.create({
     },
     wrapper: {
       flex: 1,
+      width:'100%',
       backgroundColor: '#fff',
       alignItems: 'center'
     },
@@ -244,8 +253,6 @@ const styles = StyleSheet.create({
     },
     infoText: {
       flex: 1,
-      paddingLeft: 25,
-      paddingRight: 20,
       alignItems: 'flex-start',
       flexDirection: 'row',
     },
@@ -254,19 +261,14 @@ const styles = StyleSheet.create({
       alignItems: 'center',
       flexDirection: 'row',
       justifyContent: 'center',
-      //paddingRight: 20,
     },
     buttonStyles: {
       borderColor: 'grey',
-      borderWidth: 5,
-      borderRadius: 0,
     },
     roundify: {
       flex: 1,
       justifyContent: 'center',
       alignItems: 'center',
-      //margin: 50,
-      paddingTop: 20
     },
     tagWrapper: {
       padding: 10,

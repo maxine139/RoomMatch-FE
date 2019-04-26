@@ -11,7 +11,7 @@ const AppStack = createStackNavigator({ Home: Home, Chat_List: Chat_List, Chat_S
 const AuthStack = createStackNavigator({ Login: Login, Register: Register, Profile: Edit_Profile });
 
 const DrawerNav = createDrawerNavigator({
-    AppStack: AppStack,
+    Home: AppStack,
     Logout: AuthStack,
     Profile: Edit_Profile,
 })
