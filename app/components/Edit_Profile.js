@@ -11,6 +11,8 @@ import {StyleSheet,
         TouchableHighlight,
         CameraRoll,
         Alert,
+        PermissionsAndroid,
+        Platform,
 } from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
 import { TagSelect } from 'react-native-tag-select';
@@ -175,6 +177,30 @@ export default class Edit_Profile extends Component {
     }
   }
 
+  async requestCameraPermission() {
+    if (Platform.OS === 'ios') {
+      this.openPhotos(true);
+    }
+    try {
+      const granted = await PermissionsAndroid.request(
+        PermissionsAndroid.PERMISSIONS.CAMERA,
+        {
+          'title': 'Roommatch Camera Permission',
+          'message': 'Roommatch needs access to your camera ' +
+                     'so you can upload a profile pic.'
+        }
+      )
+      if (granted === PermissionsAndroid.RESULTS.GRANTED) {
+        console.log("GRANTED")
+        this.openPhotos(true);
+      } else {
+        console.log("REJECC")
+      }
+    } catch (err) {
+      console.warn(err)
+    }
+  }
+
   openPhotos(visible) {
     this.setState({modalVisible: visible});
     CameraRoll.getPhotos({
@@ -229,7 +255,7 @@ export default class Edit_Profile extends Component {
             type={Profile}
             options={options}
             value={this.state.formDefaultValues}/>
-          <TouchableHighlight style={styles.upload_button} onPress={() => this.openPhotos(true)}>
+          <TouchableHighlight style={styles.upload_button} onPress={() => this.requestCameraPermission()}>
             <Text style={styles.text}> Upload Picture </Text>
           </TouchableHighlight>
           <Modal
