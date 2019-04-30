@@ -3,11 +3,14 @@ import {StyleSheet,
         Image,
         Text,
         View,
-        TouchableOpacity
+  TouchableOpacity,
+  Alert
 } from 'react-native';
 import SwipeCards from 'react-native-swipe-cards';
 import Logo from '../img/roommatch_logo.svg';
 import Icon from 'react-native-vector-icons/FontAwesome5'
+import * as profilesServices from '../services/profiles';
+import * as matchesServices from '../services/matches';
 
 const cards = [
     {name: 'Gimme my shoe Lyle',
@@ -180,12 +183,27 @@ export default class Home extends React.Component {
 
   };
 
-  handleYup (card) {
-    console.log(`Yup for ${card.name}`)
+  handleSwipe (card, like) {
+
+    // create swipe
+    matchesServices.createSwipe(global.user_id, '5cb6714606fca70ed5ec6411', like)
+      .then((res) => {
+        console.log("SWIPES");
+        console.log(JSON.stringify(res));
+      }).catch((err) => {
+        console.log("ERROR: Cannot get profile");
+
+        Alert.alert(
+          'Error: cannot swipe',
+          err,
+          [
+            {text: 'OK'},
+          ],
+          {cancelable: false},
+        );
+      });
   }
-  handleNope (card) {
-    console.log(`Nope for ${card.name}`)
-  }
+
   render() {
     return (
       <SwipeCards
@@ -195,8 +213,8 @@ export default class Home extends React.Component {
         renderCard={(cardData) => <Card {...cardData} />}
         renderNoMoreCards={() => <NoMoreCards />}
 
-        handleYup={this.handleYup}
-        handleNope={this.handleNope}
+        handleYup={(card) => this.handleSwipe(card, true)}
+        handleNope={(card) => this.handleSwipe(card, false)}
       />
     )
   }
