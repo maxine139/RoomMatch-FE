@@ -8,7 +8,7 @@ import Chat_List from './app/components/Chat_List';
 import Chat_Screen from './app/components/Chat_Screen';
 
 const AppStack = createStackNavigator({ Home: Home, Chat_List: Chat_List, Chat_Screen: Chat_Screen });
-const AuthStack = createStackNavigator({ Login: Login, Register: Register, Profile: Edit_Profile });
+const AuthStack = createStackNavigator({ Login: Login, Register: Register });
 
 const DrawerNav = createDrawerNavigator({
     Home: AppStack,
