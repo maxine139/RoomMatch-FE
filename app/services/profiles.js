@@ -64,11 +64,11 @@ export async function getProfile(user_id) {
 }
 
 // get next profile for swiping
-export async function getNextProfile(user_id, viewing_user_id) {
+export async function getNextProfile(user_id, n) {
   
   let path = '/app/v1/profiles/next'
     + '?user_id=' + user_id
-    + '&viewing_user_id=' + viewing_user_id;
+    + '&n=' + n;
 
   try{
     return await Axios.get(path);

@@ -80,26 +80,36 @@ class Card extends React.Component {
       { id: 5, label: 'Night Owl' },
     ];
 
+    const name = this.props.firstname + ' ' + this.props.lastname;
+    const gender = this.props.gender;
+    const age = this.props.age;
+    const major = this.props.major;
+    const year = this.props.class;
+    const bio = this.props.bio;
+
+    // parse tags
+    const tags = this.props.tags.split(',');
+
     return (
         <View style={styles.card}>
           <Image style={styles.thumbnail} source={{uri: this.props.image}} />
           <View style={styles.infoText}>
             <View>
-              <Text style={styles.nameText}>{this.props.name}</Text>
+              <Text style={styles.nameText}>{name}</Text>
             </View>
             <View>
-              <Text style={styles.genderText}>{this.props.gender} - {this.props.age}</Text>
+              <Text style={styles.genderText}>{gender} - {age}</Text>
             </View>
             <View>
-              <Text style={styles.schoolText}>{this.props.major} - {this.props.year} </Text>
+              <Text style={styles.schoolText}>{major} - {year} </Text>
             </View>
             <View>
-              <Text style={styles.text}>{this.props.bio} </Text>
+              <Text style={styles.text}>{bio} </Text>
             </View>
           </View>
           <View style={styles.tagStyles}>
             {
-              this.props.tags.map(tag => {
+              tags.map(tag => {
                 return (
                   <View style={styles.tagWrapper}>
                     <Text> {tag} </Text>
@@ -147,8 +157,9 @@ export default class Home extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-        cards: cards,
-        outOfCards: false
+      cards: [],
+      numCards: 0,
+      outOfProfiles: false   // backend
     };
   }
 
@@ -180,16 +191,52 @@ export default class Home extends React.Component {
         width: '100%',
       },
     }
-
   };
 
+  componentDidMount() {
+    this.getProfiles();
+  }
+
+  componentDidUpdate(oldProps, oldState) {
+
+    console.log("UPDATE");
+    if (this.state.numCards === 0 && !this.state.outOfProfiles) {
+      this.getProfiles();
+    }
+  }
+
+  getProfiles() {
+    profilesServices.getNextProfile(global.user._id, 5).then((res) => {
+      // add cards
+      this.setState({
+        cards: res.data.data,
+        numCards: res.data.data.length,
+        outOfProfiles: res.data.data.length === 0 // if no profiles came, out of profiles
+      });
+
+    }).catch((err) => {
+       console.log("ERROR: Cannot get profile");
+
+      Alert.alert(
+        'Error: cannot connect to server',
+        err,
+        [
+          {text: 'OK'},
+        ],
+        {cancelable: false},
+      );
+
+    });
+  }
+
   handleSwipe (card, like) {
+    this.setState({
+      numCards: this.state.numCards - 1
+    });
 
     // create swipe
-    matchesServices.createSwipe(global.user_id, '5cb6714606fca70ed5ec6411', like)
+    matchesServices.createSwipe(global.user._id, card.user_id, like)
       .then((res) => {
-        console.log("SWIPES");
-        console.log(JSON.stringify(res));
       }).catch((err) => {
         console.log("ERROR: Cannot get profile");
 
