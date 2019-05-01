@@ -12,8 +12,8 @@ const AuthStack = createStackNavigator({ Login: Login, Register: Register, Profi
 
 const DrawerNav = createDrawerNavigator({
     Home: AppStack,
-    Logout: AuthStack,
     Profile: Edit_Profile,
+    Logout: AuthStack,
 })
 
 export default createAppContainer(createSwitchNavigator(
