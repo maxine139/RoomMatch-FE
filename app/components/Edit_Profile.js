@@ -67,7 +67,8 @@ export default class Edit_Profile extends Component {
       this.state = {
         photos: [],
         modalVisible: false,
-        formDefaultValues: {}
+        formDefaultValues: {},
+        selectedUri: 'https://support.plymouth.edu/kb_images/Yammer/default.jpeg'
       };
   }
 
@@ -218,6 +219,7 @@ export default class Edit_Profile extends Component {
 
   selectImage(uri) {
     this.setState({modalVisible: false});
+    this.setState({selectedUri: uri})
   }
 
   static navigationOptions = ({navigation, navigationOptions}) => {
@@ -250,7 +252,7 @@ export default class Edit_Profile extends Component {
         </LinearGradient>
         <ScrollView style={styles.container}>
           {/* display */}
-
+          <Image style={{width: 150, height: 150, alignSelf: 'center', marginBottom: 10}} source={{uri: this.state.selectedUri}}/>
           <TouchableHighlight style={styles.upload_button} onPress={() => this.requestCameraPermission()}>
             <Text style={styles.text}> Upload Picture </Text>
           </TouchableHighlight>
