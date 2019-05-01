@@ -250,11 +250,7 @@ export default class Edit_Profile extends Component {
         </LinearGradient>
         <ScrollView style={styles.container}>
           {/* display */}
-          <Form
-            ref="form"
-            type={Profile}
-            options={options}
-            value={this.state.formDefaultValues}/>
+
           <TouchableHighlight style={styles.upload_button} onPress={() => this.requestCameraPermission()}>
             <Text style={styles.text}> Upload Picture </Text>
           </TouchableHighlight>
@@ -285,6 +281,12 @@ export default class Edit_Profile extends Component {
               </ScrollView>
             </View>
           </Modal>
+          <Form
+            ref="form"
+            type={Profile}
+            options={options}
+            value={this.state.formDefaultValues}/>
+          <Text style={{fontSize: 18, fontWeight: 'bold', padding: 10}}>Select Tags</Text>
           <TagSelect
             data={data}
             ref={(tag) => {
