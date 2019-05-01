@@ -233,6 +233,7 @@ const styles = StyleSheet.create({
         fontWeight: 'bold',
         fontFamily: 'Avenir',
         paddingBottom: 3,
+        width: 400,
     },
     genderText: {
         fontSize: 24,
@@ -240,7 +241,6 @@ const styles = StyleSheet.create({
     },
     schoolText: {
       fontSize: 20,
-      //fontStyle: 'italic',
       fontFamily: 'Avenir',
     },
     text: {
@@ -249,7 +249,6 @@ const styles = StyleSheet.create({
       fontFamily: 'Avenir',
     },
     tagStyles: {
-      //flex: 1,
       justifyContent: 'center',
       flexDirection: 'row',
       flexWrap: 'wrap',
@@ -257,7 +256,6 @@ const styles = StyleSheet.create({
       padding: 20
     },
     infoText: {
-      //alignItems: 'flex-start',
       flexDirection: 'column',
       padding: 10
     },
