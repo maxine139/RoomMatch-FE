@@ -256,7 +256,10 @@ export default class Home extends React.Component {
       <SwipeCards
         cards={this.state.cards}
         showYup={true}
+        yupText='Like!'
         showNope={true}
+        noText='No!'
+        onClickHandler={() => {}}
         renderCard={(cardData) => <Card {...cardData} />}
         renderNoMoreCards={() => <NoMoreCards />}
 
