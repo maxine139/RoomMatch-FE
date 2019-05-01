@@ -12,25 +12,13 @@ import Icon from 'react-native-vector-icons/FontAwesome5'
 import * as profilesServices from '../services/profiles';
 import * as matchesServices from '../services/matches';
 
+const cards = []
+
 class Card extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {
-      cards: cards
-    }
   }
   render() {
-    const data1 = [
-      { id: 1, label: 'Introvert' },
-      { id: 2, label: 'Clean/Tidy' },
-      { id: 3, label: 'Drinks Alcohol' },
-    ];
-
-    const data2 = [
-      { id: 4, label: 'Smokes Weed' },
-      { id: 5, label: 'Night Owl' },
-    ];
-
     const name = this.props.firstname + ' ' + this.props.lastname;
     const gender = this.props.gender;
     const age = this.props.age;
@@ -207,10 +195,7 @@ export default class Home extends React.Component {
       <SwipeCards
         cards={this.state.cards}
         showYup={true}
-        yupText='Like!'
         showNope={true}
-        noText='No!'
-        onClickHandler={() => {}}
         renderCard={(cardData) => <Card {...cardData} />}
         renderNoMoreCards={() => <NoMoreCards />}
 
@@ -230,7 +215,7 @@ const styles = StyleSheet.create({
     },
     card: {
       flex: 1,
-      //width: '100%',
+      width: '100%',
       borderColor: 'grey',
       backgroundColor: 'white',
       borderWidth: 1,
