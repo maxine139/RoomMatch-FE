@@ -12,55 +12,6 @@ import Icon from 'react-native-vector-icons/FontAwesome5'
 import * as profilesServices from '../services/profiles';
 import * as matchesServices from '../services/matches';
 
-const cards = [
-    {name: 'Gimme my shoe Lyle',
-        image: 'https://media.giphy.com/media/xUOxfbuK9qc61NGiaI/giphy.gif',
-        bio: 'I am the bestest boy.',
-        age: 19,
-        gender: 'Male',
-        major: 'Business',
-        year: 'Sophomore',
-        tags: ['Introvert', 'Messy', 'Drinks Alcohol', 'Smokes Weed', 'Night Owl']
-    },
-    {name: 'Maxine Lien',
-        image: 'https://media.giphy.com/media/GfXFVHUzjlbOg/giphy.gif',
-        bio: 'insert catchy bio here',
-        age: 21,
-        gender: 'Female',
-        major: 'Computer Science',
-        year: 'Senior',
-        tags: ['Extrovert', 'Clean/Tidy', 'Drinks Alcohol', 'Night Owl']
-    },
-    {name: 'Pranav Thirunavukkarasu',
-        image: 'https://media.giphy.com/media/irTuv1L1T34TC/giphy.gif',
-        bio: 'im a cool bitch and youre not',
-        age: 21,
-        gender: 'Male',
-        major: 'Computer Science',
-        year: 'Senior',
-        tags: ['Introvert', 'Clean/Tidy', 'Drinks Alcohol', 'Smokes Weed', 'Night Owl']
-    },
-    {name: 'Cynthia Phan',
-        image: 'https://scontent.fsac1-1.fna.fbcdn.net/v/t1.0-9/15697302_1424423867576258_3064531773151871852_n.jpg?_nc_cat=108&_nc_ht=scontent.fsac1-1.fna&oh=9e33b206afa29cb89ca34ca1e5e0b63a&oe=5D338AC2',
-        bio: 'I like to keep things clean. I also like to cook. I want someone that is also clean and is respectful.',
-        age: 21,
-        gender: 'Female',
-        major: 'Computer Science',
-        year: 'Senior',
-        tags: ['Introvert', 'Clean/Tidy', 'Drinks Alcohol', 'Night Owl']
-    },
-    {name: 'Brendan Ahdoot',
-        image: 'https://scontent.fsac1-1.fna.fbcdn.net/v/t1.0-9/12670744_970236463012533_8314313561040706742_n.jpg?_nc_cat=111&_nc_ht=scontent.fsac1-1.fna&oh=5eb7fa2455e2351d5315490099cf1946&oe=5D2E57EC',
-        bio: 'I like to game and I guess I would consider myself a bit on the messier side. If you dont mind those, room with me!',
-        age: 21,
-        gender: 'Male',
-        major: 'Computer Science',
-        year: 'Senior',
-        tags: ['Introvert', 'Messy', 'Drinks Alcohol','Night Owl']
-
-    }
-]
-
 class Card extends React.Component {
   constructor(props) {
     super(props);
@@ -276,7 +227,7 @@ const styles = StyleSheet.create({
     },
     card: {
       flex: 1,
-      width: '100%',
+      //width: '100%',
       borderColor: 'grey',
       backgroundColor: 'white',
       borderWidth: 1,
