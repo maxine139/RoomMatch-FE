@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import {
+  Alert,
     StyleSheet,
     Text,
     View,
@@ -76,8 +77,10 @@ export default class Login extends React.Component {
       const status = res.status;
 
       if (status == 200) {
+        if (!res.data.success)
+          throw "Wrong email and password"
         global.user = res.data.data;
-        
+
         // has profile?
         if (res.data.data.has_profile) {
           this.props.navigation.navigate('Home');
@@ -87,10 +90,19 @@ export default class Login extends React.Component {
       } else {
         console.log("LOGIN PAGE ERROR: cannot login");
         console.log(JSON.stringify(res));
+        throw res.data.error
       }
     }).catch((err) => {
       console.log("LOGIN PAGE ERROR: cannot login");
       console.log(JSON.stringify(err));
+      Alert.alert(
+        'Error',
+        err,
+        [
+          {text: 'OK'},
+        ],
+        {cancelable: false},
+      );
     });
   }
 };
