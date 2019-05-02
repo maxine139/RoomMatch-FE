@@ -67,6 +67,7 @@ export default class Edit_Profile extends Component {
       super(props);
       this.state = {
         photos: [],
+        defaultValsFetched: false,
         formDefaultValues: {},
         imageSelected: false,
         selectedImage: { uri: 'https://support.plymouth.edu/kb_images/Yammer/default.jpeg' }
@@ -91,6 +92,9 @@ export default class Edit_Profile extends Component {
       const profile = res.data.data;
 
       if (profile === null) {
+        this.setState({
+          defaultValsFetched: true
+        });
         // no profile yet
         return;
       }
@@ -130,6 +134,9 @@ export default class Edit_Profile extends Component {
   handleSubmit(){
     const tagRef = this.tag.itemsSelected;
     const value = this.refs.form.getValue();
+
+    console.log("VVV");
+    console.log(JSON.stringify(value));
 
     if (value) {
       // backend call
@@ -284,12 +291,13 @@ return;
     console.log("DEF TAGS");
     console.log(JSON.stringify(this.state.formDefaultValues.tags));
 
-
     let def_tags = [];
-    if (this.state.formDefaultValues.tags) {
-      for (let i = 0; i < data.length; i ++) {
-        if (this.state.formDefaultValues.tags.includes(data[i].label)) {
-          def_tags.push(data[i]);
+    if (this.state.defaultValsFetched) {
+      if (this.state.formDefaultValues.tags) {
+        for (let i = 0; i < data.length; i ++) {
+          if (this.state.formDefaultValues.tags.includes(data[i].label)) {
+            def_tags.push(data[i]);
+          }
         }
       }
     } else {
