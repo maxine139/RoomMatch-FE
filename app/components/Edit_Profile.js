@@ -112,6 +112,7 @@ export default class Edit_Profile extends Component {
       };
 
       this.setState({
+        defaultValsFetched: true,
         formDefaultValues: defaultVal,
         selectedImage: {
           uri: profile.image
