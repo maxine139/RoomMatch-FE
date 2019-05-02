@@ -8,78 +8,18 @@ import {StyleSheet,
 } from 'react-native';
 import SwipeCards from 'react-native-swipe-cards';
 import Logo from '../img/roommatch_logo.svg';
-import Icon from 'react-native-vector-icons/FontAwesome5'
+import Icon from 'react-native-vector-icons/FontAwesome5';
+import Icon2 from 'react-native-vector-icons/MaterialCommunityIcons';
 import * as profilesServices from '../services/profiles';
 import * as matchesServices from '../services/matches';
 
-const cards = [
-    {name: 'Gimme my shoe Lyle',
-        image: 'https://media.giphy.com/media/xUOxfbuK9qc61NGiaI/giphy.gif',
-        bio: 'I am the bestest boy.',
-        age: 19,
-        gender: 'Male',
-        major: 'Business',
-        year: 'Sophomore',
-        tags: ['Introvert', 'Messy', 'Drinks Alcohol', 'Smokes Weed', 'Night Owl']
-    },
-    {name: 'Maxine Lien',
-        image: 'https://media.giphy.com/media/GfXFVHUzjlbOg/giphy.gif',
-        bio: 'insert catchy bio here',
-        age: 21,
-        gender: 'Female',
-        major: 'Computer Science',
-        year: 'Senior',
-        tags: ['Extrovert', 'Clean/Tidy', 'Drinks Alcohol', 'Night Owl']
-    },
-    {name: 'Pranav Thirunavukkarasu',
-        image: 'https://media.giphy.com/media/irTuv1L1T34TC/giphy.gif',
-        bio: 'im a cool bitch and youre not',
-        age: 21,
-        gender: 'Male',
-        major: 'Computer Science',
-        year: 'Senior',
-        tags: ['Introvert', 'Clean/Tidy', 'Drinks Alcohol', 'Smokes Weed', 'Night Owl']
-    },
-    {name: 'Cynthia Phan',
-        image: 'https://scontent.fsac1-1.fna.fbcdn.net/v/t1.0-9/15697302_1424423867576258_3064531773151871852_n.jpg?_nc_cat=108&_nc_ht=scontent.fsac1-1.fna&oh=9e33b206afa29cb89ca34ca1e5e0b63a&oe=5D338AC2',
-        bio: 'I like to keep things clean. I also like to cook. I want someone that is also clean and is respectful.',
-        age: 21,
-        gender: 'Female',
-        major: 'Computer Science',
-        year: 'Senior',
-        tags: ['Introvert', 'Clean/Tidy', 'Drinks Alcohol', 'Night Owl']
-    },
-    {name: 'Brendan Ahdoot',
-        image: 'https://scontent.fsac1-1.fna.fbcdn.net/v/t1.0-9/12670744_970236463012533_8314313561040706742_n.jpg?_nc_cat=111&_nc_ht=scontent.fsac1-1.fna&oh=5eb7fa2455e2351d5315490099cf1946&oe=5D2E57EC',
-        bio: 'I like to game and I guess I would consider myself a bit on the messier side. If you dont mind those, room with me!',
-        age: 21,
-        gender: 'Male',
-        major: 'Computer Science',
-        year: 'Senior',
-        tags: ['Introvert', 'Messy', 'Drinks Alcohol','Night Owl']
-
-    }
-]
+const cards = []
 
 class Card extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {
-      cards: cards
-    }
   }
   render() {
-    const data1 = [
-      { id: 1, label: 'Introvert' },
-      { id: 2, label: 'Clean/Tidy' },
-      { id: 3, label: 'Drinks Alcohol' },
-    ];
-
-    const data2 = [
-      { id: 4, label: 'Smokes Weed' },
-      { id: 5, label: 'Night Owl' },
-    ];
-
     const name = this.props.firstname + ' ' + this.props.lastname;
     const gender = this.props.gender;
     const age = this.props.age;
@@ -159,11 +99,22 @@ export default class Home extends React.Component {
     this.state = {
       cards: [],
       numCards: 0,
-      outOfProfiles: false   // backend
+      outOfProfiles: false,   // backend
+      notif: false,
     };
+    props.navigation.setParams({notif: this.state.notif});
+
   }
 
   static navigationOptions = ({navigation, navigationOptions}) => {
+    var icon_name;
+    if (navigation.getParam('notif', true))
+    {
+      icon_name = "comment-alert"
+    }
+    else {
+      icon_name = "comment"
+    }
     return {
       headerTitle: <Logo width={165} style={styles.headerLogo}/>,
       headerLeft: (
@@ -180,10 +131,10 @@ export default class Home extends React.Component {
         <TouchableOpacity
           style={{padding: 10}}
           onPress={() => navigation.navigate("Chat_List")}>
-          <Icon
-            name="comment-alt"
+          <Icon2
+            name={icon_name}
             color="#fff"
-            size={25}/>
+            size={25} />
         </TouchableOpacity>
       ),
       headerStyle: {
@@ -256,7 +207,10 @@ export default class Home extends React.Component {
       <SwipeCards
         cards={this.state.cards}
         showYup={true}
+        yupText='Like!'
         showNope={true}
+        noText='No!'
+        onClickHandler={() => {}}
         renderCard={(cardData) => <Card {...cardData} />}
         renderNoMoreCards={() => <NoMoreCards />}
 
@@ -294,6 +248,7 @@ const styles = StyleSheet.create({
         fontWeight: 'bold',
         fontFamily: 'Avenir',
         paddingBottom: 3,
+        width: 400,
     },
     genderText: {
         fontSize: 24,
@@ -301,7 +256,6 @@ const styles = StyleSheet.create({
     },
     schoolText: {
       fontSize: 20,
-      //fontStyle: 'italic',
       fontFamily: 'Avenir',
     },
     text: {
@@ -310,7 +264,6 @@ const styles = StyleSheet.create({
       fontFamily: 'Avenir',
     },
     tagStyles: {
-      //flex: 1,
       justifyContent: 'center',
       flexDirection: 'row',
       flexWrap: 'wrap',
@@ -318,7 +271,6 @@ const styles = StyleSheet.create({
       padding: 20
     },
     infoText: {
-      //alignItems: 'flex-start',
       flexDirection: 'column',
       padding: 10
     },

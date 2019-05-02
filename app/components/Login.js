@@ -77,8 +77,13 @@ export default class Login extends React.Component {
 
       if (status == 200) {
         global.user = res.data.data;
-
-        this.props.navigation.navigate('Home');
+        
+        // has profile?
+        if (res.data.data.has_profile) {
+          this.props.navigation.navigate('Home');
+        } else {
+          this.props.navigation.navigate('Profile');
+        }
       } else {
         console.log("LOGIN PAGE ERROR: cannot login");
         console.log(JSON.stringify(res));
