@@ -6,7 +6,7 @@ const host = "http://18.222.255.4";
 
 global.socket = null;
 
-export function init_socket() {
+export function init() {
 
   // need user_id
   if (!global.user) {
@@ -17,6 +17,6 @@ export function init_socket() {
   if (!global.socket) {
     global.socket = io(host);
 
-    global.socket.emit('check-in', global.user._id)
+    global.socket.emit('check-in', global.user._id);
   }
 }

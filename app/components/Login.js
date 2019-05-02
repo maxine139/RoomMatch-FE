@@ -14,6 +14,8 @@ import PrimaryButton from './Button'
 import Logo from '../img/roommatch_logo.svg'
 import * as usersService from '../services/users.js';
 
+import * as socketServices from '../services/sockets';
+
 export default class Login extends React.Component {
     constructor(props){
         super(props);
@@ -80,6 +82,9 @@ export default class Login extends React.Component {
         if (!res.data.success)
           throw "Wrong email and password"
         global.user = res.data.data;
+
+        // init socket
+        socketServices.init();
 
         // has profile?
         if (res.data.data.has_profile) {

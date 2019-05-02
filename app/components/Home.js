@@ -14,16 +14,13 @@ import Icon2 from 'react-native-vector-icons/MaterialCommunityIcons';
 import * as profilesServices from '../services/profiles';
 import * as matchesServices from '../services/matches';
 
-import SocketIO from 'socket.io-client';
+import * as socketServices from '../services/sockets';
 
 const cards = []
 
 class Card extends React.Component {
   constructor(props) {
     super(props);
-
-    // Creating the socket-client instance will automatically connect to the server.
-    this.socket = SocketIO('http://18.222.255.4');
   }
 
   render() {
