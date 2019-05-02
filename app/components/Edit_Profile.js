@@ -68,6 +68,7 @@ export default class Edit_Profile extends Component {
       this.state = {
         photos: [],
         formDefaultValues: {},
+        imageSelected: false,
         selectedImage: { uri: 'https://support.plymouth.edu/kb_images/Yammer/default.jpeg' }
       };
   }
@@ -138,7 +139,8 @@ export default class Edit_Profile extends Component {
         tags.push(tagRef[i]["label"]);
       }
 
-      profilesServices.uploadImage(this.state.selectedImage).then((res) => {
+      const img = this.state.imageSelected ? this.state.selectedImage : null;
+      profilesServices.uploadImage(img).then((res) => {
         console.log("Image Uploaded");
         console.log(JSON.stringify(res));
 
@@ -153,7 +155,7 @@ export default class Edit_Profile extends Component {
             major: value["major"] || "",
             location: value["Im looking for housing..."] || "",
             tags: tags,
-            image: res.data.data.secure_url,
+            image: this.state.imageSelected ? res.data.data.secure_url : this.state.selectedImage.uri,
             bio: value["Short Bio"] || ""
           };
 
@@ -222,15 +224,13 @@ export default class Edit_Profile extends Component {
         profilesServices.uploadImage(res).then((res) => {
           console.log("Image Uploaded");
           console.log(JSON.stringify(res));
-
-          if (res.success) {
-          }
         }).catch((err) => {
           console.log("UPLOAD IMAGE ERR");
           console.log(err);
         });
 
         this.setState({
+          imageSelected: true,
           selectedImage: {
             uri: res.uri,
             name: res.fileName,
@@ -311,8 +311,6 @@ return;
       </View>
     );
   }
-
-
 };
 
 const styles = StyleSheet.create({

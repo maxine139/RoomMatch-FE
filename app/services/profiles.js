@@ -66,6 +66,15 @@ export async function getProfile(user_id) {
 }
 
 export async function uploadImage(image) {
+	if (!image) {
+		return {
+			data: {
+				success: true,
+				data: null
+			}
+		};
+	}
+
   let path = '/app/v1/profiles/images';
 
   // FormData
