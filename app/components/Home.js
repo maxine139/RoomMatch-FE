@@ -8,7 +8,8 @@ import {StyleSheet,
 } from 'react-native';
 import SwipeCards from 'react-native-swipe-cards';
 import Logo from '../img/roommatch_logo.svg';
-import Icon from 'react-native-vector-icons/FontAwesome5'
+import Icon from 'react-native-vector-icons/FontAwesome5';
+import Icon2 from 'react-native-vector-icons/MaterialCommunityIcons';
 import * as profilesServices from '../services/profiles';
 import * as matchesServices from '../services/matches';
 
@@ -98,11 +99,22 @@ export default class Home extends React.Component {
     this.state = {
       cards: [],
       numCards: 0,
-      outOfProfiles: false   // backend
+      outOfProfiles: false,   // backend
+      notif: false,
     };
+    props.navigation.setParams({notif: this.state.notif});
+
   }
 
   static navigationOptions = ({navigation, navigationOptions}) => {
+    var icon_name;
+    if (navigation.getParam('notif', true))
+    {
+      icon_name = "comment-alert"
+    }
+    else {
+      icon_name = "comment"
+    }
     return {
       headerTitle: <Logo width={165} style={styles.headerLogo}/>,
       headerLeft: (
@@ -119,10 +131,10 @@ export default class Home extends React.Component {
         <TouchableOpacity
           style={{padding: 10}}
           onPress={() => navigation.navigate("Chat_List")}>
-          <Icon
-            name="comment-alt"
+          <Icon2
+            name={icon_name}
             color="#fff"
-            size={25}/>
+            size={25} />
         </TouchableOpacity>
       ),
       headerStyle: {
