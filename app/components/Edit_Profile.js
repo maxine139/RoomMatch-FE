@@ -103,7 +103,8 @@ export default class Edit_Profile extends Component {
         'class': profile.class,
         'major': profile.major,
         'Im looking for housing...': profile.location,
-        'Short Bio': profile.bio
+        'Short Bio': profile.bio,
+        'tags': profile.tags.split(',')
       };
 
       this.setState({
@@ -280,6 +281,24 @@ return;
       { id: 9, label: 'Early Bird' }
     ];
 
+    console.log("DEF TAGS");
+    console.log(JSON.stringify(this.state.formDefaultValues.tags));
+
+
+    let def_tags = [];
+    if (this.state.formDefaultValues.tags) {
+      for (let i = 0; i < data.length; i ++) {
+        if (this.state.formDefaultValues.tags.includes(data[i].label)) {
+          def_tags.push(data[i]);
+        }
+      }
+    } else {
+      return (<View />)
+    }
+
+    console.log("DEF TAGS");
+    console.log(JSON.stringify(def_tags));
+
     return (
       <View style={styles.wrapper}>
         <LinearGradient colors={['#2b5876', '#4e4376']}
@@ -299,6 +318,7 @@ return;
             value={this.state.formDefaultValues}/>
           <Text style={{fontSize: 18, fontWeight: 'bold', padding: 10}}>Select Tags</Text>
           <TagSelect
+            value={def_tags}
             data={data}
             ref={(tag) => {
               this.tag = tag;
