@@ -2,7 +2,6 @@ import React, {Component} from 'react';
 var t = require('tcomb-form-native');
 import {StyleSheet,
         Image,
-        Modal,
         Text,
         View,
         ScrollView,
@@ -18,6 +17,8 @@ import LinearGradient from 'react-native-linear-gradient';
 import { TagSelect } from 'react-native-tag-select';
 import theme from '../theme';
 import * as profilesServices from '../services/profiles.js';
+
+import ImagePicker from 'react-native-image-picker';
 
 var Form = t.form.Form;
 
@@ -66,9 +67,8 @@ export default class Edit_Profile extends Component {
       super(props);
       this.state = {
         photos: [],
-        modalVisible: false,
         formDefaultValues: {},
-        selectedUri: 'https://support.plymouth.edu/kb_images/Yammer/default.jpeg'
+        selectedImage: { uri: 'https://support.plymouth.edu/kb_images/Yammer/default.jpeg' }
       };
   }
 
@@ -106,7 +106,10 @@ export default class Edit_Profile extends Component {
       };
 
       this.setState({
-        formDefaultValues: defaultVal
+        formDefaultValues: defaultVal,
+        selectedImage: {
+          uri: profile.image
+        }
       });
     }).catch((err) => {
       console.log("ERROR: Cannot get profile");
@@ -122,7 +125,7 @@ export default class Edit_Profile extends Component {
     });
   };
 
-  handlePress(){
+  handleSubmit(){
     const tagRef = this.tag.itemsSelected;
     const value = this.refs.form.getValue();
 
@@ -135,22 +138,30 @@ export default class Edit_Profile extends Component {
         tags.push(tagRef[i]["label"]);
       }
 
-      const profile = {
-        user_id: global.user._id,
-        firstname: value["First Name"] || "",
-        lastname: value["Last Name"] || "",
-        age: value["Age"] || "",
-        gender: value["gender"] || "",
-        class: value["class"] || "",
-        major: value["major"] || "",
-        location: value["Im looking for housing..."] || "",
-        tags: tags,
-        image: "https://i0.wp.com/www.winhelponline.com/blog/wp-content/uploads/2017/12/user.png?fit=256%2C256&quality=100&ssl=1" || "",
-        bio: value["Short Bio"] || ""
-      };
+      profilesServices.uploadImage(this.state.selectedImage).then((res) => {
+        console.log("Image Uploaded");
+        console.log(JSON.stringify(res));
 
-      profilesServices.createProfile(profile)
-        .then((res) => {
+        if (res.data.success) {
+          const profile = {
+            user_id: global.user._id,
+            firstname: value["First Name"] || "",
+            lastname: value["Last Name"] || "",
+            age: value["Age"] || "",
+            gender: value["gender"] || "",
+            class: value["class"] || "",
+            major: value["major"] || "",
+            location: value["Im looking for housing..."] || "",
+            tags: tags,
+            image: res.data.data.secure_url,
+            bio: value["Short Bio"] || ""
+          };
+
+          return profilesServices.createProfile(profile);
+        } else {
+          throw "Cannot upload image";
+        }
+      }).then((res) => {
           console.log("SUCCESS: Profile created");
           console.log(JSON.stringify(res));
 
@@ -163,7 +174,7 @@ export default class Edit_Profile extends Component {
             const err = this.res.error;
             throw err;
           }
-        }).catch((err) => {
+      }).catch((err) => {
           console.log("ERROR: Cannot create profile");
 
           Alert.alert(
@@ -174,7 +185,7 @@ export default class Edit_Profile extends Component {
             ],
             {cancelable: false},
           );
-        });
+      });
     }
   }
 
@@ -197,23 +208,54 @@ export default class Edit_Profile extends Component {
   }
 
   openPhotos(visible) {
-    this.setState({modalVisible: visible});
-    CameraRoll.getPhotos({
-     first: 20,
-     assetType: 'Photos',
-   })
-   .then(assets => {
-     const images = assets.edges.map((asset) => asset.node.image);
-     this.setState({ photos: images });
-   })
-   .catch((err) => {
-      console.log("Cannot open images")
-   });
+    const options = {
+      title: 'Select Image',
+      storageOptions: {
+        skipBackup: true,
+        path: 'images',
+      },
+    };
+    ImagePicker.launchImageLibrary(options, res => {
+      console.log("RRR");
+      console.log(JSON.stringify(res));
+      if (res.uri) {
+        profilesServices.uploadImage(res).then((res) => {
+          console.log("Image Uploaded");
+          console.log(JSON.stringify(res));
+
+          if (res.success) {
+          }
+        }).catch((err) => {
+          console.log("UPLOAD IMAGE ERR");
+          console.log(err);
+        });
+
+        this.setState({
+          selectedImage: {
+            uri: res.uri,
+            name: res.fileName,
+            type: res.type
+          }
+        });
+      }
+    });
   }
 
   selectImage(uri) {
-    this.setState({modalVisible: false});
-    this.setState({selectedUri: uri})
+    console.log("III");
+    console.log(JSON.stringify(uri));
+return;
+    profilesServices.uploadImage(global.user._id, uri).then((res) => {
+      console.log("IMG");
+      console.log(JSON.stringify(res));
+    }).catch((err) => {
+      console.log("ERR");
+      console.log(JSON.stringify(err));
+    });
+
+    this.setState({
+      selectedUri: uri
+    })
   }
 
   static navigationOptions = ({navigation, navigationOptions}) => {
@@ -246,37 +288,10 @@ export default class Edit_Profile extends Component {
         </LinearGradient>
         <ScrollView style={styles.container}>
           {/* display */}
-          <Image style={{width: 150, height: 150, alignSelf: 'center', marginBottom: 10}} source={{uri: this.state.selectedUri}}/>
+          <Image style={{width: 150, height: 150, alignSelf: 'center', marginBottom: 10}} source={{uri: this.state.selectedImage.uri}}/>
           <TouchableHighlight style={styles.upload_button} onPress={() => this.requestPhotoPermission()}>
             <Text style={styles.text}> Upload Picture </Text>
           </TouchableHighlight>
-          <Modal
-            animationType="slide"
-            transparent={false}
-            visible={this.state.modalVisible}
-            onRequestClose={() => {
-              Alert.alert('Modal has been closed.');
-          }}>
-            <View style = {styles.wrapper}>
-              <LinearGradient colors={['#2b5876', '#4e4376']}
-              locations={[0,0.8]} style={styles.header}>
-                <Text style={styles.text}> Choose Profile Photo </Text>
-                <Text
-                  style={styles.cancel}
-                  onPress={() => {this.setState({modalVisible: false});}}>
-                    x
-                </Text>
-              </LinearGradient>
-              <ScrollView style={styles.container}>
-                <View style={styles.imageGrid}>
-                  { this.state.photos.map((image) =>
-                    <TouchableOpacity onPress={() => this.selectImage(image.uri)}>
-                    <Image style={styles.image} source={{ uri: image.uri }} />
-                    </TouchableOpacity>) }
-                </View>
-              </ScrollView>
-            </View>
-          </Modal>
           <Form
             ref="form"
             type={Profile}
@@ -289,7 +304,7 @@ export default class Edit_Profile extends Component {
               this.tag = tag;
             }}
           />
-          <TouchableHighlight style={styles.button} onPress={() => this.handlePress()} underlayColor='#99d9f4'>
+          <TouchableHighlight style={styles.button} onPress={() => this.handleSubmit()} underlayColor='#99d9f4'>
             <Text style={styles.text}>Save</Text>
           </TouchableHighlight>
         </ScrollView>

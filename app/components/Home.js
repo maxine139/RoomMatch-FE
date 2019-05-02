@@ -21,10 +21,10 @@ class Card extends React.Component {
   constructor(props) {
     super(props);
 
-
     // Creating the socket-client instance will automatically connect to the server.
-    this.socket = SocketIO('http://18.222.255.4:3000');
+    this.socket = SocketIO('http://18.222.255.4');
   }
+
   render() {
     const name = this.props.firstname + ' ' + this.props.lastname;
     const gender = this.props.gender;
