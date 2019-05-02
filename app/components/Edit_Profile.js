@@ -178,19 +178,13 @@ export default class Edit_Profile extends Component {
     }
   }
 
-  async requestCameraPermission() {
+  async requestPhotoPermission() {
     if (Platform.OS === 'ios') {
       this.openPhotos(true);
     }
     try {
       const granted = await PermissionsAndroid.request(
-        PermissionsAndroid.PERMISSIONS.CAMERA,
-        {
-          'title': 'Roommatch Camera Permission',
-          'message': 'Roommatch needs access to your camera ' +
-                     'so you can upload a profile pic.'
-        }
-      )
+        PermissionsAndroid.PERMISSIONS.READ_EXTERNAL_STORAGE)
       if (granted === PermissionsAndroid.RESULTS.GRANTED) {
         console.log("GRANTED")
         this.openPhotos(true);
@@ -213,7 +207,7 @@ export default class Edit_Profile extends Component {
      this.setState({ photos: images });
    })
    .catch((err) => {
-      //Error Loading Images
+      console.log("Cannot open images")
    });
   }
 
@@ -253,7 +247,7 @@ export default class Edit_Profile extends Component {
         <ScrollView style={styles.container}>
           {/* display */}
           <Image style={{width: 150, height: 150, alignSelf: 'center', marginBottom: 10}} source={{uri: this.state.selectedUri}}/>
-          <TouchableHighlight style={styles.upload_button} onPress={() => this.requestCameraPermission()}>
+          <TouchableHighlight style={styles.upload_button} onPress={() => this.requestPhotoPermission()}>
             <Text style={styles.text}> Upload Picture </Text>
           </TouchableHighlight>
           <Modal
