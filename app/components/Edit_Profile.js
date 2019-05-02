@@ -156,17 +156,20 @@ export default class Edit_Profile extends Component {
         if (res.data.success) {
           const profile = {
             user_id: global.user._id,
-            firstname: value["First Name"] || "",
+            firstname: value["First Name"],
             lastname: value["Last Name"] || "",
-            age: value["Age"] || "",
-            gender: value["gender"] || "",
-            class: value["class"] || "",
-            major: value["major"] || "",
-            location: value["Im looking for housing..."] || "",
+            age: value["Age"],
+            gender: value["gender"],
+            class: value["class"],
+            major: value["major"],
+            location: value["Im looking for housing..."],
             tags: tags,
             image: this.state.imageSelected ? res.data.data.secure_url : this.state.selectedImage.uri,
-            bio: value["Short Bio"] || ""
+            bio: value["Short Bio"]
           };
+
+          console.log("PPP");
+          console.log(JSON.stringify(profile));
 
           return profilesServices.createProfile(profile);
         } else {
@@ -304,9 +307,6 @@ return;
     } else {
       return (<View />)
     }
-
-    console.log("DEF TAGS");
-    console.log(JSON.stringify(def_tags));
 
     return (
       <View style={styles.wrapper}>
