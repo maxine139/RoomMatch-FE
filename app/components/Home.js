@@ -3,6 +3,7 @@ import {StyleSheet,
         Image,
         Text,
         View,
+        Dimensions,
   TouchableOpacity,
   Alert
 } from 'react-native';
@@ -236,7 +237,8 @@ const styles = StyleSheet.create({
     },
     card: {
       flex: 1,
-      width: '100%',
+      width: Dimensions.get('window').width,
+      height: Dimensions.get('window').height,
       borderColor: 'grey',
       backgroundColor: 'white',
       borderWidth: 1,
