@@ -80,7 +80,7 @@ export default class Login extends React.Component {
 
       if (status == 200) {
         if (!res.data.success)
-          throw "Wrong email and password"
+          throw "Incorrect/missing email or password"
         global.user = res.data.data;
 
         // init socket
