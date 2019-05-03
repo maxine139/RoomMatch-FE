@@ -23,17 +23,6 @@ class Card extends React.Component {
     super(props);
   }
 
-  onComponentDidMount() {
-    
-    // socket events
-    if (global.socket) {
-      global.socket.on('match', (msg) => {
-        console.log("MATCH");
-        console.log(JSON.stringify(msg));
-      });
-    }
-  }
-
   render() {
     const name = this.props.firstname + ' ' + this.props.lastname;
     const gender = this.props.gender;
@@ -161,6 +150,24 @@ export default class Home extends React.Component {
 
   componentDidMount() {
     this.getProfiles();
+
+    // socket events
+    if (global.socket) {
+      global.socket.on('match', (msg) => {
+        console.log("MATCH");
+        console.log(JSON.stringify(msg));
+
+        Alert.alert('You got a match!', '', [
+          {
+            text: 'Back', onPress: () => {}, style: 'cancel'
+          },
+          {
+            text: 'See Match', onPress: () => {this.props.navigation.navigate('Chat_List')}
+          }
+        ])
+
+      });
+    }
   }
 
   componentDidUpdate(oldProps, oldState) {
