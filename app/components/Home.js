@@ -23,6 +23,17 @@ class Card extends React.Component {
     super(props);
   }
 
+  onComponentDidMount() {
+    
+    // socket events
+    if (global.socket) {
+      global.socket.on('match', (msg) => {
+        console.log("MATCH");
+        console.log(JSON.stringify(msg));
+      });
+    }
+  }
+
   render() {
     const name = this.props.firstname + ' ' + this.props.lastname;
     const gender = this.props.gender;

@@ -18,5 +18,7 @@ export function init() {
     global.socket = io(host);
 
     global.socket.emit('check-in', global.user._id);
+
+    // Sockets can not be listened to on global.socket.on(...)
   }
 }
