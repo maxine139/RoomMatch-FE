@@ -47,5 +47,46 @@ export async function getMatches(user_id) {
       }
     }
   }
+}
 
+export async function getChat(match_id) {
+  let path = '/app/v1/matches/getChat?match_id=' + match_id;
+
+  try {
+    return await Axios.get(path);
+  } catch(err) {
+    console.log("Get Chat ERROR");
+    console.log(JSON.stringify(err));
+
+    return {
+      status: 408,
+      data: {
+        error: 'Cannot connect to server'
+      }
+    }
+  }
+}
+
+export async function addChat(match_id, user_id, message) {
+  let path = '/app/v1/matches/addChat';
+
+  let body = {
+    match_id: match_id,
+    user_id: user_id,
+    message: message
+  };
+
+  try {
+    return await Axios.post(path, body);
+  } catch(err) {
+    console.log("Get Chat ERROR");
+    console.log(JSON.stringify(err));
+
+    return {
+      status: 408,
+      data: {
+        error: 'Cannot connect to server'
+      }
+    }
+  }
 }

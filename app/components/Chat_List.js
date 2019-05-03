@@ -55,7 +55,7 @@ export default class Chat_List extends React.Component {
       }
 
       console.log("Match Ids");
-      console.log(ids);
+      console.log(JSON.stringify(match_ids));
 
       return profilesServices.getManyProfiles(ids);
     }).then((res) => {
@@ -64,7 +64,7 @@ export default class Chat_List extends React.Component {
 
       let profiles = res.data.data;
       for (let i = 0; i < profiles.length; i ++) {
-        profiles.match_id = match_ids[i];
+        profiles[i].match_id = match_ids[i];
       }
 
       this.setState({
@@ -108,7 +108,7 @@ export default class Chat_List extends React.Component {
       );
   }
   GetItem (item) {
-    this.props.navigation.navigate('Chat_Screen', item);
+    this.props.navigation.navigate('Chat_Screen', {profile: item});
   }
 
   render() {
