@@ -11,7 +11,7 @@ export async function createSwipe(from_user_id, to_user_id, like) {
   let body = {
     from_user_id: from_user_id,
     to_user_id: to_user_id,
-    like: like
+    like: like.toString()
   };
   
   let path = '/app/v1/matches/create';

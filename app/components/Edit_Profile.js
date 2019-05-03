@@ -67,6 +67,7 @@ export default class Edit_Profile extends Component {
       super(props);
       this.state = {
         photos: [],
+        defaultValsFetched: false,
         formDefaultValues: {},
         imageSelected: false,
         selectedImage: { uri: 'https://support.plymouth.edu/kb_images/Yammer/default.jpeg' }
@@ -91,6 +92,9 @@ export default class Edit_Profile extends Component {
       const profile = res.data.data;
 
       if (profile === null) {
+        this.setState({
+          defaultValsFetched: true
+        });
         // no profile yet
         return;
       }
@@ -103,10 +107,12 @@ export default class Edit_Profile extends Component {
         'class': profile.class,
         'major': profile.major,
         'Im looking for housing...': profile.location,
-        'Short Bio': profile.bio
+        'Short Bio': profile.bio,
+        'tags': profile.tags.split(',')
       };
 
       this.setState({
+        defaultValsFetched: true,
         formDefaultValues: defaultVal,
         selectedImage: {
           uri: profile.image
@@ -130,6 +136,9 @@ export default class Edit_Profile extends Component {
     const tagRef = this.tag.itemsSelected;
     const value = this.refs.form.getValue();
 
+    console.log("VVV");
+    console.log(JSON.stringify(value));
+
     if (value) {
       // backend call
 
@@ -147,17 +156,20 @@ export default class Edit_Profile extends Component {
         if (res.data.success) {
           const profile = {
             user_id: global.user._id,
-            firstname: value["First Name"] || "",
+            firstname: value["First Name"],
             lastname: value["Last Name"] || "",
-            age: value["Age"] || "",
-            gender: value["gender"] || "",
-            class: value["class"] || "",
-            major: value["major"] || "",
-            location: value["Im looking for housing..."] || "",
+            age: value["Age"],
+            gender: value["gender"],
+            class: value["class"],
+            major: value["major"],
+            location: value["Im looking for housing..."],
             tags: tags,
             image: this.state.imageSelected ? res.data.data.secure_url : this.state.selectedImage.uri,
-            bio: value["Short Bio"] || ""
+            bio: value["Short Bio"]
           };
+
+          console.log("PPP");
+          console.log(JSON.stringify(profile));
 
           return profilesServices.createProfile(profile);
         } else {
@@ -280,6 +292,22 @@ return;
       { id: 9, label: 'Early Bird' }
     ];
 
+    console.log("DEF TAGS");
+    console.log(JSON.stringify(this.state.formDefaultValues.tags));
+
+    let def_tags = [];
+    if (this.state.defaultValsFetched) {
+      if (this.state.formDefaultValues.tags) {
+        for (let i = 0; i < data.length; i ++) {
+          if (this.state.formDefaultValues.tags.includes(data[i].label)) {
+            def_tags.push(data[i]);
+          }
+        }
+      }
+    } else {
+      return (<View />)
+    }
+
     return (
       <View style={styles.wrapper}>
         <LinearGradient colors={['#2b5876', '#4e4376']}
@@ -299,6 +327,7 @@ return;
             value={this.state.formDefaultValues}/>
           <Text style={{fontSize: 18, fontWeight: 'bold', padding: 10}}>Select Tags</Text>
           <TagSelect
+            value={def_tags}
             data={data}
             ref={(tag) => {
               this.tag = tag;

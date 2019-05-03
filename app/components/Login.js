@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import {
+  Alert,
     StyleSheet,
     Text,
     View,
@@ -12,6 +13,8 @@ import theme from '../theme';
 import PrimaryButton from './Button'
 import Logo from '../img/roommatch_logo.svg'
 import * as usersService from '../services/users.js';
+
+import * as socketServices from '../services/sockets';
 
 export default class Login extends React.Component {
     constructor(props){
@@ -76,8 +79,13 @@ export default class Login extends React.Component {
       const status = res.status;
 
       if (status == 200) {
+        if (!res.data.success)
+          throw "Wrong email and password"
         global.user = res.data.data;
-        
+
+        // init socket
+        socketServices.init();
+
         // has profile?
         if (res.data.data.has_profile) {
           this.props.navigation.navigate('Home');
@@ -87,10 +95,19 @@ export default class Login extends React.Component {
       } else {
         console.log("LOGIN PAGE ERROR: cannot login");
         console.log(JSON.stringify(res));
+        throw res.data.error
       }
     }).catch((err) => {
       console.log("LOGIN PAGE ERROR: cannot login");
       console.log(JSON.stringify(err));
+      Alert.alert(
+        'Error',
+        err,
+        [
+          {text: 'OK'},
+        ],
+        {cancelable: false},
+      );
     });
   }
 };
