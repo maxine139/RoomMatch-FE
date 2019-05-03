@@ -134,6 +134,7 @@ export default class Chat_Screen extends Component {
       <GiftedChat
         messages={this.state.messages}
         renderBubble={this.renderBubble}
+        extraData={this.state}
         onSend={messages => this.onSend(messages)}
         user={{
           _id: 1
