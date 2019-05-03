@@ -6,6 +6,10 @@ import {StyleSheet,
         TouchableOpacity,
         Alert
 } from 'react-native';
+import { Avatar } from 'react-native-elements';
+
+import * as matchesServices from '../services/matches';
+import * as profilesServices from '../services/profiles';
 
 export default class Chat_List extends React.Component {
     constructor(props) {
@@ -29,6 +33,50 @@ export default class Chat_List extends React.Component {
         refreshing: false,
       };
     }
+
+  componentDidMount() {
+    console.log("Chat List Mount");
+
+    let match_ids = [];
+    matchesServices.getMatches(global.user._id).then((res) => {
+      console.log("MMM");
+      console.log(JSON.stringify(res));
+
+      const matches = res.data.data;
+
+      let ids = [];
+      for (let i = 0; i < matches.length; i ++) {
+        const m = matches[i];
+
+        let other_id = m.user_ids[0] == global.user._id ? m.user_ids[1] : m.user_ids[0];
+
+        match_ids.push(m._id);
+        ids.push(other_id);
+      }
+
+      console.log("Match Ids");
+      console.log(ids);
+
+      return profilesServices.getManyProfiles(ids);
+    }).then((res) => {
+      console.log("PPP");
+      console.log(JSON.stringify(res));
+
+      let profiles = res.data.data;
+      for (let i = 0; i < profiles.length; i ++) {
+        profiles.match_id = match_ids[i];
+      }
+
+      this.setState({
+        profiles: profiles
+      });
+    }).catch((err) => {
+      console.log("Matches Error");
+      console.log(JSON.stringify(err));
+
+      Alert.alert("Cannot connect to server");
+    });
+  }
 
   static navigationOptions = ({navigation, navigationOptions}) => {
     return {
@@ -64,24 +112,29 @@ export default class Chat_List extends React.Component {
   }
 
   render() {
+
+    console.log("CHAT LIST RENDER");
+    console.log(JSON.stringify(this.state.profiles));
     return (
       <View style={styles.wrapper}>
       <FlatList
-
-          data={ this.state.data }
-
+          data={this.state.profiles}
           ItemSeparatorComponent = {this.FlatListItemSeparator}
           ListFooterComponent = {this.FlatListItemSeparator}
-
           renderItem={({item}) => {
             return (
               <View>
                 <TouchableOpacity style={styles.item}
                   onPress={() => this.GetItem(item)}>
-                  <Text>
-                    <Text style={styles.name}> {item.name} </Text> {'\n'}
-                    <Text> {item.subtitle} </Text>
-                  </Text>
+                  <View style={styles.main_view}>
+                    <View>
+                      <Avatar size="large" rounded source={{uri: item.image}}/>
+                    </View>
+                    <Text>
+                      <Text style={styles.name}> {item.firstname + ' ' + item.lastname} </Text> {'\n'}
+                      <Text> {item.bio} </Text>
+                    </Text>
+                  </View>
                 </TouchableOpacity>
               </View>
             )}}
@@ -93,6 +146,10 @@ export default class Chat_List extends React.Component {
 
 
 const styles = StyleSheet.create({
+  main_view:{
+    flex: 1,
+    flexDirection: 'row'
+  },
     wrapper: {
       flex: 1,
       justifyContent: 'center'

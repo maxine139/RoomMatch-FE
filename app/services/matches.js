@@ -30,3 +30,22 @@ export async function createSwipe(from_user_id, to_user_id, like) {
     }
   }
 }
+
+export async function getMatches(user_id) {
+  let path = '/app/v1/matches/get?user_id=' + user_id;
+
+  try {
+    return await Axios.get(path);
+  } catch(err) {
+    console.log("Get Matches ERROR");
+    console.log(JSON.stringify(err));
+
+    return {
+      status: 408,
+      data: {
+        error: 'Cannot connect to server'
+      }
+    }
+  }
+
+}

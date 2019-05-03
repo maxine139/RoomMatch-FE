@@ -65,6 +65,31 @@ export async function getProfile(user_id) {
   }
 }
 
+export async function getManyProfiles(user_ids) {
+  let path = "/app/v1/profiles/getMany?user_ids=";
+
+  for (let i = 0; i < user_ids.length; i ++) {
+    path += user_ids[i];
+    if (i != user_ids.length - 1) {
+      path += ',';
+    }
+  }
+
+  try {
+    return await Axios.get(path);
+  } catch(err) {
+    console.log("Profile Get Error");
+    console.log(JSON.stringify(err));
+
+    return {
+      status: 408,
+      data: {
+        error: 'Cannot connect to server'
+      }
+    };
+  }
+}
+
 export async function uploadImage(image) {
 	if (!image) {
 		return {
