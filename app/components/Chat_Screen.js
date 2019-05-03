@@ -17,16 +17,6 @@ export default class Chat_Screen extends Component {
     this.state = {
       profile: profile,
       messages: [
-        {
-          _id: 1,
-          text: "Hello developer",
-          createdAt: new Date(),
-          user: {
-            _id: 2,
-            name: "React Native",
-            avatar: "https://placeimg.com/140/140/any"
-          }
-        }
       ]
     }
   }
@@ -34,6 +24,18 @@ export default class Chat_Screen extends Component {
   componentDidMount() {
     console.log("CHAT SCREEN MOUNT");
 
+    // add socket event
+    global.socket.on('message', (msg) => {
+      console.log('SOCKET MSGG');
+      console.log(JSON.stringify(msg));
+
+      this.getMessage();
+    });
+
+    this.getMessage();
+  }
+
+  getMessage = () => {
     // get chat
     const match_id = this.state.profile.match_id;
     matchesServices.getChat(match_id).then((res) => {
@@ -63,7 +65,8 @@ export default class Chat_Screen extends Component {
     }).catch((err) => {
       Alert.alert("Cannot connect to server");
     });
-  }
+
+  };
 
   renderBubble = (props) => {
     return (
