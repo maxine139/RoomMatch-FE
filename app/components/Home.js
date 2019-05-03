@@ -149,25 +149,31 @@ export default class Home extends React.Component {
   };
 
   componentDidMount() {
-    this.getProfiles();
 
-    // socket events
-    if (global.socket) {
-      global.socket.on('match', (msg) => {
-        console.log("MATCH");
-        console.log(JSON.stringify(msg));
+    // add navigation event
+    const didFocus = this.props.navigation.addListener(
+      'didFocus',
+      () => {
+        this.getProfiles();
 
-        Alert.alert('You got a match!', '', [
-          {
-            text: 'Back', onPress: () => {}, style: 'cancel'
-          },
-          {
-            text: 'See Match', onPress: () => {this.props.navigation.navigate('Chat_List')}
-          }
-        ])
+        // socket events
+        if (global.socket) {
+          global.socket.on('match', (msg) => {
+            console.log("MATCH");
+            console.log(JSON.stringify(msg));
 
-      });
-    }
+            Alert.alert('You got a match!', '', [
+              {
+                text: 'Back', onPress: () => {}, style: 'cancel'
+              },
+              {
+                text: 'See Match', onPress: () => {this.props.navigation.navigate('Chat_List')}
+              }
+            ])
+          });
+        }
+      }
+    );
   }
 
   componentDidUpdate(oldProps, oldState) {
