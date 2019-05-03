@@ -133,6 +133,7 @@ export default class Edit_Profile extends Component {
   };
 
   handleSubmit(){
+    console.log("in submit.. okay")
     const tagRef = this.tag.itemsSelected;
     const value = this.refs.form.getValue();
 
@@ -140,6 +141,7 @@ export default class Edit_Profile extends Component {
     console.log(JSON.stringify(value));
 
     if (value) {
+      console.log("value is valid")
       // backend call
 
       // collect tags
@@ -200,6 +202,16 @@ export default class Edit_Profile extends Component {
             {cancelable: false},
           );
       });
+    }
+    else {
+      Alert.alert(
+        'Error',
+        'Missing required fields',
+        [
+          {text: 'OK'},
+        ],
+        {cancelable: false},
+      );
     }
   }
 
