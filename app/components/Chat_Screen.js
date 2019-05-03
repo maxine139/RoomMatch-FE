@@ -29,12 +29,12 @@ export default class Chat_Screen extends Component {
       console.log('SOCKET MSGG');
       console.log(JSON.stringify(msg));
 
-      this.getMessage();
+      if (this.state.profile.match_id == msg.match_id) {
+        this.getMessage();
+      }
     });
 
-    if (this.state.profile.match_id == msg.match_id) {
-      this.getMessage();
-    }
+    this.getMessage();
   }
 
   getMessage = () => {
