@@ -67,14 +67,14 @@ class Card extends React.Component {
           </View>
           <View style={styles.buttonSpacing}>
             <View style={{width: 50, height: 50, justifyContent: 'center', alignItems:'center', marginRight: 40, elevation: 3}}>
-              <Icon onPress={() => this.handleNope}
+              <Icon onPress={() => this.props.handleSwipe(this.props.card, false)}
               name="times"
               color="red"
               size={50}
               />
             </View>
             <View style={{width: 50, height: 50, justifyContent: 'center', alignItems:'center', marginLeft:40, elevation: 3}}>
-              <Icon onPress={() => this.handleYup}
+              <Icon onPress={() => this.props.handleSwipe(this.props.card, true)}
               name="check"
               color="green"
               size={50}
@@ -218,7 +218,7 @@ export default class Home extends React.Component {
         showNope={true}
         noText='No!'
         onClickHandler={() => {}}
-        renderCard={(cardData) => <Card {...cardData} />}
+        renderCard={(cardData) => <Card {...cardData} handleSwipe={this.handleSwipe.bind(this)} card={cardData}/>}
         renderNoMoreCards={() => <NoMoreCards />}
 
         handleYup={(card) => this.handleSwipe(card, true)}
