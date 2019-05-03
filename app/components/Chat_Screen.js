@@ -32,7 +32,9 @@ export default class Chat_Screen extends Component {
       this.getMessage();
     });
 
-    this.getMessage();
+    if (this.state.profile.match_id == msg.match_id) {
+      this.getMessage();
+    }
   }
 
   getMessage = () => {
