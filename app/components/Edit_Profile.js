@@ -28,11 +28,11 @@ var Gender = t.enums({
 });
 
 var Class = t.enums({
-    'F': 'Freshman',
-    'So': 'Sophomore',
-    'J': 'Junior',
-    'Sr': 'Senior',
-    'G': 'Graduate'
+    'Freshman': 'Freshman',
+    'Sophomore': 'Sophomore',
+    'Junior': 'Junior',
+    'Senior': 'Senior',
+    'Graduate': 'Graduate'
 });
 
 var Campus = t.enums({
