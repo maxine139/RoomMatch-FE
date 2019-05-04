@@ -39,22 +39,21 @@ export default class Chat_List extends React.Component {
 
   componentDidMount() {
 
+    // socket events
+    if (global.socket) {
+      global.socket.on('match', (msg) => {
+        console.log("CHAT LIST MATCH");
+        console.log(JSON.stringify(msg));
+
+        this.onFocus();
+      });
+    }
+
     // add navigation event
     const didFocus = this.props.navigation.addListener(
       'didFocus',
       () => {
         this.onFocus();
-
-
-        // socket events
-        if (global.socket) {
-          global.socket.on('match', (msg) => {
-            console.log("CHAT LIST MATCH");
-            console.log(JSON.stringify(msg));
-
-            this.onFocus();
-          });
-        }
       }
     );
   }
@@ -113,7 +112,6 @@ export default class Chat_List extends React.Component {
 
       Alert.alert("Cannot connect to server");
     });
-
   };
 
   static navigationOptions = ({navigation, navigationOptions}) => {

@@ -137,28 +137,40 @@ export default class Home extends React.Component {
 
   componentDidMount() {
 
+    // socket events
+    if (global.socket) {
+      global.socket.on('match', (msg) => {
+        console.log("MATCH");
+        console.log(JSON.stringify(msg));
+
+        // get profile
+        profilesServices.getProfile(msg.from_user_id).then((res) => {
+          Alert.alert('New match!', res.data.data.firstname + ' matches with you', [
+            {
+              text: 'Back', onPress: () => {}, style: 'cancel'
+            },
+            {
+              text: 'See Match', onPress: () => {this.props.navigation.navigate('Chat_List')}
+            }
+          ]);
+        }).catch((err) => {
+          Alert.alert('New Match!', '', [
+            {
+              text: 'Back', onPress: () => {}, style: 'cancel'
+            },
+            {
+              text: 'See Match', onPress: () => {this.props.navigation.navigate('Chat_List')}
+            }
+          ]);
+        })
+      });
+    }
+
     // add navigation event
     const didFocus = this.props.navigation.addListener(
       'didFocus',
       () => {
         this.getProfiles();
-
-        // socket events
-        if (global.socket) {
-          global.socket.on('match', (msg) => {
-            console.log("MATCH");
-            console.log(JSON.stringify(msg));
-
-            Alert.alert('You got a match!', '', [
-              {
-                text: 'Back', onPress: () => {}, style: 'cancel'
-              },
-              {
-                text: 'See Match', onPress: () => {this.props.navigation.navigate('Chat_List')}
-              }
-            ])
-          });
-        }
       }
     );
   }
