@@ -44,6 +44,11 @@ export default class Chat_List extends React.Component {
 
       const matches = res.data.data;
 
+      this.setState({
+
+        matches:matches
+      })
+
       let ids = [];
       for (let i = 0; i < matches.length; i ++) {
         const m = matches[i];
@@ -122,6 +127,21 @@ export default class Chat_List extends React.Component {
           ItemSeparatorComponent = {this.FlatListItemSeparator}
           ListFooterComponent = {this.FlatListItemSeparator}
           renderItem={({item}) => {
+            let match = null;
+            for (let i = 0; i < this.state.matches.length; i ++) {
+              if (this.state.matches[i]._id == item.match_id) {
+                match = this.state.matches[i];
+              }
+            }
+
+            let last_msg = match.chat.length == 0 ? {
+              message: "No chat yet",
+              timestamp: null
+            } : {
+              message: match.chat[0].message,
+              timestamp: match.chat[0].timestamp
+            };
+
             return (
               <View>
                 <TouchableOpacity style={styles.item}
@@ -130,10 +150,15 @@ export default class Chat_List extends React.Component {
                     <View>
                       <Avatar size="large" rounded source={{uri: item.image}}/>
                     </View>
-                    <Text>
-                      <Text style={styles.name}> {item.firstname + ' ' + item.lastname} </Text> {'\n'}
-                      <Text> {item.bio} </Text>
-                    </Text>
+                    <View style={styles.details}>
+                      <Text>
+                        <Text style={styles.name}> {item.firstname + ' ' + item.lastname} </Text>
+                        <Text style={styles.timestamp}> {last_msg.timestamp || ""} </Text> {'\n'}
+                        <View style={styles.preview_style}>
+                          <Text style={styles.preview}> {last_msg.message} </Text>
+                        </View>
+                      </Text>
+                    </View>
                   </View>
                 </TouchableOpacity>
               </View>
@@ -150,16 +175,29 @@ const styles = StyleSheet.create({
     flex: 1,
     flexDirection: 'row'
   },
+  details: {
+    marginLeft: 5,
+  },
     wrapper: {
       flex: 1,
       justifyContent: 'center'
     },
 
     item: {
-        padding: 10,
-        height: 100,
+      padding: 10,
+      height: 100,
+    },
+    preview: {
+      alignSelf: 'flex-start',
+      fontSize: 15,
     },
     name: {
+      fontWeight: 'bold',
+      alignSelf: 'flex-start',
       fontSize: 20,
+    },
+    timestamp: {
+      alignSelf: 'flex-end',
+      fontSize: 15
     }
 });
