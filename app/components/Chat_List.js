@@ -7,6 +7,7 @@ import {StyleSheet,
         Alert
 } from 'react-native';
 import { Avatar } from 'react-native-elements';
+import TimeAgo from 'react-native-timeago'
 
 import * as matchesServices from '../services/matches';
 import * as profilesServices from '../services/profiles';
@@ -153,7 +154,7 @@ export default class Chat_List extends React.Component {
                 timestamp: null
               } : {
                 message: match.chat[0].message,
-                timestamp: match.chat[0].timestamp
+                timestamp: new Date(match.chat[0].timestamp*1000),
               };
 
               return (
@@ -165,11 +166,21 @@ export default class Chat_List extends React.Component {
                         <Avatar size="large" rounded source={{uri: item.image}}/>
                       </View>
                       <View style={styles.details}>
-                        <Text>
+                        <View>
                           <Text style={styles.name}> {item.firstname + ' ' + item.lastname} </Text>
-                          <Text style={styles.timestamp}> {last_msg.timestamp || ""} </Text> {'\n'}
-                            <Text style={styles.preview}> {last_msg.message} </Text>
-                        </Text>
+                        </View>
+                        <TimeAgo>
+                          {
+                            let timestamp = last_msg.timestamp == null ? {
+
+                            } : {
+                              message: match.chat[0].message,
+                              timestamp: new Date(match.chat[0].timestamp*1000),
+                            };
+                          }>
+                        <View>
+                          <Text style={styles.preview}> {last_msg.message} </Text>
+                        </View>
                       </View>
                     </View>
                   </TouchableOpacity>
