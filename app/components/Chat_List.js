@@ -43,6 +43,12 @@ export default class Chat_List extends React.Component {
       console.log(JSON.stringify(res));
 
       const matches = res.data.data;
+      console.log(res.data.data);
+
+      this.setState({
+
+        matches:matches
+      })
 
       let ids = [];
       for (let i = 0; i < matches.length; i ++) {
@@ -59,17 +65,24 @@ export default class Chat_List extends React.Component {
 
       return profilesServices.getManyProfiles(ids);
     }).then((res) => {
-      console.log("PPP");
-      console.log(JSON.stringify(res));
-
-      let profiles = res.data.data;
-      for (let i = 0; i < profiles.length; i ++) {
-        profiles[i].match_id = match_ids[i];
+      if (res.data.success == false)
+      {
+        console.log("okay it settting pfoeils to empty array")
+        this.setState({ profiles: [] })
       }
 
-      this.setState({
-        profiles: profiles
-      });
+      else {
+        console.log("PPP");
+        console.log(JSON.stringify(res));
+        let profiles = res.data.data;
+        for (let i = 0; i < profiles.length; i ++) {
+          profiles[i].match_id = match_ids[i];
+        }
+
+        this.setState({
+          profiles: profiles
+        });
+      }
     }).catch((err) => {
       console.log("Matches Error");
       console.log(JSON.stringify(err));
@@ -115,6 +128,16 @@ export default class Chat_List extends React.Component {
 
     console.log("CHAT LIST RENDER");
     console.log(JSON.stringify(this.state.profiles));
+    if (this.state.profiles)
+    {
+      return (
+        <View style = {styles.wrapper}>
+          <Text style={{fontSize: 20, alignSelf: 'center', color: 'grey'}}> No matches yet :c </Text>
+        </View>
+      )
+    }
+    else
+    {
     return (
       <View style={styles.wrapper}>
       <FlatList
@@ -122,6 +145,21 @@ export default class Chat_List extends React.Component {
           ItemSeparatorComponent = {this.FlatListItemSeparator}
           ListFooterComponent = {this.FlatListItemSeparator}
           renderItem={({item}) => {
+            let match = null;
+            for (let i = 0; i < this.state.matches.length; i ++) {
+              if (this.state.matches[i]._id == item.match_id) {
+                match = this.state.matches[i];
+              }
+            }
+
+            let last_msg = match.chat.length == 0 ? {
+              message: "No chat yet",
+              timestamp: null
+            } : {
+              message: match.chat[0].message,
+              timestamp: match.chat[0].timestamp
+            };
+
             return (
               <View>
                 <TouchableOpacity style={styles.item}
@@ -130,10 +168,15 @@ export default class Chat_List extends React.Component {
                     <View>
                       <Avatar size="large" rounded source={{uri: item.image}}/>
                     </View>
-                    <Text>
-                      <Text style={styles.name}> {item.firstname + ' ' + item.lastname} </Text> {'\n'}
-                      <Text> {item.bio} </Text>
-                    </Text>
+                    <View style={styles.details}>
+                      <Text>
+                        <Text style={styles.name}> {item.firstname + ' ' + item.lastname} </Text>
+                        <Text style={styles.timestamp}> {last_msg.timestamp || ""} </Text> {'\n'}
+                        <View style={styles.preview_style}>
+                          <Text style={styles.preview}> {last_msg.message} </Text>
+                        </View>
+                      </Text>
+                    </View>
                   </View>
                 </TouchableOpacity>
               </View>
@@ -141,6 +184,7 @@ export default class Chat_List extends React.Component {
         />
       </View>
     )
+  }
   }
 }
 
@@ -150,16 +194,29 @@ const styles = StyleSheet.create({
     flex: 1,
     flexDirection: 'row'
   },
+  details: {
+    marginLeft: 5,
+  },
     wrapper: {
       flex: 1,
       justifyContent: 'center'
     },
 
     item: {
-        padding: 10,
-        height: 100,
+      padding: 10,
+      height: 100,
+    },
+    preview: {
+      alignSelf: 'flex-start',
+      fontSize: 15,
     },
     name: {
+      fontWeight: 'bold',
+      alignSelf: 'flex-start',
       fontSize: 20,
+    },
+    timestamp: {
+      alignSelf: 'flex-end',
+      fontSize: 15
     }
 });
