@@ -43,6 +43,17 @@ export default class Chat_List extends React.Component {
       'didFocus',
       () => {
         this.onFocus();
+
+
+        // socket events
+        if (global.socket) {
+          global.socket.on('match', (msg) => {
+            console.log("CHAT LIST MATCH");
+            console.log(JSON.stringify(msg));
+
+            this.onFocus();
+          });
+        }
       }
     );
   }
