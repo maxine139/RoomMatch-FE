@@ -62,22 +62,6 @@ class Card extends React.Component {
               })
             }
           </View>
-          <View style={styles.buttonSpacing}>
-            <View style={{width: 50, height: 50, justifyContent: 'center', alignItems:'center', marginRight: 40, elevation: 3}}>
-              <Icon onPress={() => this.props.handleSwipe(this.props.card, false)}
-              name="times"
-              color="red"
-              size={50}
-              />
-            </View>
-            <View style={{width: 50, height: 50, justifyContent: 'center', alignItems:'center', marginLeft:40, elevation: 3}}>
-              <Icon onPress={() => this.props.handleSwipe(this.props.card, true)}
-              name="check"
-              color="green"
-              size={50}
-              />
-            </View>
-          </View>
         </View>
     )
   }
@@ -234,6 +218,7 @@ export default class Home extends React.Component {
     return (
       <SwipeCards
         cards={this.state.cards}
+        stack={true}
         showYup={true}
         yupText='Like!'
         showNope={true}
@@ -258,12 +243,13 @@ const styles = StyleSheet.create({
     },
     card: {
       flex: 1,
-      width: Dimensions.get('window').width,
-      height: Dimensions.get('window').height,
-      borderColor: 'grey',
+      width: Dimensions.get('window').width-50,
+      height: Dimensions.get('window').height-100,
+      //borderColor: 'grey',
       backgroundColor: 'white',
-      borderWidth: 1,
-      elevation: 1,
+      //borderWidth: 1,
+      elevation: 5,
+      borderRadius: 20,
     },
     noMoreCardsText: {
         fontSize: 22,
@@ -271,6 +257,8 @@ const styles = StyleSheet.create({
     },
     thumbnail: {
         height: '40%',
+        borderTopLeftRadius: 20,
+        borderTopRightRadius: 20
     },
     nameText: {
         fontSize: 24,
@@ -315,10 +303,9 @@ const styles = StyleSheet.create({
     tagWrapper: {
       padding: 10,
       margin: 5,
-      borderWidth: 1,
+      borderWidth: 2,
       borderRadius: 6,
-      backgroundColor: '#989898',
-      borderColor: '#989898'
+      borderColor: '#2b5876',
     }
 
 });
