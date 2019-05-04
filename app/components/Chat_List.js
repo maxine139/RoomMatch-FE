@@ -4,7 +4,8 @@ import {StyleSheet,
         FlatList,
         View,
         TouchableOpacity,
-        Alert
+        Alert,
+        Dimensions
 } from 'react-native';
 import { Avatar } from 'react-native-elements';
 import TimeAgo from 'react-native-timeago'
@@ -166,7 +167,7 @@ export default class Chat_List extends React.Component {
                         <Avatar size="large" rounded source={{uri: item.image}}/>
                       </View>
                       <View style={styles.details}>
-                        <View style = {{flexDirection: 'row'}}>
+                        <View style={{flexDirection: 'row'}}>
                           <View>
                             <Text style={styles.name}>{item.firstname + ' ' + item.lastname} </Text>
                           </View>
@@ -197,6 +198,7 @@ const styles = StyleSheet.create({
   },
   details: {
     marginLeft: 10,
+    width: Dimensions.get('window').width - 95,
   },
     wrapper: {
       flex: 1,
@@ -215,8 +217,10 @@ const styles = StyleSheet.create({
       fontWeight: 'bold',
       alignSelf: 'flex-start',
       fontSize: 20,
+      paddingBottom: 10,
     },
     timestamp: {
-      alignSelf: 'flex-end',
+      position: 'absolute',
+      right: 20,
     }
 });
