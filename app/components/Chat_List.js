@@ -248,6 +248,6 @@ const styles = StyleSheet.create({
     },
     timestamp: {
       position: 'absolute',
-      right: 20,
+      right: 10,
     }
 });
