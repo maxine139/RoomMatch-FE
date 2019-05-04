@@ -81,6 +81,7 @@ class Card extends React.Component {
               <Text style={styles.text}>{bio} </Text>
             </View>
           </View>
+          {tags.length == 0 ? (<View />) : (
           <View style={styles.tagStyles}>
             {
               tags.map(tag => {
@@ -92,6 +93,7 @@ class Card extends React.Component {
               })
             }
           </View>
+          )}
         </View>
     )
   }
