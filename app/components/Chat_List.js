@@ -84,28 +84,28 @@ export default class Chat_List extends React.Component {
       }
 
       console.log("Match Ids");
-      console.log(JSON.stringify(match_ids));
 
       return profilesServices.getManyProfiles(ids);
     }).then((res) => {
-      if (res.data.success == false)
-        return;
-
-      console.log("PPP");
-      console.log(JSON.stringify(res));
-      let profiles = res.data.data;
-      for (let i = 0; i < profiles.length; i ++) {
-        for (let j = 0; j < matches.length; j ++) {
-          if (profiles[i].user_id == matches[j].other_id) {
-            profiles[i].matches[i] = matches[j]._id;
-            break;
+      console.log(res)
+      if (res.data.success == false){}
+        //return;
+      else {
+        console.log("PPP");
+        console.log(JSON.stringify(res));
+        let profiles = res.data.data;
+        for (let i = 0; i < profiles.length; i ++) {
+          for (let j = 0; j < matches.length; j ++) {
+            if (profiles[i].user_id == matches[j].other_id) {
+              profiles[i].matches[i] = matches[j]._id;
+              break;
+            }
           }
         }
+        this.setState({
+          profiles: profiles
+        });
       }
-
-      this.setState({
-        profiles: profiles
-      });
     }).catch((err) => {
       console.log("Matches Error");
       console.log(JSON.stringify(err));
