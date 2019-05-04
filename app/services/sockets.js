@@ -20,5 +20,9 @@ export function init() {
     global.socket.emit('check-in', global.user._id);
 
     // Sockets can not be listened to on global.socket.on(...)
+    global.socket.on('disconnect', () => {
+      global.socket.emit('check-in', global.user._id);
+      global.socket.open();
+    });
   }
 }
