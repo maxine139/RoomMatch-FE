@@ -86,6 +86,8 @@ export default class Login extends React.Component {
         // init socket
         socketServices.init();
 
+        console.log("LOGIN RES");
+        console.log(res);
         // has profile?
         if (res.data.data.has_profile) {
           this.props.navigation.navigate('Home');

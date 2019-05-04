@@ -7,6 +7,7 @@ import {StyleSheet,
         Alert
 } from 'react-native';
 import { Avatar } from 'react-native-elements';
+import TimeAgo from 'react-native-timeago'
 
 import * as matchesServices from '../services/matches';
 import * as profilesServices from '../services/profiles';
@@ -36,20 +37,39 @@ export default class Chat_List extends React.Component {
     }
 
   componentDidMount() {
-    console.log("Chat List Mount");
 
-    let match_ids = [];
+    // add navigation event
+    const didFocus = this.props.navigation.addListener(
+      'didFocus',
+      () => {
+        this.onFocus();
+
+
+        // socket events
+        if (global.socket) {
+          global.socket.on('match', (msg) => {
+            console.log("CHAT LIST MATCH");
+            console.log(JSON.stringify(msg));
+
+            this.onFocus();
+          });
+        }
+      }
+    );
+  }
+
+  onFocus = () => {
+    let matches = null;
     matchesServices.getMatches(global.user._id).then((res) => {
       console.log("MMM");
       console.log(JSON.stringify(res));
 
-      const matches = res.data.data;
+      matches = res.data.data;
       console.log(res.data.data);
 
       this.setState({
-
         matches:matches
-      })
+      });
 
       let ids = [];
       for (let i = 0; i < matches.length; i ++) {
@@ -57,7 +77,8 @@ export default class Chat_List extends React.Component {
 
         let other_id = m.user_ids[0] == global.user._id ? m.user_ids[1] : m.user_ids[0];
 
-        match_ids.push(m._id);
+        matches[i].other_id = other_id;
+
         ids.push(other_id);
       }
 
@@ -73,7 +94,12 @@ export default class Chat_List extends React.Component {
       console.log(JSON.stringify(res));
       let profiles = res.data.data;
       for (let i = 0; i < profiles.length; i ++) {
-        profiles[i].match_id = match_ids[i];
+        for (let j = 0; j < matches.length; j ++) {
+          if (profiles[i].user_id == matches[j].other_id) {
+            profiles[i].matches[i] = matches[j]._id;
+            break;
+          }
+        }
       }
 
       this.setState({
@@ -85,7 +111,8 @@ export default class Chat_List extends React.Component {
 
       Alert.alert("Cannot connect to server");
     });
-  }
+
+  };
 
   static navigationOptions = ({navigation, navigationOptions}) => {
     return {
@@ -153,7 +180,7 @@ export default class Chat_List extends React.Component {
                 timestamp: null
               } : {
                 message: match.chat[0].message,
-                timestamp: match.chat[0].timestamp
+                timestamp: new Date(match.chat[0].timestamp),
               };
 
               return (
@@ -165,11 +192,17 @@ export default class Chat_List extends React.Component {
                         <Avatar size="large" rounded source={{uri: item.image}}/>
                       </View>
                       <View style={styles.details}>
-                        <Text>
-                          <Text style={styles.name}> {item.firstname + ' ' + item.lastname} </Text>
-                          <Text style={styles.timestamp}> {last_msg.timestamp || ""} </Text> {'\n'}
-                            <Text style={styles.preview}> {last_msg.message} </Text>
-                        </Text>
+                        <View style = {{flexDirection: 'row'}}>
+                          <View>
+                            <Text style={styles.name}>{item.firstname + ' ' + item.lastname} </Text>
+                          </View>
+                          <View style = {styles.timestamp}>
+                            {last_msg.timestamp ? (<TimeAgo time={last_msg.timestamp}/>) : <Text></Text>}
+                          </View>
+                        </View>
+                        <View>
+                          <Text style={styles.preview}> {last_msg.message} </Text>
+                        </View>
                       </View>
                     </View>
                   </TouchableOpacity>
@@ -189,7 +222,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row'
   },
   details: {
-    marginLeft: 5,
+    marginLeft: 10,
   },
     wrapper: {
       flex: 1,
@@ -211,6 +244,5 @@ const styles = StyleSheet.create({
     },
     timestamp: {
       alignSelf: 'flex-end',
-      fontSize: 15
     }
 });

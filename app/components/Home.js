@@ -62,6 +62,25 @@ class Card extends React.Component {
               })
             }
           </View>
+<<<<<<< HEAD
+=======
+          <View style={styles.buttonSpacing}>
+            <View style={{width: 50, height: 50, justifyContent: 'center', alignItems:'center', marginRight: 40, elevation: 3}}>
+              <Icon 
+              name="times"
+              color="red"
+              size={50}
+              />
+            </View>
+            <View style={{width: 50, height: 50, justifyContent: 'center', alignItems:'center', marginLeft:40, elevation: 3}}>
+              <Icon
+              name="check"
+              color="green"
+              size={50}
+              />
+            </View>
+          </View>
+>>>>>>> 93673853aec51ce4fcc0834a2eb39c8794a02b30
         </View>
     )
   }
