@@ -6,7 +6,8 @@ import {StyleSheet,
         Dimensions,
   TouchableOpacity,
   Alert,
-  Platform
+  Platform,
+  ActivityIndicator
 } from 'react-native';
 import SwipeCards from 'react-native-swipe-cards';
 import Logo from '../img/roommatch_logo.svg';
@@ -18,6 +19,32 @@ import * as matchesServices from '../services/matches';
 import * as socketServices from '../services/sockets';
 
 const cards = []
+
+/**
+ * Randomly shuffle an array
+ * https://stackoverflow.com/a/2450976/1293256
+ * @param  {Array} array The array to shuffle
+ * @return {String}      The first item in the shuffled array
+ */
+var shuffle = function (array) {
+
+	var currentIndex = array.length;
+	var temporaryValue, randomIndex;
+
+	// While there remain elements to shuffle...
+	while (0 !== currentIndex) {
+		// Pick a remaining element...
+		randomIndex = Math.floor(Math.random() * currentIndex);
+		currentIndex -= 1;
+
+		// And swap it with the current element.
+		temporaryValue = array[currentIndex];
+		array[currentIndex] = array[randomIndex];
+		array[randomIndex] = temporaryValue;
+	}
+
+	return array;
+};
 
 class Card extends React.Component {
   constructor(props) {
@@ -88,6 +115,7 @@ export default class Home extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
+      fetchingCards: true,
       cards: [],
       numCards: 0,
       outOfProfiles: false,   // backend
@@ -184,10 +212,11 @@ export default class Home extends React.Component {
   }
 
   getProfiles() {
-    profilesServices.getNextProfile(global.user._id, 5).then((res) => {
+    profilesServices.getNextProfile(global.user._id, 50).then((res) => {
       // add cards
       this.setState({
-        cards: res.data.data,
+        fetchingCards: false,
+        cards: shuffle(res.data.data),
         numCards: res.data.data.length,
         outOfProfiles: res.data.data.length === 0 // if no profiles came, out of profiles
       });
@@ -230,6 +259,9 @@ export default class Home extends React.Component {
   }
 
   render() {
+    if (this.state.fetchingCards) {
+      return (<ActivityIndicator size="large" color="#D5237E"/>);
+    }
     return (
       <SwipeCards
         cards={this.state.cards}
