@@ -31,6 +31,7 @@ export default class Chat_List extends React.Component {
         seed: 1,
         error: null,
         refreshing: false,
+        profiles: [],
       };
     }
 
@@ -61,23 +62,18 @@ export default class Chat_List extends React.Component {
       return profilesServices.getManyProfiles(ids);
     }).then((res) => {
       if (res.data.success == false)
-      {
-        console.log("okay it settting pfoeils to empty array")
-        this.setState({ profiles: [] })
+        return;
+
+      console.log("PPP");
+      console.log(JSON.stringify(res));
+      let profiles = res.data.data;
+      for (let i = 0; i < profiles.length; i ++) {
+        profiles[i].match_id = match_ids[i];
       }
 
-      else {
-        console.log("PPP");
-        console.log(JSON.stringify(res));
-        let profiles = res.data.data;
-        for (let i = 0; i < profiles.length; i ++) {
-          profiles[i].match_id = match_ids[i];
-        }
-
-        this.setState({
-          profiles: profiles
-        });
-      }
+      this.setState({
+        profiles: profiles
+      });
     }).catch((err) => {
       console.log("Matches Error");
       console.log(JSON.stringify(err));
@@ -123,7 +119,7 @@ export default class Chat_List extends React.Component {
 
     console.log("CHAT LIST RENDER");
     console.log(JSON.stringify(this.state.profiles));
-    if (this.state.profiles)
+    if (this.state.profiles.length == 0)
     {
       return (
         <View style = {styles.wrapper}>
@@ -133,32 +129,32 @@ export default class Chat_List extends React.Component {
     }
     else
     {
-    return (
-      <View style={styles.wrapper}>
-      <FlatList
-          data={this.state.profiles}
-          ItemSeparatorComponent = {this.FlatListItemSeparator}
-          ListFooterComponent = {this.FlatListItemSeparator}
-          renderItem={({item}) => {
-            return (
-              <View>
-                <TouchableOpacity style={styles.item}
-                  onPress={() => this.GetItem(item)}>
-                  <View style={styles.main_view}>
-                    <View>
-                      <Avatar size="large" rounded source={{uri: item.image}}/>
+      return (
+        <View style={styles.wrapper}>
+        <FlatList
+            data={this.state.profiles}
+            ItemSeparatorComponent = {this.FlatListItemSeparator}
+            ListFooterComponent = {this.FlatListItemSeparator}
+            renderItem={({item}) => {
+              return (
+                <View>
+                  <TouchableOpacity style={styles.item}
+                    onPress={() => this.GetItem(item)}>
+                    <View style={styles.main_view}>
+                      <View>
+                        <Avatar size="large" rounded source={{uri: item.image}}/>
+                      </View>
+                      <Text>
+                        <Text style={styles.name}> {item.firstname + ' ' + item.lastname} </Text> {'\n'}
+                        <Text> {item.bio} </Text>
+                      </Text>
                     </View>
-                    <Text>
-                      <Text style={styles.name}> {item.firstname + ' ' + item.lastname} </Text> {'\n'}
-                      <Text> {item.bio} </Text>
-                    </Text>
-                  </View>
-                </TouchableOpacity>
-              </View>
-            )}}
-        />
-      </View>
-    )
+                  </TouchableOpacity>
+                </View>
+              )}}
+          />
+        </View>
+      )
   }
   }
 }
