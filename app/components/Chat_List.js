@@ -58,6 +58,10 @@ export default class Chat_List extends React.Component {
     );
   }
 
+  profileSort = (a, b) = {
+  
+  };
+
   onFocus = () => {
     let matches = null;
     matchesServices.getMatches(global.user._id).then((res) => {
@@ -102,6 +106,9 @@ export default class Chat_List extends React.Component {
             }
           }
         }
+
+        // sort by time stamp
+        profiles.sort((a, b) => this.profileSort(a,b));
         this.setState({
           profiles: profiles
         });
