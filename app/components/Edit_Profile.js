@@ -313,9 +313,6 @@ return;
       { id: 9, label: 'Early Bird' }
     ];
 
-    console.log("DEF TAGS");
-    console.log(JSON.stringify(this.state.formDefaultValues.tags));
-
     let def_tags = [];
     if (this.state.defaultValsFetched) {
       if (this.state.formDefaultValues.tags) {

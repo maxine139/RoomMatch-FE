@@ -64,14 +64,14 @@ class Card extends React.Component {
           </View>
           <View style={styles.buttonSpacing}>
             <View style={{width: 50, height: 50, justifyContent: 'center', alignItems:'center', marginRight: 40, elevation: 3}}>
-              <Icon onPress={}
+              <Icon 
               name="times"
               color="red"
               size={50}
               />
             </View>
             <View style={{width: 50, height: 50, justifyContent: 'center', alignItems:'center', marginLeft:40, elevation: 3}}>
-              <Icon onPress={}
+              <Icon
               name="check"
               color="green"
               size={50}
