@@ -25,7 +25,7 @@ export default class Login extends React.Component {
         }
     }
     static navigationOptions = {
-        header: null,
+        headerTransparent: true,
     };
 
     render() {
