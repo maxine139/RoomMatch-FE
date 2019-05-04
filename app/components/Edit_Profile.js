@@ -12,7 +12,8 @@ import {StyleSheet,
         Alert,
         PermissionsAndroid,
         Platform,
-        ActivityIndicator
+        ActivityIndicator,
+        Dimensions
 } from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
 import { TagSelect } from 'react-native-tag-select';
@@ -350,7 +351,7 @@ return;
         </LinearGradient>
         <ScrollView style={styles.container}>
           {/* display */}
-          <Image style={{width: 150, height: 150, alignSelf: 'center', marginBottom: 10}} source={{uri: this.state.selectedImage.uri}}/>
+          <Image style={{width: Dimensions.get('window').width-50, height: 250, marginBottom: 10}} source={{uri: this.state.selectedImage.uri}}/>
           <TouchableHighlight style={styles.upload_button} onPress={() => this.requestPhotoPermission()}>
             <Text style={styles.text}> Upload Picture </Text>
           </TouchableHighlight>
@@ -368,7 +369,7 @@ return;
             }}
           />
           <TouchableHighlight style={styles.button} onPress={() => this.handleSubmit()} underlayColor='#99d9f4'>
-            {this.state.sending_profile ? 
+            {this.state.sending_profile ?
                 (<ActivityIndicator size="large" color="#FFFFFF"/>) :
                 (<Text style={styles.text}>Save</Text>)
             }
