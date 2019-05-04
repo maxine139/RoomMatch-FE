@@ -5,7 +5,8 @@ import {StyleSheet,
         View,
         Dimensions,
   TouchableOpacity,
-  Alert
+  Alert,
+  Platform
 } from 'react-native';
 import SwipeCards from 'react-native-swipe-cards';
 import Logo from '../img/roommatch_logo.svg';
@@ -36,7 +37,9 @@ class Card extends React.Component {
 
     return (
         <View style={styles.card}>
-          <Image style={styles.thumbnail} source={{uri: this.props.image}} />
+          <View style={styles.thumbnail}>
+          <Image style={{height: '100%'}} source={{uri: this.props.image}} />
+          </View>
           <View style={styles.infoText}>
             <View>
               <Text style={styles.nameText}>{name}</Text>
@@ -256,9 +259,10 @@ const styles = StyleSheet.create({
         fontFamily: 'Avenir'
     },
     thumbnail: {
-        height: '40%',
-        borderTopLeftRadius: 20,
-        borderTopRightRadius: 20
+      borderTopLeftRadius: 20,
+      borderTopRightRadius: 20,
+      height: '40%',
+      overflow: Platform.OS == "ios" ? "hidden": "visible"
     },
     nameText: {
         fontSize: 24,
