@@ -264,7 +264,7 @@ export default class Edit_Profile extends Component {
         path: 'images',
       },
     };
-    ImagePicker.launchImageLibrary(options, res => {
+    ImagePicker.launchCamera(options, res => {
       console.log("RRR");
       console.log(JSON.stringify(res));
       if (res.uri) {
