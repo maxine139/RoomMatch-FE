@@ -43,6 +43,7 @@ export default class Chat_List extends React.Component {
       console.log(JSON.stringify(res));
 
       const matches = res.data.data;
+      console.log(res.data.data);
 
       this.setState({
 
@@ -64,17 +65,24 @@ export default class Chat_List extends React.Component {
 
       return profilesServices.getManyProfiles(ids);
     }).then((res) => {
-      console.log("PPP");
-      console.log(JSON.stringify(res));
-
-      let profiles = res.data.data;
-      for (let i = 0; i < profiles.length; i ++) {
-        profiles[i].match_id = match_ids[i];
+      if (res.data.success == false)
+      {
+        console.log("okay it settting pfoeils to empty array")
+        this.setState({ profiles: [] })
       }
 
-      this.setState({
-        profiles: profiles
-      });
+      else {
+        console.log("PPP");
+        console.log(JSON.stringify(res));
+        let profiles = res.data.data;
+        for (let i = 0; i < profiles.length; i ++) {
+          profiles[i].match_id = match_ids[i];
+        }
+
+        this.setState({
+          profiles: profiles
+        });
+      }
     }).catch((err) => {
       console.log("Matches Error");
       console.log(JSON.stringify(err));
@@ -120,6 +128,16 @@ export default class Chat_List extends React.Component {
 
     console.log("CHAT LIST RENDER");
     console.log(JSON.stringify(this.state.profiles));
+    if (this.state.profiles)
+    {
+      return (
+        <View style = {styles.wrapper}>
+          <Text style={{fontSize: 20, alignSelf: 'center', color: 'grey'}}> No matches yet :c </Text>
+        </View>
+      )
+    }
+    else
+    {
     return (
       <View style={styles.wrapper}>
       <FlatList
@@ -166,6 +184,7 @@ export default class Chat_List extends React.Component {
         />
       </View>
     )
+  }
   }
 }
 

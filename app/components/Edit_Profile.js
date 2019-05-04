@@ -93,7 +93,10 @@ export default class Edit_Profile extends Component {
 
       if (profile === null) {
         this.setState({
-          defaultValsFetched: true
+          defaultValsFetched: true,
+          formDefaultValues: {},
+          imageSelected: false,
+          selectedImage: { uri: 'https://support.plymouth.edu/kb_images/Yammer/default.jpeg' }
         });
         // no profile yet
         return;
