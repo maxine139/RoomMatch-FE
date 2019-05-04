@@ -66,7 +66,8 @@ var options = {
 export default class Edit_Profile extends Component {
   constructor(props){
       super(props);
-      this.state = {
+    this.state = {
+        focus: true,
         photos: [],
         defaultValsFetched: false,
         formDefaultValues: {},
@@ -83,7 +84,19 @@ export default class Edit_Profile extends Component {
     const didFocusSubscription = this.props.navigation.addListener(
       'didFocus',
       payload => {
+        this.setState({
+          focus: true
+        });
         this.updateFormDefaultValues();
+      }
+    );
+
+    const didBlurSubscription = this.props.navigation.addListener(
+      'didBlur',
+      payload => {
+        this.setState({
+          focus: false
+        });
       }
     );
   }
@@ -301,6 +314,9 @@ return;
   }
 
   render() {
+    if (this.state.focus == false) {
+      return (<View />);
+    }
     const data = [
       { id: 1, label: 'Extrovert' },
       { id: 2, label: 'Introvert' },
