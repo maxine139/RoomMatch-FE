@@ -37,20 +37,28 @@ export default class Chat_List extends React.Component {
     }
 
   componentDidMount() {
-    console.log("Chat List Mount");
 
-    let match_ids = [];
+    // add navigation event
+    const didFocus = this.props.navigation.addListener(
+      'didFocus',
+      () => {
+        this.onFocus();
+      }
+    );
+  }
+
+  onFocus = () => {
+    let matches = null;
     matchesServices.getMatches(global.user._id).then((res) => {
       console.log("MMM");
       console.log(JSON.stringify(res));
 
-      const matches = res.data.data;
+      matches = res.data.data;
       console.log(res.data.data);
 
       this.setState({
-
         matches:matches
-      })
+      });
 
       let ids = [];
       for (let i = 0; i < matches.length; i ++) {
@@ -58,7 +66,8 @@ export default class Chat_List extends React.Component {
 
         let other_id = m.user_ids[0] == global.user._id ? m.user_ids[1] : m.user_ids[0];
 
-        match_ids.push(m._id);
+        matches[i].other_id = other_id;
+
         ids.push(other_id);
       }
 
@@ -74,7 +83,12 @@ export default class Chat_List extends React.Component {
       console.log(JSON.stringify(res));
       let profiles = res.data.data;
       for (let i = 0; i < profiles.length; i ++) {
-        profiles[i].match_id = match_ids[i];
+        for (let j = 0; j < matches.length; j ++) {
+          if (profiles[i].user_id == matches[j].other_id) {
+            profiles[i].matches[i] = matches[j]._id;
+            break;
+          }
+        }
       }
 
       this.setState({
@@ -86,7 +100,8 @@ export default class Chat_List extends React.Component {
 
       Alert.alert("Cannot connect to server");
     });
-  }
+
+  };
 
   static navigationOptions = ({navigation, navigationOptions}) => {
     return {
