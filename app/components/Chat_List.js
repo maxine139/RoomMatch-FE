@@ -162,7 +162,7 @@ export default class Chat_List extends React.Component {
     {
       return (
         <View style = {styles.wrapper}>
-          <Text style={{fontSize: 20, alignSelf: 'center', color: 'grey'}}> No matches yet :c </Text>
+          <Text style={{fontSize: 20, alignSelf: 'center', color: 'grey'}}> No matches yet </Text>
         </View>
       )
     }
