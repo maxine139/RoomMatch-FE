@@ -92,12 +92,13 @@ export default class Chat_List extends React.Component {
         //return;
       else {
         console.log("PPP");
-        console.log(JSON.stringify(res));
+        console.log(res);
+        console.log(matches);
         let profiles = res.data.data;
         for (let i = 0; i < profiles.length; i ++) {
           for (let j = 0; j < matches.length; j ++) {
             if (profiles[i].user_id == matches[j].other_id) {
-              profiles[i].matches[i] = matches[j]._id;
+              profiles[i].match_id = matches[j]._id;
               break;
             }
           }
