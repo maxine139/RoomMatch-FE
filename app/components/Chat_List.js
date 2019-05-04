@@ -58,7 +58,7 @@ export default class Chat_List extends React.Component {
     );
   }
 
-  profileSort = (a, b) = {
+  profileSort = (a, b) => {
   
   };
 
