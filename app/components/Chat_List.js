@@ -154,7 +154,7 @@ export default class Chat_List extends React.Component {
                 timestamp: null
               } : {
                 message: match.chat[0].message,
-                timestamp: new Date(match.chat[0].timestamp*1000),
+                timestamp: new Date(match.chat[0].timestamp),
               };
 
               return (
@@ -166,18 +166,14 @@ export default class Chat_List extends React.Component {
                         <Avatar size="large" rounded source={{uri: item.image}}/>
                       </View>
                       <View style={styles.details}>
-                        <View>
-                          <Text style={styles.name}> {item.firstname + ' ' + item.lastname} </Text>
+                        <View style = {{flexDirection: 'row'}}>
+                          <View>
+                            <Text style={styles.name}>{item.firstname + ' ' + item.lastname} </Text>
+                          </View>
+                          <View style = {styles.timestamp}>
+                            {last_msg.timestamp ? (<TimeAgo time={last_msg.timestamp}/>) : <Text></Text>}
+                          </View>
                         </View>
-                        <TimeAgo>
-                          {
-                            let timestamp = last_msg.timestamp == null ? {
-
-                            } : {
-                              message: match.chat[0].message,
-                              timestamp: new Date(match.chat[0].timestamp*1000),
-                            };
-                          }>
                         <View>
                           <Text style={styles.preview}> {last_msg.message} </Text>
                         </View>
@@ -200,7 +196,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row'
   },
   details: {
-    marginLeft: 5,
+    marginLeft: 10,
   },
     wrapper: {
       flex: 1,
@@ -222,6 +218,5 @@ const styles = StyleSheet.create({
     },
     timestamp: {
       alignSelf: 'flex-end',
-      fontSize: 15
     }
 });
