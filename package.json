@@ -9,6 +9,7 @@
   "dependencies": {
     "axios": "^0.18.0",
     "form-data": "^2.3.3",
+    "moment": "^2.24.0",
     "react": "16.6.3",
     "react-native": "^0.58.5",
     "react-native-elements": "^1.1.0",

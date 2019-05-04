@@ -12,6 +12,7 @@ import {StyleSheet,
         Alert,
         PermissionsAndroid,
         Platform,
+        ActivityIndicator
 } from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
 import { TagSelect } from 'react-native-tag-select';
@@ -93,6 +94,7 @@ export default class Edit_Profile extends Component {
 
       if (profile === null) {
         this.setState({
+          sending_profile: false,
           defaultValsFetched: true,
           formDefaultValues: {},
           imageSelected: false,
@@ -137,17 +139,13 @@ export default class Edit_Profile extends Component {
   };
 
   handleSubmit(){
-    console.log("in submit.. okay")
     const tagRef = this.tag.itemsSelected;
     const value = this.refs.form.getValue();
 
-    console.log("VVV");
-    console.log(JSON.stringify(value));
-
     if (value) {
-      console.log("value is valid")
-      // backend call
-
+      this.setState({
+        sending_profile: true
+      });
       // collect tags
       let tags = [];
       for (let i = 0; i < tagRef.length; i ++) {
@@ -182,29 +180,36 @@ export default class Edit_Profile extends Component {
           throw "Cannot upload image";
         }
       }).then((res) => {
-          console.log("SUCCESS: Profile created");
-          console.log(JSON.stringify(res));
+        console.log("SUCCESS: Profile created");
+        console.log(JSON.stringify(res));
 
-          const success = res.data.success;
-          if (success) {
-            //succes
-            this.props.navigation.navigate("Home");
-          } else {
-            //failure
-            const err = this.res.error;
-            throw err;
-          }
+        this.setState({
+          sending_profile: false
+        });
+
+        const success = res.data.success;
+        if (success) {
+          //succes
+          this.props.navigation.navigate("Home");
+        } else {
+          //failure
+          const err = this.res.error;
+          throw err;
+        }
       }).catch((err) => {
-          console.log("ERROR: Cannot create profile");
+        console.log("ERROR: Cannot create profile");
+        this.setState({
+          sending_profile: false
+        });
 
-          Alert.alert(
-            'Error: cannot create profile',
-            err,
-            [
-              {text: 'OK'},
-            ],
-            {cancelable: false},
-          );
+        Alert.alert(
+          'Error: cannot create profile',
+          err,
+          [
+            {text: 'OK'},
+          ],
+          {cancelable: false},
+        );
       });
     }
     else {
@@ -350,7 +355,10 @@ return;
             }}
           />
           <TouchableHighlight style={styles.button} onPress={() => this.handleSubmit()} underlayColor='#99d9f4'>
-            <Text style={styles.text}>Save</Text>
+            {this.state.sending_profile ? 
+                (<ActivityIndicator size="large" color="#FFFFFF"/>) :
+                (<Text style={styles.text}>Save</Text>)
+            }
           </TouchableHighlight>
         </ScrollView>
       </View>

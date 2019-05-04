@@ -30,6 +30,9 @@ export async function createProfile(profile) {
 
   let path = '/app/v1/profiles/create';
 
+  console.log("POST PROFILE");
+  console.log(JSON.stringify(body));
+
   try {
     return await Axios.post(path, body);
   } catch(err) {
