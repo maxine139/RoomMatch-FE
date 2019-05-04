@@ -38,7 +38,7 @@ class Card extends React.Component {
     return (
         <View style={styles.card}>
           <View style={styles.thumbnail}>
-          <Image style={{height: '100%'}} source={{uri: this.props.image}} />
+          <Image style={{height: '100%', borderTopLeftRadius: 20, borderTopRightRadius: 20}} source={{uri: this.props.image}} />
           </View>
           <View style={styles.infoText}>
             <View>
